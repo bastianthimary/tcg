@@ -11,4 +11,5 @@ public class TcgApplication {
 		SpringApplication.run(TcgApplication.class, args);
 	}
 
+
 }

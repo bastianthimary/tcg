@@ -23,7 +23,7 @@ public class Images implements Serializable {
 
     private String large;
 
-
+    private byte[] large_img;
 
     /**
      * No args constructor for use in serialization
@@ -33,14 +33,15 @@ public class Images implements Serializable {
     }
 
     /**
-     * 
      * @param small
      * @param large
+     * @param largeImg
      */
-    public Images(String small, String large) {
+    public Images(String small, String large, byte[] largeImg) {
         super();
         this.small = small;
         this.large = large;
+        large_img = largeImg;
     }
 
     @JsonProperty("small")
@@ -71,4 +72,11 @@ public class Images implements Serializable {
         this.id = id;
     }
 
+    public byte[] getLarge_img() {
+        return large_img;
+    }
+
+    public void setLarge_img(byte[] large_img) {
+        this.large_img = large_img;
+    }
 }

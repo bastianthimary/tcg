@@ -10,7 +10,11 @@ import de.my.tcg.domain.card.Card;
 import de.my.tcg.domain.card.CardService;
 import de.my.tcg.domain.cardset.CardSet;
 import de.my.tcg.domain.cardset.CardSetService;
+import de.my.tcg.domain.images.Images;
+import de.my.tcg.domain.images.ImagesRepository;
+import de.my.tcg.domain.images.ImagesService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,22 +25,29 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HexFormat;
 import java.util.List;
 
 @RestController
 @Slf4j
 public class RestDataImportController {
+    private final ImagesRepository imagesRepository;
 
     private final CardService cardService;
     private final CardSetService cardSetService;
+    private final ImagesService imagesService;
 
 
 
     @Autowired
-    public RestDataImportController(CardService cardService, CardSetService cardSetService) {
+    public RestDataImportController(CardService cardService, CardSetService cardSetService, ImagesService imagesService,
+                                    ImagesRepository imagesRepository) {
         this.cardService = cardService;
         this.cardSetService = cardSetService;
+        this.imagesService = imagesService;
+        this.imagesRepository = imagesRepository;
     }
 
     @GetMapping(value = "/SimpleCard")
@@ -107,6 +118,48 @@ public class RestDataImportController {
     }
 
 
+@GetMapping(value = "/downloadPictures")
+    public String saveDbImagesOnPC(){
+        for(int i =3400;i<3450;){
+            List<Images> notEmptyImages=imagesService.getAllNotEmptyImages(i,i+49);
+            notEmptyImages.forEach(this::saveImage);
+            i=i+50;
+        }
+        return "";
+
+}
+@GetMapping(value = "/uploadPictures")
+    public String savePCImagesInDB(){
+        for(int i =1;i<3450;){
+            List<Images> notEmptyImages=imagesService.getAllNotEmptyImages(i,i+49);
+            notEmptyImages.forEach(this::loadImage);
+            i=i+50;
+        }
+        return "";
+}
+
+
+   private void saveImage(Images image) {
+        try {
+            File file=new File("C:\\Users\\Bastian Binaris\\Desktop\\Bilder\\Trainer_"+image.getId()+".png");
+            log.info("vor der Speicherung");
+           FileUtils.writeByteArrayToFile(file,image.getLarge_img());
+            log.info(file.getName()+"  existis? "+file.exists());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void loadImage(Images image){
+
+        File file=new File("C:\\Users\\Bastian Binaris\\Desktop\\Bilder\\Trainer_"+image.getId()+".png");
+        try {
+            image.setLarge_img(FileUtils.readFileToByteArray(file));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        log.info(file.getName()+"  saved");
+        imagesRepository.save(image);
+    }
 
     private byte[] loadImageFromUrl(String url) {
         RestTemplate restTemplate = new RestTemplate();
@@ -120,6 +173,7 @@ public class RestDataImportController {
     }
 
 
+
     private HttpEntity<Object> generateHttpEnity() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("x-api-key", "cef73fc1-efa6-45ba-9424-315fab43fd5a");
@@ -127,4 +181,21 @@ public class RestDataImportController {
     }
 
 
+
+
+    @GetMapping(value = "/saveTrainerCard")
+    public void savePicturesOfTrainerCardsOnPc(){
+        List<Images> trainerCards=imagesService.getNotEmptyImagesFromTrainerCards();
+        trainerCards.forEach(image->{
+            image.setLarge_img(loadImageFromUrl(image.getLarge()));
+            saveImage(image);
+        });
+    }
+    @GetMapping(value = "/uploadTrainerPictures")
+    public String savePCTrainerImagesInDB(){
+
+            List<Images> trainerCards=imagesService.getNotEmptyImagesFromTrainerCards();
+            trainerCards.stream().filter(images -> images.getId()<=1251).forEach(this::loadImage);
+        return "habe Fertig";
+    }
 }
