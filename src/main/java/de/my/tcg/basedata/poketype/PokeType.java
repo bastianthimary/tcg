@@ -3,15 +3,15 @@ package de.my.tcg.basedata.poketype;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 
-
 public enum PokeType {
+    Colorless("Colorless"),
     Fire("Fire"),
 
     Water("Water"),
     Grass("Grass"),
     Lightning("Lightning"),
     Psychic("Psychic"),
-    Colorless("Colorless"),
+
     Fighting("Fighting"),
     Darkness("Darkness"),
     Fairy("Fairy"),
@@ -23,12 +23,12 @@ public enum PokeType {
     PokeType() {
     }
 
-    PokeType(String typeName){
-        this.typeName=typeName;
+    PokeType(String typeName) {
+        this.typeName = typeName;
     }
 
     @JsonValue
-    public String getTypeName(){
+    public String getTypeName() {
         return typeName;
     }
 }

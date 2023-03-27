@@ -8,12 +8,13 @@ import de.my.tcg.basedata.poketype.PokeType;
 import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.mate.card.EnergyCard;
 
-import java.util.Set;
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class TestCardFactory {
 
-    public static EnergyCard createEnergyCard(PokeType type){
-        Card card= new Card();
+    public static EnergyCard createEnergyCard(PokeType type) {
+        Card card = new Card();
         card.setSupertype(CardTypes.ENERGY);
         if (PokeType.Colorless.equals(type)) {
             card.setName("Double " + type.getTypeName() + " Energy");
@@ -25,11 +26,10 @@ public class TestCardFactory {
     }
 
 
-
-    public static Attack createAttack(String name, Set<Cost> costs){
+    public static Attack createAttack(String name, Cost... costs) {
         Attack attack = new Attack();
         attack.setName(name);
-        attack.setCost(costs);
+        attack.setCost(new HashSet<>(Arrays.asList(costs)));
         return attack;
     }
 }
