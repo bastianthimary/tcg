@@ -1,6 +1,6 @@
 package de.my.tcg.market.booster.distribution;
 
-import de.my.tcg.domain.rarity.Rarity;
+import de.my.tcg.basedata.rarity.Rarity;
 
 public class BoosterRarityQuote {
 

@@ -1,6 +1,6 @@
 package de.my.tcg.market.booster;
 
-import de.my.tcg.domain.card.Card;
+import de.my.tcg.basedata.card.Card;
 
 import java.io.Serializable;
 import java.util.HashSet;

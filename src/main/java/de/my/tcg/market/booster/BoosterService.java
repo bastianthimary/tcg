@@ -1,8 +1,8 @@
 package de.my.tcg.market.booster;
 
-import de.my.tcg.domain.card.Card;
-import de.my.tcg.domain.cardset.CardSet;
-import de.my.tcg.domain.cardset.CardSetService;
+import de.my.tcg.basedata.card.Card;
+import de.my.tcg.basedata.cardset.CardSet;
+import de.my.tcg.basedata.cardset.CardSetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

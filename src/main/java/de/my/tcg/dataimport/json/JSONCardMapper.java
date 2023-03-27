@@ -7,10 +7,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.my.tcg.dataimport.json.builder.CostBuilder;
 import de.my.tcg.dataimport.json.builder.PokeTypeBuilder;
 import de.my.tcg.dataimport.json.builder.TrainerRuleToFlavorBuilder;
-import de.my.tcg.domain.CardTypes;
-import de.my.tcg.domain.poketype.PokeType;
-import de.my.tcg.domain.cardset.CardSet;
-import de.my.tcg.domain.rarity.RarityCorrector;
+import de.my.tcg.basedata.CardTypes;
+import de.my.tcg.basedata.poketype.PokeType;
+import de.my.tcg.basedata.cardset.CardSet;
+import de.my.tcg.basedata.rarity.RarityCorrector;
 
 import static de.my.tcg.dataimport.json.CardFieldNames.*;
 

@@ -3,7 +3,7 @@ package de.my.tcg.dataimport.json.builder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.my.tcg.domain.poketype.PokeType;
+import de.my.tcg.basedata.poketype.PokeType;
 
 public class PokeTypeBuilder extends AbstractJsonBuilder {
     PokeType pokeType;

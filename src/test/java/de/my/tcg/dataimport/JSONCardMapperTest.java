@@ -4,12 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.my.tcg.dataimport.json.JSONCardMapper;
-import de.my.tcg.domain.*;
-import de.my.tcg.domain.card.Card;
-import de.my.tcg.domain.cost.Cost;
+import de.my.tcg.basedata.*;
+import de.my.tcg.basedata.card.Card;
+import de.my.tcg.basedata.cost.Cost;
 import de.my.tcg.dataimport.json.builder.CostBuilder;
-import de.my.tcg.domain.poketype.PokeType;
-import de.my.tcg.domain.rarity.Rarity;
+import de.my.tcg.basedata.poketype.PokeType;
+import de.my.tcg.basedata.rarity.Rarity;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

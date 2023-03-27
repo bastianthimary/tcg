@@ -1,7 +1,7 @@
 package de.my.tcg.market.booster.distribution.draw;
 
-import de.my.tcg.domain.card.Card;
-import de.my.tcg.domain.rarity.Rarity;
+import de.my.tcg.basedata.card.Card;
+import de.my.tcg.basedata.rarity.Rarity;
 import de.my.tcg.market.booster.Booster;
 import de.my.tcg.market.booster.distribution.*;
 
