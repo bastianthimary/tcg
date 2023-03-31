@@ -8,6 +8,7 @@ import de.my.tcg.game.mate.card.EnergyCard;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class EnergyTotal {
     HashMap<PokeType, List<EnergyCard>> energyDepot;
@@ -17,12 +18,16 @@ public class EnergyTotal {
     }
 
     public void addEnergyCard(EnergyCard energyCard) {
-        if (energyDepot.containsKey(energyCard.getPokeType())) {
-            energyDepot.get(energyCard.getPokeType()).add(energyCard);
+        addEnergyCardToMap(energyCard, energyDepot);
+    }
+
+    private void addEnergyCardToMap(EnergyCard energyCard, HashMap<PokeType, List<EnergyCard>> map) {
+        if (map.containsKey(energyCard.getPokeType())) {
+            map.get(energyCard.getPokeType()).add(energyCard);
         } else {
             List<EnergyCard> energyCards = new ArrayList<>();
             energyCards.add(energyCard);
-            energyDepot.put(energyCard.getPokeType(), energyCards);
+            map.put(energyCard.getPokeType(), energyCards);
         }
     }
 
@@ -40,19 +45,19 @@ public class EnergyTotal {
         if (attack == null) {
             return false;
         }
-        Set<Cost> costs = attack.getCost();
-        if (costs.isEmpty()) {
+        Set<Cost> attackCost = attack.getCost();
+        if (attackCost.isEmpty()) {
             return true;
         }
-        return areCostsAffordable(costs);
+        return areAttackCostsAffordable(attackCost);
 
     }
 
-    private boolean areCostsAffordable(Set<Cost> costs) {
+    private boolean areAttackCostsAffordable(Set<Cost> costs) {
         HashMap<PokeType, List<EnergyCard>> testDepot = createATestDepot();
 
-        if (reduceFixTypeCosts(testDepot, costs)) {
-            return canAffortColorlessCosts(costs, testDepot);
+        if (reduceFixTypeAttackCosts(testDepot, costs)) {
+            return canAffortColorlessAttackCosts(costs, testDepot);
         }
         return false;
     }
@@ -63,12 +68,12 @@ public class EnergyTotal {
         return testDepot;
     }
 
-    private boolean reduceFixTypeCosts(HashMap<PokeType, List<EnergyCard>> testDepot, Set<Cost> costs) {
+    private boolean reduceFixTypeAttackCosts(HashMap<PokeType, List<EnergyCard>> testDepot, Set<Cost> costs) {
         AtomicBoolean canAffort = new AtomicBoolean(true);
         costs.forEach(cost -> {
             if (cost.getType() != PokeType.Colorless) {
                 haveCostType(testDepot, canAffort, cost);
-                payCostsIfAffortable(testDepot, canAffort, cost);
+                payAttackCostsIfAffortable(testDepot, canAffort, cost);
             }
         });
         return canAffort.get();
@@ -80,7 +85,7 @@ public class EnergyTotal {
         }
     }
 
-    private static void payCostsIfAffortable(HashMap<PokeType, List<EnergyCard>> testDepot, AtomicBoolean canAffort, Cost cost) {
+    private static void payAttackCostsIfAffortable(HashMap<PokeType, List<EnergyCard>> testDepot, AtomicBoolean canAffort, Cost cost) {
         List<EnergyCard> energyCards = testDepot.get(cost.getType());
         int timesOfReduction;
         if (energyCards.size() >= cost.getQuantity()) {
@@ -94,9 +99,46 @@ public class EnergyTotal {
         }
     }
 
-    private boolean canAffortColorlessCosts(Set<Cost> costs, HashMap<PokeType, List<EnergyCard>> testDepot) {
-        Optional<Cost> colorlessCosts = costs.stream().filter(cost ->
-                PokeType.Colorless.equals(cost.getType())).findFirst();
+    private boolean canAffortColorlessAttackCosts(Set<Cost> costs, HashMap<PokeType, List<EnergyCard>> testDepot) {
+        Optional<Cost> colorlessCosts = costs.stream().filter(cost -> PokeType.Colorless.equals(cost.getType())).findFirst();
         return colorlessCosts.isEmpty() || calculateEnergy(testDepot) >= colorlessCosts.get().getQuantity();
     }
+
+    public List<EnergyCard> getAllEnergyCard() {
+        List<EnergyCard> allEnergy = new ArrayList<>();
+        energyDepot.values().forEach(allEnergy::addAll);
+        return allEnergy;
+    }
+
+    public List<EnergyCard> removeAllEnergys() {
+        List<EnergyCard> removedEnergyCards = new ArrayList<>();
+        energyDepot.keySet().forEach(pokeType ->
+                removedEnergyCards.addAll(removeNumberOfEnergytype(energyDepot.get(pokeType).size(), pokeType)));
+        return removedEnergyCards;
+    }
+
+    public List<EnergyCard> removeNumberOfEnergytype(int number, PokeType pokeType) {
+        List<EnergyCard> removedEnergyCards = new ArrayList<>();
+        List<EnergyCard> energyFromDepot = energyDepot.get(pokeType);
+        for (int i = 0; i < number; i++) {
+            removedEnergyCards.add(energyFromDepot.remove(0));
+        }
+        return removedEnergyCards;
+    }
+
+    public void removeListOfEnergyCards(List<EnergyCard> energyCards) {
+        HashMap<PokeType, List<EnergyCard>> removeMap = new HashMap<>();
+        energyCards.forEach(card -> addEnergyCardToMap(card, removeMap));
+
+        removeMap.keySet().forEach(type -> {
+            List<EnergyCard> depotOfType = energyDepot.get(type);
+            depotOfType.removeAll(removeMap.get(type));
+        });
+    }
+
+    public boolean allCardsHaveSameType() {
+        return getAllEnergyCard().stream().
+                map(EnergyCard::getPokeType).collect(Collectors.toSet()).size() == 1;
+    }
+
 }

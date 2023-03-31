@@ -2,6 +2,8 @@ package de.my.tcg.game.domain;
 
 import de.my.tcg.collector.Person;
 import de.my.tcg.game.mate.FieldSide;
+import de.my.tcg.game.mate.card.NoLegalActionException;
+import de.my.tcg.game.mate.card.PokemonCard;
 import de.my.tcg.game.rules.Competition;
 import de.my.tcg.game.rules.TradingDeckToPlayDeckConverter;
 import de.my.tcg.game.rules.exception.ExceptionMessage;
@@ -15,7 +17,7 @@ import java.util.Random;
 
 public class Player {
     @Getter
-    private Person person;
+    private final Person person;
     private PlayDeck playdeck;
     @Setter
     @Getter
@@ -26,11 +28,15 @@ public class Player {
     @Setter
     @Getter
     private Competition competition;
+    @Getter
+    private final FieldSide playMate;
 
-    private FieldSide playMate;
+    private final List<PlayCard> priceCards = new ArrayList<>();
 
-
-    private List<PlayCard> priceCards= new ArrayList<>();
+    public Player(Person person) {
+        this.person = person;
+        playMate = new FieldSide(this);
+    }
 
 
     public void convertPersonsDeckToPlayDeck() {
@@ -51,8 +57,8 @@ public class Player {
         handCards.add(drawACardFromDeck());
     }
 
-    public void setupPriceCards(int numberOfPrices){
-        for (int i=0;i< numberOfPrices; i++){
+    public void setupPriceCards(int numberOfPrices) {
+        for (int i = 0; i < numberOfPrices; i++) {
             priceCards.add(drawACardFromDeck());
         }
     }
@@ -67,17 +73,52 @@ public class Player {
         return deckCards.remove(drawIndex);
     }
 
-   public void evolveActiveMon(){
-        //TODO: Check is able + Karten verheiraten
+    public void evolveActiveMon(PlayCard handCard) throws NoLegalActionException {
+        checkIsCardInHand(handCard);
+        if (playMate.canActiveMonEvolveToCardFromHand(handCard)) {
+            playMate.evolveActiveMon(handCard);
+            handCards.remove(handCard);
+        } else {
+            throw new NoLegalActionException(NoLegalActionException.POKEMON_CANT_EVOLVE_TO_CHOOSEN_POKEMON);
+        }
     }
-   public void playActiveMonFromHand(PlayCard cardFromHand){
-       if(!handCards.contains(cardFromHand)){
-           throw  new GameException(ExceptionMessage.CARD_NOT_IN_HAND);
-       }
-        playMate.setActiveFromHand(cardFromHand);
 
+    public void playActiveMonFromHand(PlayCard handCard) throws NoLegalActionException {
+        checkIsCardInHand(handCard);
+        playMate.playActiveFromHand(handCard);
+        handCards.remove(handCard);
     }
 
+    private void checkIsCardInHand(PlayCard handCard) {
+        if (!handCards.contains(handCard)) {
+            throw new GameException(ExceptionMessage.CARD_NOT_IN_HAND);
+        }
+    }
+
+    public void playBenchMonFromHand(PlayCard handCard) throws NoLegalActionException {
+        checkIsCardInHand(handCard);
+        if (playMate.canBenchMonPlayed(handCard)) {
+            playMate.playBenchMonFromHand(handCard);
+            handCards.remove(handCard);
+        }
+    }
+
+    public List<PokemonCard> getEvolveableMonsFromBench(PlayCard evolutionCard) {
+        return playMate.getEvolveableMonsFromBench(evolutionCard);
+    }
+
+    public void evolveBenchMon(PokemonCard benchMon, PlayCard evolutionCard) throws NoLegalActionException {
+        checkIsCardInHand(evolutionCard);
+        playMate.evolveBenchMon(benchMon, evolutionCard);
+        handCards.remove(evolutionCard);
+    }
+
+    public void takeAPrice() {
+        handCards.add(priceCards.remove(0));
+        if (priceCards.size() == 0) {
+            competition.winTheGame(this);
+        }
+    }
 
 
 }
