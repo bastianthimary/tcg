@@ -1,22 +1,22 @@
 package de.my.tcg.game;
 
 import de.my.tcg.basedata.Subtype;
-import de.my.tcg.game.rules.Competition;
 import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.domain.Player;
+import de.my.tcg.game.rules.Competition;
 import de.my.tcg.game.rules.formatsettings.FormatSettings;
 import lombok.Getter;
 
 public class BasicGame implements Competition {
-    private Player player1;
-    private Player player2;
+    private final Player player1;
+    private final Player player2;
     @Getter
-    private FormatSettings formatSettings;
+    private final FormatSettings formatSettings;
 
     public BasicGame(Player player1, Player player2, FormatSettings formatSettings) {
         this.player1 = player1;
         this.player2 = player2;
-        this.formatSettings=formatSettings;
+        this.formatSettings = formatSettings;
         setupOpponents(player1, player2);
     }
 

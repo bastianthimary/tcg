@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class StatusCondition {
+    private static final int FIRE_DMG = 20;
+    private static final int CONFUSE_DMG = 20;
     private final PokemonCard pokemonCard;
     @Getter
     @Setter
@@ -31,16 +33,11 @@ public class StatusCondition {
         specialCondition = SpecialCondition.NO_STATUS;
     }
 
-    public void turnEnds() {
-        try {
-            doPoisionDmg();
-            doFireDmg();
-            checkWakeUp();
-            checkParalyse();
-        } catch (MonIsDefeatedException e) {
-            //Mon is Death so don't need other checks
-        }
-
+    public void turnEnds() throws MonIsDefeatedException {
+        doPoisionDmg();
+        doFireDmg();
+        checkWakeUp();
+        checkParalyse();
     }
 
     private void doPoisionDmg() throws MonIsDefeatedException {
@@ -49,7 +46,7 @@ public class StatusCondition {
 
     private void doFireDmg() throws MonIsDefeatedException {
         if (FireCondition.SINGLE.equals(fireConditionState)) {
-            pokemonCard.doSimpleDmg(20);
+            pokemonCard.doSimpleDmg(FIRE_DMG);
             if (CoinSide.HEAD.equals(Coin.flip())) {
                 fireConditionState = FireCondition.NO_STATUS;
             }
@@ -78,7 +75,7 @@ public class StatusCondition {
             if(CoinSide.HEAD.equals(Coin.flip())){
                 return true;
             }
-            pokemonCard.doSimpleDmg(20);
+            pokemonCard.doSimpleDmg(CONFUSE_DMG);
             return false;
         }
         return true;

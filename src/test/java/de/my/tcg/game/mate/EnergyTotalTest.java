@@ -1,15 +1,42 @@
-package de.my.tcg.game.mate.energytotal;
+package de.my.tcg.game.mate;
 
 import de.my.tcg.TestCardFactory;
 import de.my.tcg.basedata.Attack;
 import de.my.tcg.basedata.cost.Cost;
 import de.my.tcg.basedata.poketype.PokeType;
-import de.my.tcg.game.mate.EnergyTotal;
+import de.my.tcg.game.mate.card.EnergyCard;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class EnergyTotalCouldAttackBeUsed {
+class EnergyTotalTest {
+    @Test
+    public void addEnergyCardTest() {
+        EnergyTotal energyTotal = new EnergyTotal();
+        EnergyCard energyCard = TestCardFactory.createEnergyCard(PokeType.Darkness);
+        energyTotal.addEnergyCard(energyCard);
+        assertThat(energyTotal.getTotalEnergy()).isEqualTo(1);
+    }
+
+    @Test
+    public void addTwoEnergyCardTest() {
+        EnergyTotal energyTotal = new EnergyTotal();
+        EnergyCard energyCard = TestCardFactory.createEnergyCard(PokeType.Darkness);
+        energyTotal.addEnergyCard(energyCard);
+        EnergyCard energyCard2 = TestCardFactory.createEnergyCard(PokeType.Darkness);
+        energyTotal.addEnergyCard(energyCard2);
+        assertThat(energyTotal.getTotalEnergy()).isEqualTo(2);
+    }
+
+    @Test
+    public void addTwoDifferentEnergyCardTest() {
+        EnergyTotal energyTotal = new EnergyTotal();
+        EnergyCard energyCard = TestCardFactory.createEnergyCard(PokeType.Darkness);
+        energyTotal.addEnergyCard(energyCard);
+        EnergyCard energyCard2 = TestCardFactory.createEnergyCard(PokeType.Fire);
+        energyTotal.addEnergyCard(energyCard2);
+        assertThat(energyTotal.getTotalEnergy()).isEqualTo(2);
+    }
 
     @Test
     void emptyAttack() {
@@ -60,6 +87,7 @@ class EnergyTotalCouldAttackBeUsed {
         energyTotal.addEnergyCard(TestCardFactory.createEnergyCard(PokeType.Water));
         assertThat(energyTotal.couldAttackBeUsed(attack)).isTrue();
     }
+
     @Test
     void attackWith2ColorlessCosts() {
         Cost colorlessCost = new Cost();
@@ -72,6 +100,7 @@ class EnergyTotalCouldAttackBeUsed {
         energyTotal.addEnergyCard(TestCardFactory.createEnergyCard(PokeType.Water));
         assertThat(energyTotal.couldAttackBeUsed(attack)).isTrue();
     }
+
     @Test
     void attackWith2ColorlessCannotAffortCosts() {
         Cost colorlessCost = new Cost();
@@ -83,5 +112,27 @@ class EnergyTotalCouldAttackBeUsed {
         assertThat(energyTotal.couldAttackBeUsed(attack)).isFalse();
     }
 
+    @Test
+    public void removeAllEnergyCards() {
+        EnergyTotal energyTotal = new EnergyTotal();
+        energyTotal.addEnergyCard(TestCardFactory.createEnergyCard(PokeType.Fire));
+        energyTotal.addEnergyCard(TestCardFactory.createEnergyCard(PokeType.Fire));
+        energyTotal.addEnergyCard(TestCardFactory.createEnergyCard(PokeType.Grass));
+        assertThat(energyTotal.getTotalEnergy()).isEqualTo(3);
+        assertThat(energyTotal.removeAllEnergys().size()).isEqualTo(3);
+        assertThat(energyTotal.getTotalEnergy()).isEqualTo(0);
+    }
 
+    @Test
+    public void removeNumberOfEnergytype() {
+        EnergyTotal energyTotal = new EnergyTotal();
+        energyTotal.addEnergyCard(TestCardFactory.createEnergyCard(PokeType.Fire));
+        energyTotal.addEnergyCard(TestCardFactory.createEnergyCard(PokeType.Fire));
+        energyTotal.addEnergyCard(TestCardFactory.createEnergyCard(PokeType.Fire));
+        energyTotal.addEnergyCard(TestCardFactory.createEnergyCard(PokeType.Fire));
+        energyTotal.addEnergyCard(TestCardFactory.createEnergyCard(PokeType.Grass));
+
+        energyTotal.removeNumberOfEnergytype(2, PokeType.Fire);
+        assertThat(energyTotal.getTotalEnergy()).isEqualTo(3);
+    }
 }

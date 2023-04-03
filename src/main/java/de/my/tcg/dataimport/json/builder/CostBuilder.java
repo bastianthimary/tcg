@@ -51,7 +51,7 @@ public class CostBuilder extends AbstractJsonBuilder {
         for (Iterator<Cost> it = costs.iterator(); it.hasNext(); ) {
             Cost cost = it.next();
 
-            buildString.append(surroundWithQuoteStrings(TYPE)+ ":").append(surroundWithQuoteStrings(cost.getType()+"")).append(",").
+            buildString.append(surroundWithQuoteStrings(TYPE)).append(":").append(surroundWithQuoteStrings(cost.getType() + "")).append(",").
                     append(surroundWithQuoteStrings(QUANTITY)).append(":").append(cost.getQuantity());
             if (it.hasNext()) {
                 buildString.append("},{");

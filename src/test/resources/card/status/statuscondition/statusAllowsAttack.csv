@@ -1,0 +1,7 @@
+SpecialCondition , FireCondition ,PoisonCondition , expected
+NO_STATUS,NO_STATUS,NO_STATUS,true
+SLEEP,NO_STATUS,NO_STATUS,false
+
+PARALYSED,NO_STATUS,NO_STATUS,false
+NO_STATUS,NO_STATUS,QUAD,true
+NO_STATUS,SINGLE,NO_STATUS,true

@@ -7,7 +7,7 @@ import lombok.Getter;
 
 public class EnergyCard extends FieldCard {
     @Getter
-    private PokeType pokeType;
+    private final PokeType pokeType;
 
     public EnergyCard(PlayCard playCard) {
         if (!CardTypes.ENERGY.equals(playCard.getCard().getSupertype())) {

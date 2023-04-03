@@ -22,14 +22,18 @@ public class PokemonCard extends FieldCard {
     private PokeType myPokeType;
     @Getter
     private int hp;
+    @Getter
     private LinkedHashSet<PlayCard> preEvolution;
     @Getter
     private List<Ability> abilities;
     @Getter
     private List<Attack> attacks;
     private final int WEAKNESS_FACTOR = 2;
+    @Getter
     private Optional<PokeType> weakness;
     private final int RESISTANCE_VALUE = -30;
+
+    @Getter
     private Optional<PokeType> resistance;
 
     @Getter
@@ -37,6 +41,7 @@ public class PokemonCard extends FieldCard {
     @Getter
     private EnergyTotal energyTotal;
 
+    @Getter
     private int dmgCounter;
 
     @Getter
@@ -50,10 +55,12 @@ public class PokemonCard extends FieldCard {
     }
 
     private void setBaseStatsFromCard(Card baseCard) {
-        hp = Integer.getInteger(baseCard.getHp());
-        myPokeType = PokeType.valueOf(baseCard.getTypes().stream().findFirst().get());
-        resistance = Optional.of(baseCard.getResistances());
-        weakness = Optional.of(baseCard.getWeaknesses());
+        name = baseCard.getName();
+        hp = Integer.parseInt(baseCard.getHp());
+        Optional<String> stringOptional = baseCard.getTypes().stream().findFirst();
+        stringOptional.ifPresent(s -> myPokeType = PokeType.valueOf(s));
+        resistance = Optional.ofNullable(baseCard.getResistances());
+        weakness = Optional.ofNullable(baseCard.getWeaknesses());
         retreatCosts = baseCard.getConvertedRetreatCost();
         attacks = new ArrayList<>(baseCard.getAttacks());
         abilities = new ArrayList<>(baseCard.getAbilities());
@@ -66,16 +73,17 @@ public class PokemonCard extends FieldCard {
     }
 
 
-    public void doDmgAccordingToType(int originValue, PokeType takeDmgByType) throws MonIsDefeatedException {
+    public void doDmgAccordingToType(int originDmg, PokeType takeDmgByType) throws MonIsDefeatedException {
         if (hasAWeaknessAgainst(takeDmgByType)) {
-            originValue = calcWeaknessDmg(originValue);
-        } else if (hasAResistanceAgainst(takeDmgByType)) {
-            originValue = calcResistanceDmg(originValue);
+            originDmg = calcWeaknessDmg(originDmg);
         }
-        doSimpleDmg(originValue);
+        if (hasAResistanceAgainst(takeDmgByType)) {
+            originDmg = calcResistanceDmg(originDmg);
+        }
+        doSimpleDmg(originDmg);
     }
 
-    private boolean hasAWeaknessAgainst(PokeType takeDmgByType) {
+    public boolean hasAWeaknessAgainst(PokeType takeDmgByType) {
         return weakness.isPresent() && weakness.get().equals(takeDmgByType);
     }
 
@@ -83,7 +91,7 @@ public class PokemonCard extends FieldCard {
         return originValue * WEAKNESS_FACTOR;
     }
 
-    private boolean hasAResistanceAgainst(PokeType takeDmgByType) {
+    public boolean hasAResistanceAgainst(PokeType takeDmgByType) {
         return resistance.isPresent() && resistance.get().equals(takeDmgByType);
     }
 

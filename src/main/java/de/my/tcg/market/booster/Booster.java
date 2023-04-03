@@ -8,7 +8,7 @@ import java.util.Set;
 
 
 public class Booster implements Serializable {
-    private Set<Card> cards;
+    private final Set<Card> cards;
 
     public Booster() {
         this.cards= new HashSet<>();

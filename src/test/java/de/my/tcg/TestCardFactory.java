@@ -32,6 +32,14 @@ public class TestCardFactory {
         return new PokemonCard(new PlayCard(card));
     }
 
+    public static PokemonCard createPokemonCard(String hp) {
+        Card card = new Card();
+        card.setHp(hp);
+        card.setConvertedRetreatCost(0);
+        card.setSupertype(CardTypes.POKEMON);
+        return new PokemonCard(new PlayCard(card));
+    }
+
     public static Attack createAttack(String name, Cost... costs) {
         Attack attack = new Attack();
         attack.setName(name);

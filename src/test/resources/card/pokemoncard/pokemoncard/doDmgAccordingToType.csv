@@ -1,0 +1,11 @@
+String hp, resistance,weakness, originDmg, takeDmgByType, expectedDmg, survive
+100,,,20,Fire,20,true
+100,Water,Grass,20,Fire,20,true
+100,Water,Grass,100,Fire,100,false
+100,Water,Grass,20,Water,0,true
+100,Water,Grass,30,Water,0,true
+20,Water,Grass,30,Water,0,true
+100,Water,Grass,30,Grass,60,true
+60,Water,Grass,30,Grass,60,false
+100,Grass,Grass,20,Grass,10,true
+30,Grass,Fire,70,Grass,40,false

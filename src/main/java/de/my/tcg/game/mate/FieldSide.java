@@ -38,7 +38,7 @@ public class FieldSide {
 
     public void playActiveFromHand(PlayCard cardFromHand) throws NoLegalActionException {
         if (isPlayableAsPokemonCard(cardFromHand)) {
-            if (activeMon == null && cardFromHand.getCard().getSubtypes().contains(Subtype.BASIC)) {
+            if (activeMon == null && cardFromHand.getCard().getSubtypes().contains(Subtype.BASIC.toString())) {
                 activeMon = new PokemonCard(cardFromHand);
             } else {
                 throw new NoLegalActionException(CARD_CANT_PLAYED_AS_POKEMON);
