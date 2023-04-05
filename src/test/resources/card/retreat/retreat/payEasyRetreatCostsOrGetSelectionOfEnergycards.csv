@@ -4,3 +4,4 @@ RetreatCosts,PaymentState.expected,PokeType[energy]
 0,PAID,[Fire],1
 2,PAID,[Fire;Fire;Fire],1
 2,SELECTION_NEEDED,[Fire;Fire;Water],3
+0,PAID,[],0

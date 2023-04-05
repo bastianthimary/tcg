@@ -4,6 +4,7 @@ import de.my.tcg.basedata.Subtype;
 import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.domain.Player;
 import de.my.tcg.game.rules.Competition;
+import de.my.tcg.game.rules.GameEndsException;
 import de.my.tcg.game.rules.formatsettings.FormatSettings;
 import lombok.Getter;
 
@@ -30,7 +31,11 @@ public class BasicGame implements Competition {
         playerPreparation(player1);
         playerPreparation(player2);
 
-        drawStartHands();
+        try {
+            drawStartHands();
+        } catch (GameEndsException e) {
+            throw new RuntimeException(e);
+        }
         setupPriceCards();
 
     }
@@ -40,26 +45,35 @@ public class BasicGame implements Competition {
         player.setCompetition(this);
     }
 
-    private void drawStartHands() {
-        int mulliganCounter1=drawStartHand(player1);
-        int mulliganCounter2=drawStartHand(player2);
+    private void drawStartHands() throws GameEndsException {
+        int mulliganCounter1 = drawStartHand(player1);
+        int mulliganCounter2 = drawStartHand(player2);
         player1.drawSeveralCardsFromDeckToHand(mulliganCounter2);
         player2.drawSeveralCardsFromDeckToHand(mulliganCounter1);
     }
 
-    private int drawStartHand(Player player) {
+    private int drawStartHand(Player player) throws GameEndsException {
         player.drawSeveralCardsFromDeckToHand(formatSettings.numberStartHand());
-        if (player.getHandCards().stream().noneMatch(
-                playCard -> playCard.getCard().getSubtypes().contains(Subtype.BASIC))) {
+        if (isANotPlayableStartHand(player)) {
+            player.convertPersonsDeckToPlayDeck();
             return drawStartHand(player) + 1;
         }
         return 0;
     }
 
+    private static boolean isANotPlayableStartHand(Player player) {
+        return player.getHandCards().stream().noneMatch(
+                playCard -> playCard.getCard().getSubtypes().contains(Subtype.BASIC));
+    }
+
     private void setupPriceCards() {
 
-        player1.setupPriceCards(formatSettings.prices());
-        player2.setupPriceCards(formatSettings.prices());
+        try {
+            player1.setupPriceCards(formatSettings.prices());
+            player2.setupPriceCards(formatSettings.prices());
+        } catch (GameEndsException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

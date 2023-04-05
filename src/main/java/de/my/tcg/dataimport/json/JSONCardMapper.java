@@ -4,17 +4,26 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import de.my.tcg.basedata.CardTypes;
+import de.my.tcg.basedata.card.Card;
+import de.my.tcg.basedata.cardset.CardSet;
+import de.my.tcg.basedata.poketype.PokeType;
+import de.my.tcg.basedata.rarity.RarityCorrector;
 import de.my.tcg.dataimport.json.builder.CostBuilder;
 import de.my.tcg.dataimport.json.builder.PokeTypeBuilder;
 import de.my.tcg.dataimport.json.builder.TrainerRuleToFlavorBuilder;
-import de.my.tcg.basedata.CardTypes;
-import de.my.tcg.basedata.poketype.PokeType;
-import de.my.tcg.basedata.cardset.CardSet;
-import de.my.tcg.basedata.rarity.RarityCorrector;
 
 import static de.my.tcg.dataimport.json.CardFieldNames.*;
 
 public class JSONCardMapper {
+
+    public static Card jsonStringToCard(String jsonString) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode node = mapper.readValue(jsonString, ObjectNode.class);
+
+        Card card = JSONCardMapper.jsonToDomainMapper(node, Card.class);
+        return card;
+    }
 
     public static <T> T jsonToDomainMapper(ObjectNode node, Class<T> classname) {
         ObjectMapper mapper = new ObjectMapper();

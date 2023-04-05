@@ -1,0 +1,7 @@
+RetreatCosts,PaymentState.expected,PokeType[energy], int expectedEnergyCardsAfter,String selectedEnergyCardsAsString
+2,PAID,[Fire;Fire],0,[Fire;Fire]
+2,CAN_NOT_AFFORT_RETREAT,[Fire],1,[Fire]
+0,PAID,[Fire],1,[Fire]
+2,PAID,[Fire;Fire;Fire],1,[Fire;Fire]
+2,PAID,[Fire;Fire;Water],1,[Fire;Water]
+2,ENERGY_NOT_IN_ENERGY_TOTAL,[Fire;Fire;Water],3,[Water;Water]

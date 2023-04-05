@@ -6,10 +6,14 @@ import de.my.tcg.interfaces.TCGDeck;
 import java.util.List;
 
 public class TradingDeck implements TCGDeck {
-    List<TCGCard> cardList;
+    private final List<? extends TCGCard> cardList;
+
+    public TradingDeck(List<? extends TCGCard> cardList) {
+        this.cardList = cardList;
+    }
 
     @Override
-    public List<TCGCard> getCards() {
+    public List<? extends TCGCard> getCards() {
         return cardList;
     }
 

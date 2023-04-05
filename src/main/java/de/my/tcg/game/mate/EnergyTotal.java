@@ -130,10 +130,7 @@ public class EnergyTotal {
         HashMap<PokeType, List<EnergyCard>> removeMap = new HashMap<>();
         energyCards.forEach(card -> addEnergyCardToMap(card, removeMap));
 
-        removeMap.keySet().forEach(type -> {
-            List<EnergyCard> depotOfType = energyDepot.get(type);
-            depotOfType.removeAll(removeMap.get(type));
-        });
+        removeMap.keySet().forEach(type -> removeNumberOfEnergytype(removeMap.get(type).size(), type));
     }
 
     public boolean allCardsHaveSameType() {
@@ -141,4 +138,11 @@ public class EnergyTotal {
                 map(EnergyCard::getPokeType).collect(Collectors.toSet()).size() == 1;
     }
 
+    public boolean contains(List<EnergyCard> energyCards) {
+        HashMap<PokeType, List<EnergyCard>> containsMap = new HashMap<>();
+        energyCards.forEach(card -> addEnergyCardToMap(card, containsMap));
+        return containsMap.keySet().stream().
+                allMatch(pokeType -> containsMap.get(pokeType).size() <= energyDepot.get(pokeType).size());
+
+    }
 }

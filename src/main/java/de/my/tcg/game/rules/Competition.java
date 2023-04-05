@@ -4,6 +4,7 @@ import de.my.tcg.game.domain.Player;
 
 public interface Competition {
 
-   void winTheGame(Player player);
-   void lostTheGame(Player player);
+   void winTheGame(Player player) throws GameEndsException;
+
+   void lostTheGame(Player player) throws GameEndsException;
 }

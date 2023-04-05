@@ -5,6 +5,7 @@ import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.EnergyCard;
 import de.my.tcg.game.mate.card.FieldCard;
 import de.my.tcg.game.mate.card.PokemonCard;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,8 @@ public class Retreat {
     private final FieldSide fieldSide;
     private final PokemonCard activeMon;
     private final int retreatCosts;
+    @Getter
+    private PaymentResponse lastPaymentResponse;
 
     public Retreat(FieldSide fieldSide) {
         this.fieldSide = fieldSide;
@@ -26,13 +29,16 @@ public class Retreat {
         EnergyTotal energyTotal = activeMon.getEnergyTotal();
 
         if (checkLowerEnergy(energyTotal)) {
-            return new PaymentResponse(PaymentState.CAN_NOT_AFFORT_RETREAT);
+            lastPaymentResponse = new PaymentResponse(PaymentState.CAN_NOT_AFFORT_RETREAT);
+            return lastPaymentResponse;
         }
         if (checkIsPayable()) {
             retreatCostsPayed = true;
-            return new PaymentResponse(PaymentState.PAID);
+            lastPaymentResponse = new PaymentResponse(PaymentState.PAID);
+            return lastPaymentResponse;
         }
-        return new PaymentResponse(PaymentState.SELECTION_NEEDED, energyTotal.getAllEnergyCard(), retreatCosts);
+        lastPaymentResponse = new PaymentResponse(PaymentState.SELECTION_NEEDED, energyTotal.getAllEnergyCard(), retreatCosts);
+        return lastPaymentResponse;
     }
 
     private boolean checkIsPayable() {
@@ -65,10 +71,26 @@ public class Retreat {
         return false;
     }
 
-    public void payRetreatCosts(List<EnergyCard> costs) {
+    private void payRetreatCosts(List<EnergyCard> costs) {
+        retreatCostsPayed = true;
         EnergyTotal energyTotal = activeMon.getEnergyTotal();
         energyTotal.removeListOfEnergyCards(costs);
         fieldSide.addCardToDiscardPile(costs.stream().map(FieldCard::getCurrentCard).collect(Collectors.toList()));
+    }
+
+    public PaymentResponse payRetreatCostsWithSelectedEnergyCards(List<EnergyCard> costs) {
+        EnergyTotal energyTotal = activeMon.getEnergyTotal();
+        PaymentResponse easyPaymentResponse = payEasyRetreatCostsOrGetSelectionOfEnergycards();
+        if (!PaymentState.SELECTION_NEEDED.equals(easyPaymentResponse.getPaymentState())) {
+            return easyPaymentResponse;
+        }
+        if (!energyTotal.contains(costs)) {
+            lastPaymentResponse = new PaymentResponse(PaymentState.ENERGY_NOT_IN_ENERGY_TOTAL, energyTotal.getAllEnergyCard(), retreatCosts);
+            return lastPaymentResponse;
+        }
+        energyTotal.removeListOfEnergyCards(costs);
+        lastPaymentResponse = new PaymentResponse(PaymentState.PAID);
+        return lastPaymentResponse;
     }
 
 

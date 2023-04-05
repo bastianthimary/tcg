@@ -19,6 +19,7 @@ public class FieldSide {
     private Player player;
     @Getter
     private PokemonCard activeMon;
+    @Getter
     private final List<PokemonCard> benchMons;
 
     private final List<PlayCard> discardPile;
@@ -38,7 +39,7 @@ public class FieldSide {
 
     public void playActiveFromHand(PlayCard cardFromHand) throws NoLegalActionException {
         if (isPlayableAsPokemonCard(cardFromHand)) {
-            if (activeMon == null && cardFromHand.getCard().getSubtypes().contains(Subtype.BASIC.toString())) {
+            if (activeMon == null && cardFromHand.getCard().getSubtypes().contains(Subtype.BASIC)) {
                 activeMon = new PokemonCard(cardFromHand);
             } else {
                 throw new NoLegalActionException(CARD_CANT_PLAYED_AS_POKEMON);
@@ -107,4 +108,9 @@ public class FieldSide {
         discardPile.addAll(cards);
     }
 
+    public void exchangeActiveForBenchMon(PokemonCard benchMonToExchange) {
+        benchMons.add(activeMon);
+        activeMon = benchMonToExchange;
+        benchMons.remove(benchMonToExchange);
+    }
 }
