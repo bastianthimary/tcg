@@ -126,7 +126,7 @@ public class Player {
         }
     }
 
-    public PaymentResponse initPayRetreatCost() {
+    public PaymentResponse payRetreatCost() {
         retreat = new Retreat(playMate);
         return retreat.payEasyRetreatCostsOrGetSelectionOfEnergycards();
     }
@@ -141,7 +141,7 @@ public class Player {
             return new PerformRetreatResponse(performRetreatState);
         }
         if (retreat == null) {
-            initPayRetreatCost();
+            payRetreatCost();
         }
         PaymentState paymentState = retreat.getLastPaymentResponse().getPaymentState();
         return switch (paymentState) {

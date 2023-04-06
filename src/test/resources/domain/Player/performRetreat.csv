@@ -1,0 +1,7 @@
+int retreatCosts, boolean expectSuccesfullExchange, boolean payBeforePerform, String energyCardsAsString, PerformRetreatState expectedPerformRetreatState, @Nullable PaymentResponse expectedPaymentResponse
+0,true,true,[],EXCHANGE_SUCCESSFULL,false
+0,true,false,[],EXCHANGE_SUCCESSFULL,false
+2,true,false,[Fire;Fire],EXCHANGE_SUCCESSFULL,false
+2,false,true,[Fire],CAN_NOT_RETREAT_DUE_TO_CANNOT_AFFORT_COSTS,false
+2,false,false,[Fire],CAN_NOT_RETREAT_DUE_TO_CANNOT_AFFORT_COSTS,false
+1,false,false,[Fire;Water],ENERGY_SELECTION_NEEDED,true

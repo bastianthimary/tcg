@@ -39,6 +39,16 @@ public class TestCardFactory {
         return new PokemonCard(new PlayCard(card));
     }
 
+    public static PlayCard createBasicPlayCard(int retreatCosts, String name) {
+        Card card = new Card();
+        card.setName(name);
+        card.setHp("100");
+        card.setConvertedRetreatCost(retreatCosts);
+        card.setSubtypes(Set.of(Subtype.BASIC));
+        card.setSupertype(CardTypes.POKEMON);
+        return new PlayCard(card);
+    }
+
     public static Attack createAttack(String name, Cost... costs) {
         Attack attack = new Attack();
         attack.setName(name);

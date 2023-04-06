@@ -5,8 +5,14 @@ import de.my.tcg.TestCardFactory;
 import de.my.tcg.collector.Person;
 import de.my.tcg.collector.TradingDeck;
 import de.my.tcg.dataimport.json.JSONCardMapper;
+import de.my.tcg.game.mate.EnergyTotal;
+import de.my.tcg.game.mate.FieldSide;
+import de.my.tcg.game.mate.card.EnergyCard;
 import de.my.tcg.game.mate.card.NoLegalActionException;
 import de.my.tcg.game.mate.card.PokemonCard;
+import de.my.tcg.game.mate.card.retreat.PaymentState;
+import de.my.tcg.game.mate.card.retreat.PerformRetreatResponse;
+import de.my.tcg.game.mate.card.retreat.PerformRetreatState;
 import de.my.tcg.game.rules.Competition;
 import de.my.tcg.game.rules.GameEndsException;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -129,9 +135,49 @@ class PlayerTest {
 
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/domain/player/playBenchMonFromHand.csv", numLinesToSkip = 1, delimiter = ';')
-    public void performRetreat() {
+    @CsvFileSource(resources = "/domain/player/performRetreat.csv", numLinesToSkip = 1)
+    public void performRetreat(int retreatCosts, boolean expectSuccesfullExchange, boolean payBeforePerform,
+                               String energyCardsAsString, PerformRetreatState expectedPerformRetreatState,
+                               boolean expectSelectionNeeded) throws NoLegalActionException {
+        //Setup Szenario
+        String nameOfActive = "Active";
+        String nameOfBench = "Bench";
+        PlayCard activePlaycard = TestCardFactory.createBasicPlayCard(retreatCosts, nameOfActive);
+        Person person = mock(Person.class);
+        Player player = new Player(person);
+        PlayCard benchMonPlaycard = TestCardFactory.createBasicPlayCard(retreatCosts, nameOfBench);
+        player.setHandCards(new ArrayList<>(List.of(activePlaycard, benchMonPlaycard)));
+        FieldSide playmate = player.getPlayMate();
+        playmate.playActiveFromHand(activePlaycard);
+        playmate.playBenchMonFromHand(benchMonPlaycard);
+        EnergyTotal energyTotal = playmate.getActiveMon().getEnergyTotal();
+        List<EnergyCard> energyCards = TestCardFactory.convertStringToEnergyCardList(energyCardsAsString).stream().toList();
+        energyCards.forEach(energy -> energyTotal.addEnergyCard(energy));
+        if (payBeforePerform) {
+            player.payRetreatCost();
+        }
+        String expectActiveName;
+        String expectBenchMonName;
+        if (expectSuccesfullExchange) {
+            expectActiveName = nameOfBench;
+            expectBenchMonName = nameOfActive;
+        } else {
+            expectBenchMonName = nameOfBench;
+            expectActiveName = nameOfActive;
+        }
+        //Perform Function
+        PerformRetreatResponse performRetreatResponse = player.performRetreat(playmate.getBenchMons().get(0));
+        //Check Status after Function
+        assertThat(performRetreatResponse.getRetreatState()).isEqualTo(expectedPerformRetreatState);
+        if (expectSelectionNeeded) {
+            assertThat(performRetreatResponse.getPaymentResponse().getRetreatCosts()).isEqualTo(retreatCosts);
+            assertThat(performRetreatResponse.getPaymentResponse().getPaymentState()).isEqualTo(PaymentState.SELECTION_NEEDED);
+            assertThat(player.getPlayMate().getActiveMon().getEnergyTotal().contains(performRetreatResponse.getPaymentResponse().getListOfSection())).isEqualTo(true);
+        }
 
+        assertThat(player.getPlayMate().getActiveMon().getName()).isEqualTo(expectActiveName);
+        assertThat(player.getPlayMate().getBenchMons().stream().
+                anyMatch(bm -> bm.getName().equals(expectBenchMonName))).isEqualTo(true);
     }
 
 }
