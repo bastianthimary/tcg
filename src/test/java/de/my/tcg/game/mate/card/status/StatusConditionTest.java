@@ -49,15 +49,7 @@ class StatusConditionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/card/status/statuscondition/statusAllowsAttack.csv", numLinesToSkip = 1)
     void statusAllowsAttack(SpecialCondition specialCondition, FireCondition fireCondition, PoisonCondition poisonCondition, boolean expected) throws MonIsDefeatedException {
-      /*  try (MockedStatic mocked = mockStatic(Coin.class)) {
-            CoinSide side;
-            if(expected){
-                side=CoinSide.HEAD;
-            }else {
-                side=CoinSide.TAILS;
-            }
-            mocked.when(Coin::flip).thenReturn(side);
-        }*/
+
         PokemonCard pokemonCard = mock(PokemonCard.class);
         StatusCondition statusCondition = new StatusCondition(pokemonCard);
         statusCondition.setSpecialCondition(specialCondition);

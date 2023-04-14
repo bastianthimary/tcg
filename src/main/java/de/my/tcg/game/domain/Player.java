@@ -1,10 +1,12 @@
 package de.my.tcg.game.domain;
 
+import de.my.tcg.basedata.Attack;
 import de.my.tcg.collector.Person;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.EnergyCard;
 import de.my.tcg.game.mate.card.NoLegalActionException;
 import de.my.tcg.game.mate.card.PokemonCard;
+import de.my.tcg.game.mate.card.attack.AttackManager;
 import de.my.tcg.game.mate.card.retreat.*;
 import de.my.tcg.game.rules.Competition;
 import de.my.tcg.game.rules.TradingDeckToPlayDeckConverter;
@@ -19,7 +21,7 @@ public class Player {
     @Getter
     private final Person person;
     private PlayDeck playdeck;
-    @Setter
+
     @Getter
     private Player opponent;
     @Setter
@@ -30,16 +32,16 @@ public class Player {
     private Competition competition;
     @Getter
     private final FieldSide playMate;
-
     private Retreat retreat;
-
     private final List<PlayCard> priceCards;
+    private AttackManager attackManager;
 
     public Player(Person person) {
         this.person = person;
         playMate = new FieldSide(this);
         handCards = new ArrayList<>();
         priceCards = new ArrayList<>();
+        attackManager = new AttackManager(playMate);
     }
 
 
@@ -164,5 +166,16 @@ public class Player {
 
     public int getDeckSize() {
         return playdeck.getDecksize();
+    }
+
+
+    public List<Attack> getPerformableAttacks() {
+        return playMate.getActiveMon().giveUseableAttacks();
+    }
+
+
+    public void setOpponent(Player opponent) {
+        this.opponent = opponent;
+        attackManager.setOpponent(opponent);
     }
 }

@@ -21,25 +21,25 @@ public class GeneralGameController implements CommandLineRunner {
         this.controller2 = controller2;
     }
 
-    public void startGame(){
-       basicGame= new BasicGame(controller1.getPlayer(),controller2.getPlayer(),new StandardFormat());
-       basicGame.startOfGame();
-       controller1.showHandAndWaitForActiveAndBenchSelection();
-       controller2.showHandAndWaitForActiveAndBenchSelection();
+    public void startGame() {
+        basicGame = new BasicGame(controller1.getPlayer(), controller2.getPlayer(), new StandardFormat());
+        basicGame.startOfGame();
+        controller1.showHandAndWaitForActiveAndBenchSelection();
+        controller2.showHandAndWaitForActiveAndBenchSelection();
     }
 
 
     @Override
     public void run(String... args) throws Exception {
         startGame();
-        CompletableFuture<PlayCard> active1=controller1.selectActive();
-        CompletableFuture<PlayCard> active2=controller2.selectActive();
-        CompletableFuture<List<PlayCard>> bench1=controller1.selectBench();
-        CompletableFuture<List<PlayCard>> bench2=controller2.selectBench();
+        CompletableFuture<PlayCard> active1 = controller1.selectActive();
+        CompletableFuture<PlayCard> active2 = controller2.selectActive();
+        CompletableFuture<List<PlayCard>> bench1 = controller1.selectBench();
+        CompletableFuture<List<PlayCard>> bench2 = controller2.selectBench();
 
 
-        CompletableFuture.allOf(active1,active2,bench1,bench2);
-        basicGame.addActiveToPlayMate(controller1.getPlayer(),active1.get());
+        CompletableFuture.allOf(active1, active2, bench1, bench2);
+        basicGame.addActiveToPlayMate(controller1.getPlayer(), active1.get());
 
     }
 }

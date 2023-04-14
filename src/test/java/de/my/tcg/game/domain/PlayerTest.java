@@ -136,7 +136,7 @@ class PlayerTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/domain/player/performRetreat.csv", numLinesToSkip = 1)
-    public void performRetreat(int retreatCosts, boolean expectSuccesfullExchange, boolean payBeforePerform,
+    public void performRetreat(int retreatCosts, boolean expectSuccessfullExchange, boolean payBeforePerform,
                                String energyCardsAsString, PerformRetreatState expectedPerformRetreatState,
                                boolean expectSelectionNeeded) throws NoLegalActionException {
         //Setup Szenario
@@ -152,13 +152,13 @@ class PlayerTest {
         playmate.playBenchMonFromHand(benchMonPlaycard);
         EnergyTotal energyTotal = playmate.getActiveMon().getEnergyTotal();
         List<EnergyCard> energyCards = TestCardFactory.convertStringToEnergyCardList(energyCardsAsString).stream().toList();
-        energyCards.forEach(energy -> energyTotal.addEnergyCard(energy));
+        energyCards.forEach(energyTotal::addEnergyCard);
         if (payBeforePerform) {
             player.payRetreatCost();
         }
         String expectActiveName;
         String expectBenchMonName;
-        if (expectSuccesfullExchange) {
+        if (expectSuccessfullExchange) {
             expectActiveName = nameOfBench;
             expectBenchMonName = nameOfActive;
         } else {
