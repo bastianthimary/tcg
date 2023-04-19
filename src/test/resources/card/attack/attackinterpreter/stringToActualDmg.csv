@@ -1,2 +1,0 @@
-String dmgAsString,String attackString,int dmgPer,boolean expectCoinFlip
-30×,Flip 2 coins. This attack does 30 damage times the number of heads.,30,true

@@ -28,6 +28,7 @@ public class TestCardFactory {
     public static PokemonCard createPokemonCard() {
         Card card = new Card();
         card.setSupertype(CardTypes.POKEMON);
+        card.setConvertedRetreatCost(0);
         return new PokemonCard(new PlayCard(card));
     }
 

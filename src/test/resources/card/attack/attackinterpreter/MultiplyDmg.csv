@@ -1,0 +1,4 @@
+String dmgAsString,String attackString,int dmgPer,boolean expectCoinFlip,String myPokemonName,status myCondition, defendingPokemonCondition
+30×,Flip 2 coins. This attack does 30 damage times the number of heads.,30,true,Vileplume,NO_STATUS,NO_STATUS
+30×,Flip a coin. This attack does 30 damage times the number of heads.,30,true,Vileplume,NO_STATUS,NO_STATUS
+30×,Flip 3 coins. This attack does 30 damage times the number of heads. Vileplume is now Confused.,30,true,Vileplume,CONFUSED,NO_STATUS

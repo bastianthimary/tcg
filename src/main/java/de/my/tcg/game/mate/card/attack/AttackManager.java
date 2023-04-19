@@ -9,10 +9,10 @@ import de.my.tcg.game.mate.card.PokemonCard;
 import lombok.Setter;
 
 public class AttackManager {
-    private FieldSide playMate;
+    private final FieldSide playMate;
     @Setter
     private Player opponent;
-    private PokemonCard activeMon;
+    private final PokemonCard activeMon;
 
     public AttackManager(FieldSide playMate) {
         this.playMate = playMate;
@@ -20,10 +20,8 @@ public class AttackManager {
     }
 
     public void performAttack(Attack performAttack) throws NoLegalActionException, MonIsDefeatedException {
-
         AttackChecker.checkPerformablility(activeMon, performAttack);
-
-        new AttackInterpreter().interpretAndPerformAttack(performAttack, playMate, opponent.getPlayMate());
+        new AttackInterpreter(performAttack, playMate, opponent.getPlayMate()).performAttack();
 
     }
 }

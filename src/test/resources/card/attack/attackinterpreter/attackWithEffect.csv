@@ -1,0 +1,2 @@
+String dmgAsString,String attackString,int dmgPer,boolean expectCoinFlipForMy,String myPokemonName,status myCondition,boolean expectCoinFlipForDefending, defendingPokemonCondition
+30,Flip a coin. If heads the Defending Pokémon is now Confused.,30,false,Alacazam,NO_STATUS,true,CONFUSED

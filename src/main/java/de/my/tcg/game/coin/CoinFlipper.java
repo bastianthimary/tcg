@@ -1,8 +1,9 @@
 package de.my.tcg.game.coin;
 
+import de.my.tcg.game.mate.card.textparser.effect.condition.Condition;
 import lombok.Getter;
 
-public class CoinFlipper {
+public class CoinFlipper implements Condition {
     @Getter
     private int headCounter;
     @Getter

@@ -2,40 +2,29 @@ package de.my.tcg.game.mate.card.attack;
 
 import de.my.tcg.basedata.Attack;
 import de.my.tcg.game.mate.FieldSide;
-import de.my.tcg.game.mate.card.textparser.MultiplyDmgInterpreter;
+import de.my.tcg.game.mate.card.MonIsDefeatedException;
+import de.my.tcg.game.mate.card.textparser.AttackEffectInterpreterAndPerformer;
 
 public class AttackInterpreter {
-    private Attack performAttack;
-    private FieldSide yourSide;
-    private FieldSide opponentSide;
+    private final Attack attack;
+    private final FieldSide yourSide;
+    private final FieldSide opponentSide;
 
 
-    public void interpretAndPerformAttack(Attack performAttack, FieldSide yourSide, FieldSide opponentSide) {
-        String dmgAsString = performAttack.getDamage();
-        String attackText = performAttack.getText();
-
-
+    public AttackInterpreter(Attack attack, FieldSide yourSide, FieldSide opponentSide) {
+        this.attack = attack;
+        this.yourSide = yourSide;
+        this.opponentSide = opponentSide;
     }
 
-    public int stringToActualDmg(String dmgAsString, String attackText) {
-        if (dmgAsString.isBlank()) {
-            return 0;
+    public void performAttack() throws MonIsDefeatedException {
+        String attackText = attack.getText();
+        if (attackText.isBlank()) {
+            int dmg = Integer.parseInt(attack.getDamage());
+            opponentSide.getActiveMon().doSimpleDmg(dmg);
+        } else {
+            AttackEffectInterpreterAndPerformer dmgInterpreter = new AttackEffectInterpreterAndPerformer(attack, yourSide, opponentSide);
+            dmgInterpreter.interpretAndPerformAttack();
         }
-        if (dmgAsString.contains("/+")) {
-            return interpretPlusDmg(dmgAsString, attackText);
-        } else if (dmgAsString.contains("×")) {
-            return interpretMuliplyDmg(dmgAsString, attackText);
-        }
-        return Integer.parseInt(dmgAsString);
-    }
-
-    private int interpretMuliplyDmg(String dmgAsString, String attackText) {
-        MultiplyDmgInterpreter dmgInterpreter = new MultiplyDmgInterpreter();
-        return dmgInterpreter.parse(attackText);
-    }
-
-    private int interpretPlusDmg(String dmgAsString, String attackText) {
-
-        return 0;
     }
 }

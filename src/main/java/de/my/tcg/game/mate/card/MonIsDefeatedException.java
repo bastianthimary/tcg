@@ -1,7 +1,7 @@
 package de.my.tcg.game.mate.card;
 
-public class MonIsDefeatedException extends Exception{
-    public MonIsDefeatedException(){
+public class MonIsDefeatedException extends RuntimeException {
+    public MonIsDefeatedException() {
         super();
     }
 }
