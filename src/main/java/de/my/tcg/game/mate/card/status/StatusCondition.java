@@ -55,7 +55,7 @@ public class StatusCondition {
     }
 
     private void checkWakeUp() {
-        if (SpecialCondition.SLEEP.equals(specialCondition)) {
+        if (SpecialCondition.ASLEEP.equals(specialCondition)) {
             if (CoinSide.HEAD.equals(Coin.flip())) {
                 specialCondition = SpecialCondition.NO_STATUS;
             }
@@ -63,16 +63,16 @@ public class StatusCondition {
     }
 
     private void checkParalyse() {
-        if (SpecialCondition.PARALYSED.equals(specialCondition)) {
+        if (SpecialCondition.PARALYZED.equals(specialCondition)) {
             specialCondition = SpecialCondition.NO_STATUS;
         }
     }
 
     public boolean statusAllowsAttack() throws MonIsDefeatedException {
-        if (SpecialCondition.PARALYSED.equals(specialCondition) || SpecialCondition.SLEEP.equals(specialCondition)) {
+        if (SpecialCondition.PARALYZED.equals(specialCondition) || SpecialCondition.ASLEEP.equals(specialCondition)) {
             return false;
         } else if (SpecialCondition.CONFUSED.equals(specialCondition)) {
-            if(CoinSide.HEAD.equals(Coin.flip())){
+            if (CoinSide.HEAD.equals(Coin.flip())) {
                 return true;
             }
             pokemonCard.doSimpleDmg(CONFUSE_DMG);
@@ -82,7 +82,7 @@ public class StatusCondition {
     }
 
     public boolean statusAllowsRetreat() {
-        return !SpecialCondition.PARALYSED.equals(specialCondition) && !SpecialCondition.SLEEP.equals(specialCondition);
+        return !SpecialCondition.PARALYZED.equals(specialCondition) && !SpecialCondition.ASLEEP.equals(specialCondition);
     }
 
 }

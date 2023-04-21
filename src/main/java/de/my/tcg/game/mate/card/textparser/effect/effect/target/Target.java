@@ -1,4 +1,4 @@
-package de.my.tcg.game.mate.card.textparser.effect;
+package de.my.tcg.game.mate.card.textparser.effect.effect.target;
 
 import java.util.Arrays;
 
@@ -14,7 +14,7 @@ public enum Target {
     }
 
     public static Target getTargetByName(String stringValue) {
-        return Arrays.stream(Target.values()).toList().stream().filter(t -> t.getStringValue().equals(stringValue)).findFirst().get();
+        return Arrays.stream(Target.values()).toList().stream().filter(t -> t.getStringValue().equalsIgnoreCase(stringValue)).findFirst().get();
     }
 
     public String getStringValue() {

@@ -288,6 +288,24 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
+    public void enterHurtEffect(EffectTextParserParser.HurtEffectContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitHurtEffect(EffectTextParserParser.HurtEffectContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
     public void enterStatusEffect(EffectTextParserParser.StatusEffectContext ctx) {
     }
 
@@ -316,6 +334,24 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      */
     @Override
     public void exitStatusCondition(EffectTextParserParser.StatusConditionContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void enterDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx) {
     }
 
     /**

@@ -1,6 +1,5 @@
 // Generated from C:/Users/Bastian Binaris/IdeaProjects/Privat/Pokemon/tcg/src/main/resources/interpreter\EffectTextParser.g4 by ANTLR 4.12.0
 package de.my.tcg.grammar.parser.interpreter;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -219,6 +218,20 @@ public interface EffectTextParserListener extends ParseTreeListener {
     void exitExecutedEffect(EffectTextParserParser.ExecutedEffectContext ctx);
 
     /**
+     * Enter a parse tree produced by {@link EffectTextParserParser#hurtEffect}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterHurtEffect(EffectTextParserParser.HurtEffectContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link EffectTextParserParser#hurtEffect}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitHurtEffect(EffectTextParserParser.HurtEffectContext ctx);
+
+    /**
      * Enter a parse tree produced by {@link EffectTextParserParser#statusEffect}.
      *
      * @param ctx the parse tree
@@ -245,4 +258,18 @@ public interface EffectTextParserListener extends ParseTreeListener {
      * @param ctx the parse tree
      */
     void exitStatusCondition(EffectTextParserParser.StatusConditionContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link EffectTextParserParser#discardEnergy}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link EffectTextParserParser#discardEnergy}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx);
 }

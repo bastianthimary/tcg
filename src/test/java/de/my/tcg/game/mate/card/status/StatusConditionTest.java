@@ -16,10 +16,10 @@ class StatusConditionTest {
     void healAllStates() {
         PokemonCard pokemonCard = mock(PokemonCard.class);
         StatusCondition statusCondition = new StatusCondition(pokemonCard);
-        statusCondition.setSpecialCondition(SpecialCondition.PARALYSED);
+        statusCondition.setSpecialCondition(SpecialCondition.PARALYZED);
         statusCondition.setFireConditionState(FireCondition.SINGLE);
         statusCondition.setPoisonConditionState(PoisonCondition.SINGLE);
-        assertThat(statusCondition.getSpecialCondition()).isEqualTo(SpecialCondition.PARALYSED);
+        assertThat(statusCondition.getSpecialCondition()).isEqualTo(SpecialCondition.PARALYZED);
         statusCondition.healAllStates();
         assertThat(statusCondition.getSpecialCondition()).isEqualTo(SpecialCondition.NO_STATUS);
 

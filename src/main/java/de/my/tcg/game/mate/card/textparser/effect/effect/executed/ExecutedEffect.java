@@ -1,4 +1,4 @@
-package de.my.tcg.game.mate.card.textparser.effect;
+package de.my.tcg.game.mate.card.textparser.effect.effect.executed;
 
 import de.my.tcg.game.mate.card.PokemonCard;
 

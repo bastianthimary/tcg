@@ -1,0 +1,2 @@
+String attackString, String energyCardsAsString, int energyBefore, int energyAfter, String myPokemonName
+Discard 2 Fire Energy cards attached to Charizard in order to use this attack.,[Fire;Fire;Fire;Fire],4,2,Charizard

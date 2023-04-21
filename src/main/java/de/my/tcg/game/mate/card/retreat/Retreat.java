@@ -3,16 +3,13 @@ package de.my.tcg.game.mate.card.retreat;
 import de.my.tcg.game.mate.EnergyTotal;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.EnergyCard;
-import de.my.tcg.game.mate.card.FieldCard;
+import de.my.tcg.game.mate.card.FieldUtils;
 import de.my.tcg.game.mate.card.PokemonCard;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Retreat {
-    private boolean retreatCostsPayed = false;
-
     private final FieldSide fieldSide;
     private final PokemonCard activeMon;
     private final int retreatCosts;
@@ -33,7 +30,6 @@ public class Retreat {
             return lastPaymentResponse;
         }
         if (checkIsPayable()) {
-            retreatCostsPayed = true;
             lastPaymentResponse = new PaymentResponse(PaymentState.PAID);
             return lastPaymentResponse;
         }
@@ -72,10 +68,7 @@ public class Retreat {
     }
 
     private void payRetreatCosts(List<EnergyCard> costs) {
-        retreatCostsPayed = true;
-        EnergyTotal energyTotal = activeMon.getEnergyTotal();
-        energyTotal.removeListOfEnergyCards(costs);
-        fieldSide.addCardToDiscardPile(costs.stream().map(FieldCard::getCurrentCard).collect(Collectors.toList()));
+        FieldUtils.discardEnergyFromPokemon(costs, activeMon, fieldSide);
     }
 
     public PaymentResponse payRetreatCostsWithSelectedEnergyCards(List<EnergyCard> costs) {

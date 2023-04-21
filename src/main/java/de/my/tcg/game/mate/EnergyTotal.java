@@ -126,6 +126,11 @@ public class EnergyTotal {
         return removedEnergyCards;
     }
 
+    public List<EnergyCard> getANumberOfCardOfType(int number, PokeType pokeType) {
+        List<EnergyCard> energyFromDepot = energyDepot.get(pokeType);
+        return new ArrayList<>(energyFromDepot.subList(0, number));
+    }
+
     public void removeListOfEnergyCards(List<EnergyCard> energyCards) {
         HashMap<PokeType, List<EnergyCard>> removeMap = new HashMap<>();
         energyCards.forEach(card -> addEnergyCardToMap(card, removeMap));

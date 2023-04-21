@@ -1,7 +1,8 @@
-package de.my.tcg.game.mate.card.textparser.effect;
+package de.my.tcg.game.mate.card.textparser.effect.effect.executed.condition;
 
 import de.my.tcg.game.mate.card.PokemonCard;
 import de.my.tcg.game.mate.card.status.SpecialCondition;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.ExecutedEffect;
 
 public class SpecialConditionExecutedEffect implements ExecutedEffect {
     private final SpecialCondition specialCondition;

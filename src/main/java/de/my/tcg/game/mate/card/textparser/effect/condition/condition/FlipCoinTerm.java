@@ -1,13 +1,15 @@
-package de.my.tcg.game.mate.card.textparser.effect.condition.flipcoin;
+package de.my.tcg.game.mate.card.textparser.effect.condition.condition;
 
 import de.my.tcg.game.coin.CoinFlipper;
 import de.my.tcg.game.coin.CoinSide;
 import de.my.tcg.game.mate.card.textparser.effect.condition.ConditionTerm;
+import de.my.tcg.game.mate.card.textparser.effect.condition.flipcoin.CoinConditionType;
 import de.my.tcg.game.mate.card.textparser.utils.NumberParser;
 
 public class FlipCoinTerm extends ConditionTerm {
 
     private static final String HEADS = "heads";
+    private static final String TAILS = "tails";
 
     @Override
     public int compliedTimes() {

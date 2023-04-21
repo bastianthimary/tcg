@@ -1,0 +1,10 @@
+Number=1
+WHITESPACE=2
+StatusCondition=3
+ConditionTypes=4
+Target=5
+VarPokemonName=6
+DefendingPokemon=7
+PokeType=8
+'this Pokemon'=6
+'the Defending Pokémon'=7

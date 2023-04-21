@@ -25,6 +25,7 @@ public class AttackInterpreter {
         } else {
             AttackEffectInterpreterAndPerformer dmgInterpreter = new AttackEffectInterpreterAndPerformer(attack, yourSide, opponentSide);
             dmgInterpreter.interpretAndPerformAttack();
+            System.out.println();
         }
     }
 }

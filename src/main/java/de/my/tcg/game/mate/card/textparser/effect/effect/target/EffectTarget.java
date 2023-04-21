@@ -1,4 +1,4 @@
-package de.my.tcg.game.mate.card.textparser.effect;
+package de.my.tcg.game.mate.card.textparser.effect.effect.target;
 
 import de.my.tcg.game.mate.card.PokemonCard;
 import lombok.Getter;

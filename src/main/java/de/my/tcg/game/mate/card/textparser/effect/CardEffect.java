@@ -2,7 +2,7 @@ package de.my.tcg.game.mate.card.textparser.effect;
 
 import de.my.tcg.game.mate.card.textparser.Term;
 import de.my.tcg.game.mate.card.textparser.effect.condition.ConditionTerm;
-import de.my.tcg.game.mate.card.textparser.effect.condition.EffectTerm;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.EffectTerm;
 import lombok.Getter;
 import lombok.Setter;
 

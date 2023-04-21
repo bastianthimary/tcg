@@ -1,15 +1,24 @@
 package de.my.tcg.game.mate.card.textparser;
 
 import de.my.tcg.basedata.Attack;
+import de.my.tcg.basedata.poketype.PokeType;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
 import de.my.tcg.game.mate.card.status.SpecialCondition;
-import de.my.tcg.game.mate.card.textparser.effect.*;
+import de.my.tcg.game.mate.card.textparser.effect.CardEffect;
 import de.my.tcg.game.mate.card.textparser.effect.condition.ConditionTerm;
-import de.my.tcg.game.mate.card.textparser.effect.condition.flipcoin.FlipCoinTerm;
+import de.my.tcg.game.mate.card.textparser.effect.condition.condition.FlipCoinTerm;
+import de.my.tcg.game.mate.card.textparser.effect.effect.BasicEffectTerm;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.condition.SpecialConditionExecutedEffect;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.discard.DiscardEnergyExecution;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.MultipleDmgEffectTerm;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.hurt.HurtExecutedEffect;
+import de.my.tcg.game.mate.card.textparser.effect.effect.target.EffectTarget;
+import de.my.tcg.game.mate.card.textparser.effect.effect.target.Target;
 import de.my.tcg.grammar.parser.interpreter.EffectTextParserBaseVisitor;
 import de.my.tcg.grammar.parser.interpreter.EffectTextParserLexer;
 import de.my.tcg.grammar.parser.interpreter.EffectTextParserParser;
+import lombok.Getter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -20,9 +29,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVisitor<Integer> {
-    private int times;
-    private int dmgPer;
     private int dmg;
+    @Getter
     private final List<CardEffect> terms = new ArrayList<>();
     private CardEffect currentTerm;
     private final PokemonCard thisPokemonCard;
@@ -90,6 +98,7 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
 
         currentTerm = new CardEffect(ctx.getText());
         visitChildren(ctx);
+
         terms.add(currentTerm);
         return 0;
     }
@@ -103,6 +112,7 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
         visitChildren(ctx);
         return 0;
     }
+
 
     @Override
     public Integer visitConditionTypes(EffectTextParserParser.ConditionTypesContext ctx) {
@@ -123,6 +133,7 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
 
     @Override
     public Integer visitTarget(EffectTextParserParser.TargetContext ctx) {
+        visitChildren(ctx);
         BasicEffectTerm effectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
         PokemonCard pokemonCard;
         switch (Target.getTargetByName(ctx.getText())) {
@@ -131,7 +142,7 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
             default -> pokemonCard = thisPokemonCard;
         }
         effectTerm.setEffectTarget(new EffectTarget(pokemonCard));
-        return visitChildren(ctx);
+        return 0;
     }
 
     @Override
@@ -142,9 +153,37 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
 
     @Override
     public Integer visitStatusCondition(EffectTextParserParser.StatusConditionContext ctx) {
+
         SpecialCondition condition = SpecialCondition.valueOf(ctx.getText().toUpperCase());
         BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
         basicEffectTerm.setExecutedEffect(new SpecialConditionExecutedEffect(condition));
         return visitChildren(ctx);
     }
+
+    @Override
+    public Integer visitHurtEffect(EffectTextParserParser.HurtEffectContext ctx) {
+        int dmg = Integer.parseInt(ctx.dmg.getText());
+        BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
+        basicEffectTerm.setExecutedEffect(new HurtExecutedEffect(dmg));
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Integer visitDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx) {
+        int numberOfCards = Integer.parseInt(ctx.numberOfCards.getText());
+
+        PokeType typeOfDiscardion = PokeType.valueOf(ctx.PokeType().getText());
+        BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
+        FieldSide fieldSide;
+        switch (Target.getTargetByName(ctx.target().getText())) {
+            case THIS_POKEMON, NO_TARGET -> fieldSide = thisFieldSide;
+            case DEFENDING_POKEMON -> fieldSide = opponentSide;
+            default -> fieldSide = thisFieldSide;
+        }
+        basicEffectTerm.setExecutedEffect(new DiscardEnergyExecution(typeOfDiscardion, numberOfCards, fieldSide));
+
+        return visitChildren(ctx);
+    }
+
+
 }

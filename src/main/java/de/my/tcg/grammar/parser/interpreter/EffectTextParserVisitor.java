@@ -1,6 +1,5 @@
 // Generated from C:/Users/Bastian Binaris/IdeaProjects/Privat/Pokemon/tcg/src/main/resources/interpreter\EffectTextParser.g4 by ANTLR 4.12.0
 package de.my.tcg.grammar.parser.interpreter;
-
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -132,6 +131,14 @@ public interface EffectTextParserVisitor<T> extends ParseTreeVisitor<T> {
     T visitExecutedEffect(EffectTextParserParser.ExecutedEffectContext ctx);
 
     /**
+     * Visit a parse tree produced by {@link EffectTextParserParser#hurtEffect}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitHurtEffect(EffectTextParserParser.HurtEffectContext ctx);
+
+    /**
      * Visit a parse tree produced by {@link EffectTextParserParser#statusEffect}.
      *
      * @param ctx the parse tree
@@ -146,4 +153,12 @@ public interface EffectTextParserVisitor<T> extends ParseTreeVisitor<T> {
      * @return the visitor result
      */
     T visitStatusCondition(EffectTextParserParser.StatusConditionContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link EffectTextParserParser#discardEnergy}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx);
 }

@@ -37,7 +37,7 @@ class RetreatCheckerTest {
         PokemonCard pokemonCard = new PokemonCard(new PlayCard(card));
         FieldSide playMate = mock(FieldSide.class);
         when(playMate.getBenchMons()).thenReturn(TestCardFactory.createANumberOfPokemonPlayCards(5).stream().
-                map(c -> new PokemonCard(c)).toList());
+                map(PokemonCard::new).toList());
 
         PerformRetreatState retreatResponse = RetreatChecker.checkFieldHasNegativeResponse(playMate, pokemonCard);
         assertThat(retreatResponse).isEqualTo(PerformRetreatState.SELECTED_BENCHMON_IS_NOT_THERE);
@@ -53,7 +53,7 @@ class RetreatCheckerTest {
         PokemonCard benchMonToExchange = new PokemonCard(new PlayCard(card));
 
         PokemonCard activeMon = TestCardFactory.createPokemonCard("30");
-        activeMon.getStatusCondition().setSpecialCondition(SpecialCondition.SLEEP);
+        activeMon.getStatusCondition().setSpecialCondition(SpecialCondition.ASLEEP);
         FieldSide playMate = mock(FieldSide.class);
 
         when(playMate.getBenchMons()).thenReturn(new ArrayList<>(List.of(benchMonToExchange)));
