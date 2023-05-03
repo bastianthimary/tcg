@@ -55,10 +55,9 @@ public class StatusCondition {
     }
 
     private void checkWakeUp() {
-        if (SpecialCondition.ASLEEP.equals(specialCondition)) {
-            if (CoinSide.HEAD.equals(Coin.flip())) {
-                specialCondition = SpecialCondition.NO_STATUS;
-            }
+        if (SpecialCondition.ASLEEP.equals(specialCondition) && (CoinSide.HEAD.equals(Coin.flip()))) {
+            specialCondition = SpecialCondition.NO_STATUS;
+
         }
     }
 

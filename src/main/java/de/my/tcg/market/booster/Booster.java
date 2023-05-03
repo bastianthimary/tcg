@@ -27,7 +27,7 @@ public class Booster implements Serializable {
 
     @Override
     public String toString() {
-        StringBuffer stringBuffer= new StringBuffer();
+        StringBuilder stringBuffer = new StringBuilder();
         cards.forEach(card -> stringBuffer.append(card.toString()));
         return "Booster{" +
                 "cards=" +stringBuffer+

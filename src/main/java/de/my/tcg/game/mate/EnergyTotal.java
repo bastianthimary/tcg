@@ -11,17 +11,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class EnergyTotal {
-    HashMap<PokeType, List<EnergyCard>> energyDepot;
+    EnumMap<PokeType, List<EnergyCard>> energyDepot;
 
     public EnergyTotal() {
-        this.energyDepot = new HashMap<>();
+        this.energyDepot = new EnumMap<>(PokeType.class);
     }
 
     public void addEnergyCard(EnergyCard energyCard) {
         addEnergyCardToMap(energyCard, energyDepot);
     }
 
-    private void addEnergyCardToMap(EnergyCard energyCard, HashMap<PokeType, List<EnergyCard>> map) {
+    private void addEnergyCardToMap(EnergyCard energyCard, EnumMap<PokeType, List<EnergyCard>> map) {
         if (map.containsKey(energyCard.getPokeType())) {
             map.get(energyCard.getPokeType()).add(energyCard);
         } else {
@@ -35,7 +35,7 @@ public class EnergyTotal {
         return calculateEnergy(energyDepot);
     }
 
-    private int calculateEnergy(HashMap<PokeType, List<EnergyCard>> energyToCalc) {
+    private int calculateEnergy(EnumMap<PokeType, List<EnergyCard>> energyToCalc) {
         AtomicInteger total = new AtomicInteger();
         energyToCalc.keySet().forEach(type -> total.set(energyToCalc.get(type).size() + total.get()));
         return total.get();
@@ -54,7 +54,7 @@ public class EnergyTotal {
     }
 
     private boolean areAttackCostsAffordable(Set<Cost> costs) {
-        HashMap<PokeType, List<EnergyCard>> testDepot = createATestDepot();
+        EnumMap<PokeType, List<EnergyCard>> testDepot = createATestDepot();
 
         if (reduceFixTypeAttackCosts(testDepot, costs)) {
             return canAffortColorlessAttackCosts(costs, testDepot);
@@ -62,13 +62,13 @@ public class EnergyTotal {
         return false;
     }
 
-    private HashMap<PokeType, List<EnergyCard>> createATestDepot() {
-        HashMap<PokeType, List<EnergyCard>> testDepot = new HashMap<>();
+    private EnumMap<PokeType, List<EnergyCard>> createATestDepot() {
+        EnumMap<PokeType, List<EnergyCard>> testDepot = new EnumMap<>(PokeType.class);
         energyDepot.keySet().forEach(type -> testDepot.put(type, new ArrayList<>(energyDepot.get(type))));
         return testDepot;
     }
 
-    private boolean reduceFixTypeAttackCosts(HashMap<PokeType, List<EnergyCard>> testDepot, Set<Cost> costs) {
+    private boolean reduceFixTypeAttackCosts(EnumMap<PokeType, List<EnergyCard>> testDepot, Set<Cost> costs) {
         AtomicBoolean canAffort = new AtomicBoolean(true);
         costs.forEach(cost -> {
             if (cost.getType() != PokeType.Colorless) {
@@ -79,13 +79,13 @@ public class EnergyTotal {
         return canAffort.get();
     }
 
-    private static void haveCostType(HashMap<PokeType, List<EnergyCard>> testDepot, AtomicBoolean canAffort, Cost cost) {
+    private static void haveCostType(EnumMap<PokeType, List<EnergyCard>> testDepot, AtomicBoolean canAffort, Cost cost) {
         if (!testDepot.containsKey(cost.getType())) {
             canAffort.set(false);
         }
     }
 
-    private static void payAttackCostsIfAffortable(HashMap<PokeType, List<EnergyCard>> testDepot, AtomicBoolean canAffort, Cost cost) {
+    private static void payAttackCostsIfAffortable(EnumMap<PokeType, List<EnergyCard>> testDepot, AtomicBoolean canAffort, Cost cost) {
         List<EnergyCard> energyCards = testDepot.get(cost.getType());
         int timesOfReduction;
         if (energyCards.size() >= cost.getQuantity()) {
@@ -99,7 +99,7 @@ public class EnergyTotal {
         }
     }
 
-    private boolean canAffortColorlessAttackCosts(Set<Cost> costs, HashMap<PokeType, List<EnergyCard>> testDepot) {
+    private boolean canAffortColorlessAttackCosts(Set<Cost> costs, EnumMap<PokeType, List<EnergyCard>> testDepot) {
         Optional<Cost> colorlessCosts = costs.stream().filter(cost -> PokeType.Colorless.equals(cost.getType())).findFirst();
         return colorlessCosts.isEmpty() || calculateEnergy(testDepot) >= colorlessCosts.get().getQuantity();
     }
@@ -132,7 +132,7 @@ public class EnergyTotal {
     }
 
     public void removeListOfEnergyCards(List<EnergyCard> energyCards) {
-        HashMap<PokeType, List<EnergyCard>> removeMap = new HashMap<>();
+        EnumMap<PokeType, List<EnergyCard>> removeMap = new EnumMap<>(PokeType.class);
         energyCards.forEach(card -> addEnergyCardToMap(card, removeMap));
 
         removeMap.keySet().forEach(type -> removeNumberOfEnergytype(removeMap.get(type).size(), type));
@@ -144,7 +144,7 @@ public class EnergyTotal {
     }
 
     public boolean contains(List<EnergyCard> energyCards) {
-        HashMap<PokeType, List<EnergyCard>> containsMap = new HashMap<>();
+        EnumMap<PokeType, List<EnergyCard>> containsMap = new EnumMap<>(PokeType.class);
         energyCards.forEach(card -> addEnergyCardToMap(card, containsMap));
         return containsMap.keySet().stream().
                 allMatch(pokeType -> containsMap.get(pokeType).size() <= energyDepot.get(pokeType).size());

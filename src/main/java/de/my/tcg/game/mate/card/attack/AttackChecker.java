@@ -8,6 +8,8 @@ import de.my.tcg.game.mate.card.PokemonCard;
 import static de.my.tcg.game.mate.card.NoLegalActionException.*;
 
 public class AttackChecker {
+    private AttackChecker() {
+    }
 
     public static void checkPerformablility(PokemonCard activeMon, Attack performAttack) throws NoLegalActionException, MonIsDefeatedException {
         if (!activeMon.getAttacks().contains(performAttack)) {

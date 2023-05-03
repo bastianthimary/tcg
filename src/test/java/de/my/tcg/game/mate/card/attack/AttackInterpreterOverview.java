@@ -6,10 +6,10 @@ import de.my.tcg.game.TestFieldSideFactory;
 import de.my.tcg.game.mate.EnergyTotal;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
-import de.my.tcg.game.mate.card.textparser.AttackEffectInterpreterAndPerformer;
 import de.my.tcg.game.mate.card.textparser.effect.effect.BasicEffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.EffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.DmgEffectTerm;
+import de.my.tcg.game.mate.card.textparser.interpreter.AttackEffectInterpreterAndPerformer;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
 import static org.junit.jupiter.api.Assertions.fail;

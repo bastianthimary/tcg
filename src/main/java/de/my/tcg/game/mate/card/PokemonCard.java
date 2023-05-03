@@ -28,10 +28,10 @@ public class PokemonCard extends FieldCard {
     private List<Ability> abilities;
     @Getter
     private List<Attack> attacks;
-    private final int WEAKNESS_FACTOR = 2;
+    private static final int WEAKNESS_FACTOR = 2;
     @Getter
     private Optional<PokeType> weakness;
-    private final int RESISTANCE_VALUE = -30;
+    private static final int RESISTANCE_VALUE = -30;
 
     @Getter
     private Optional<PokeType> resistance;

@@ -1,4 +1,4 @@
-package de.my.tcg.game.mate.card.textparser;
+package de.my.tcg.game.mate.card.textparser.interpreter;
 
 import de.my.tcg.basedata.Attack;
 import de.my.tcg.basedata.poketype.PokeType;
@@ -71,9 +71,12 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
     private void calculateDmg() {
         String dmgAsString = attack.getDamage();
         if (dmgAsString.contains("/+")) {
-
+            throw new IllegalArgumentException();
         } else if (dmgAsString.contains("×")) {
-            dmg = getMultipleDmgEffectTermFromTermList().getDmg();
+            MultipleDmgEffectTerm multipleDmgEffectTerm = getMultipleDmgEffectTermFromTermList();
+            if (multipleDmgEffectTerm != null) {
+                dmg = multipleDmgEffectTerm.getDmg();
+            }
         } else {
             dmg = Integer.parseInt(attack.getDamage());
         }
@@ -82,7 +85,10 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
     private MultipleDmgEffectTerm getMultipleDmgEffectTermFromTermList() {
         Optional<CardEffect> cardEffect = terms.stream().filter(
                 cf -> cf.getEffectTerm() instanceof MultipleDmgEffectTerm).findFirst();
-        return (MultipleDmgEffectTerm) cardEffect.get().getEffectTerm();
+        if (cardEffect.isPresent()) {
+            return (MultipleDmgEffectTerm) cardEffect.get().getEffectTerm();
+        }
+        return null;
     }
 
 
@@ -95,10 +101,8 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
 
     @Override
     public Integer visitTerm(EffectTextParserParser.TermContext ctx) {
-
         currentTerm = new CardEffect(ctx.getText());
         visitChildren(ctx);
-
         terms.add(currentTerm);
         return 0;
     }
@@ -181,7 +185,6 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
             default -> fieldSide = thisFieldSide;
         }
         basicEffectTerm.setExecutedEffect(new DiscardEnergyExecution(typeOfDiscardion, numberOfCards, fieldSide));
-
         return visitChildren(ctx);
     }
 

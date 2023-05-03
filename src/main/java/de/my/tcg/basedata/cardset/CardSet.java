@@ -48,13 +48,12 @@ public class CardSet implements Serializable {
     /**
      * @param total
      * @param printedTotal
-     * @param ptcgoCode
      * @param releaseDate
      * @param series
      * @param name
      * @param shortname
      */
-    public CardSet(String shortname, String name, String series, int printedTotal, int total, String ptcgoCode, String releaseDate) {
+    public CardSet(String shortname, String name, String series, int printedTotal, int total, String releaseDate) {
         super();
         this.shortname = shortname;
         this.name = name;

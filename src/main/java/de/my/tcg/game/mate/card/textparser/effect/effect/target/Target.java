@@ -1,6 +1,7 @@
 package de.my.tcg.game.mate.card.textparser.effect.effect.target;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum Target {
 
@@ -14,7 +15,11 @@ public enum Target {
     }
 
     public static Target getTargetByName(String stringValue) {
-        return Arrays.stream(Target.values()).toList().stream().filter(t -> t.getStringValue().equalsIgnoreCase(stringValue)).findFirst().get();
+        Optional<Target> target = Arrays.stream(Target.values()).toList().stream().filter(t -> t.getStringValue().equalsIgnoreCase(stringValue)).findFirst();
+        if (target.isEmpty()) {
+            throw new EnumConstantNotPresentException(Target.class, "Target not Found");
+        }
+        return target.get();
     }
 
     public String getStringValue() {

@@ -5,11 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import java.io.Serializable;
+
 @lombok.Getter
 @lombok.Setter
 @Entity
-@Table(name="Cost")
-public class Cost {
+@Table(name = "Cost")
+public class Cost implements Serializable {
     @lombok.Getter
     @lombok.Setter
     @GeneratedValue

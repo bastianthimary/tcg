@@ -2,6 +2,7 @@ package de.my.tcg.game.mate.card.attack;
 
 import de.my.tcg.TestCardFactory;
 import de.my.tcg.basedata.Attack;
+import de.my.tcg.basedata.cost.Cost;
 import de.my.tcg.game.TestFieldSideFactory;
 import de.my.tcg.game.coin.Coin;
 import de.my.tcg.game.mate.EnergyTotal;
@@ -10,6 +11,8 @@ import de.my.tcg.game.mate.card.PokemonCard;
 import de.my.tcg.game.mate.card.status.SpecialCondition;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -94,7 +97,7 @@ class AttackInterpreterTest {
         if (expectCoinFlipForMy) {
             if (Coin.headcount == 1) {
                 System.out.println("was head");
-                assertThat(attackingPokemon.getDmgCounter()).isEqualTo(0);
+                assertThat(attackingPokemon.getDmgCounter()).isZero();
             } else {
                 System.out.println("was tails");
                 assertThat(attackingPokemon.getDmgCounter()).isEqualTo(hurtDmg);
@@ -105,12 +108,12 @@ class AttackInterpreterTest {
         }
     }
 
-    /* @ParameterizedTest
+    // @ParameterizedTest
      @CsvFileSource(resources = "/card/attack/attackinterpreter/additionalDmg.csv", numLinesToSkip = 1)
      void additionalDmg(String dmgAsString, String attackString, int expectedDmg, String energyCardsAsString,String costtype,int costqty, String myPokemonName) {
          EnergyTotal energyTotal = new EnergyTotal();
          TestCardFactory.convertStringToEnergyCardList(energyCardsAsString).
-                 forEach(energy -> energyTotal.addEnergyCard(energy));
+                 forEach(energyTotal::addEnergyCard);
 
          FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon(myPokemonName);
          FieldSide opponentFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("opponent");
@@ -125,7 +128,7 @@ class AttackInterpreterTest {
          PokemonCard attackingPokemon = myFieldSide.getActiveMon();
          PokemonCard defendingPokemon = opponentFieldSide.getActiveMon();
          assertThat(defendingPokemon.getDmgCounter()).isEqualTo(expectedDmg);
-     }*/
+     }
     @ParameterizedTest
     @CsvFileSource(resources = "/card/attack/attackinterpreter/discardEnergy.csv", numLinesToSkip = 1)
     void discardEnergy(String attackString, String energyCardsAsString, int energyBefore, int energyAfter, String myPokemonName) {

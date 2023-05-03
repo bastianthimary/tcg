@@ -2,11 +2,14 @@ package de.my.tcg.market.booster;
 
 import de.my.tcg.basedata.card.Card;
 import de.my.tcg.basedata.rarity.Rarity;
-import de.my.tcg.market.booster.distribution.*;
+import de.my.tcg.market.booster.distribution.BoosterDistributionSetting;
 import de.my.tcg.market.booster.distribution.draw.DrawEngine;
 import org.springframework.context.annotation.Bean;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class BoosterFillEngine {
@@ -43,7 +46,7 @@ public class BoosterFillEngine {
     }
 
     private void initDrawLists(Map<Rarity, List<Card>> cardsGroupedByRaritiy) {
-        drawMapOfLists = new HashMap<>();
+        drawMapOfLists = new EnumMap<>(Rarity.class);
         cardsGroupedByRaritiy.keySet().forEach(rarity -> drawMapOfLists.put(rarity, new ArrayList<>()));
         drawEngine = new DrawEngine(drawMapOfLists);
     }

@@ -7,6 +7,7 @@ import de.my.tcg.basedata.cardset.CardSetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -28,7 +29,7 @@ public class BoosterController {
     public Set<Card> openBooster(@PathVariable("setid") long id) {
         Optional<CardSet> cardSetOptional = cardSetService.findById(id);
         if (cardSetOptional.isEmpty()) {
-            return null;
+            return new HashSet<>();
         }
         CardSet cardSet = cardSetOptional.get();
         List<Card> cardsFromSet= cardService.getAllCardsFromSet(cardSet.getId());

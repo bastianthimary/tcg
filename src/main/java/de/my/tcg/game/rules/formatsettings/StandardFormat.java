@@ -1,8 +1,8 @@
 package de.my.tcg.game.rules.formatsettings;
 
 public class StandardFormat implements FormatSettings {
-    private final int STARTHAND = 7;
-    private final int PRICES = 6;
+    private static final int STARTHAND = 7;
+    private static final int PRICES = 6;
 
 
     @Override

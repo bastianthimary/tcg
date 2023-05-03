@@ -9,9 +9,10 @@ import java.util.*;
 
 public class DrawEngine {
     private final Map<Rarity, List<Card>> drawMapOfLists;
-
+    private final Random random;
     public DrawEngine(Map<Rarity, List<Card>> drawMapOfLists) {
         this.drawMapOfLists = drawMapOfLists;
+        random = new Random();
     }
 
     public void runDrawForDistributetSetting(RarityAppearance appearance, Booster booster) {
@@ -47,7 +48,7 @@ public class DrawEngine {
         }
         raritiesOfSet.forEach(rarity -> addTicketsForRarity(rarity, lotteryWheel));
         int size = lotteryWheel.size();
-        int drawIndex = new Random().nextInt(size);
+        int drawIndex = random.nextInt(size);
         return lotteryWheel.get(drawIndex).getRarity();
     }
 
@@ -66,7 +67,7 @@ public class DrawEngine {
     private Card drawCard(Rarity rarity) {
         List<Card> drawList = drawMapOfLists.get(rarity);
         int size = drawList.size();
-        int drawIndex = new Random().nextInt(size);
+        int drawIndex = random.nextInt(size);
         return drawList.get(drawIndex);
     }
 }

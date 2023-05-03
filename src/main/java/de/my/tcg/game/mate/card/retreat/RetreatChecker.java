@@ -4,6 +4,10 @@ import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
 
 public class RetreatChecker {
+    private RetreatChecker() {
+
+    }
+
     public static PerformRetreatState checkFieldHasNegativeResponse(FieldSide playMate, PokemonCard benchMonToExchange) {
         if (playMate.getBenchMons().isEmpty()) {
             return PerformRetreatState.CAN_NOT_RETREAT_DUE_TO_EMPTY_BENCH;

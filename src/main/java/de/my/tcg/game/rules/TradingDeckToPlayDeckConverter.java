@@ -8,10 +8,13 @@ import de.my.tcg.game.rules.exception.ExceptionMessage;
 import de.my.tcg.game.rules.exception.GameException;
 
 public class TradingDeckToPlayDeckConverter {
-   public static PlayDeck convertTradingToPlayDeck(TradingDeck tradingDeck){
+    private TradingDeckToPlayDeckConverter() {
+    }
+
+    public static PlayDeck convertTradingToPlayDeck(TradingDeck tradingDeck) {
         PlayDeck playDeck = new PlayDeck();
-        if(!new DeckValidator(tradingDeck).validate()){
-            throw  new GameException(ExceptionMessage.DECK_IS_NOT_VALID);
+        if (!new DeckValidator(tradingDeck).validate()) {
+            throw new GameException(ExceptionMessage.DECK_IS_NOT_VALID);
         }
         tradingDeck.getCards().forEach(tcgCard ->
                 playDeck.addCard(new PlayCard(tcgCard.getCard())));

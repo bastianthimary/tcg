@@ -13,6 +13,8 @@ import de.my.tcg.game.rules.TradingDeckToPlayDeckConverter;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -35,6 +37,7 @@ public class Player {
     private Retreat retreat;
     private final List<PlayCard> priceCards;
     private AttackManager attackManager;
+    private Random random;
 
     public Player(Person person) {
         this.person = person;
@@ -42,6 +45,11 @@ public class Player {
         handCards = new ArrayList<>();
         priceCards = new ArrayList<>();
         attackManager = new AttackManager(playMate);
+        try {
+            random = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -71,12 +79,12 @@ public class Player {
 
     private PlayCard drawACardFromDeck() {
         List<PlayCard> deckCards = playdeck.cardList;
-        if (deckCards.size() <= 0) {
+        if (deckCards.isEmpty()) {
             competition.lostTheGame(this);
             return null;
         } else {
             int size = deckCards.size();
-            int drawIndex = new Random().nextInt(size);
+            int drawIndex = random.nextInt(size);
             return deckCards.remove(drawIndex);
         }
     }
@@ -123,7 +131,7 @@ public class Player {
 
     public void takeAPrice() {
         handCards.add(priceCards.remove(0));
-        if (priceCards.size() == 0) {
+        if (priceCards.isEmpty()) {
             competition.winTheGame(this);
         }
     }
