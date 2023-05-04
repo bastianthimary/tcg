@@ -108,6 +108,24 @@ public class AdditionalDmgParserBaseListener implements AdditionalDmgParserListe
      * <p>The default implementation does nothing.</p>
      */
     @Override
+    public void enterEnergyNotUsed(AdditionalDmgParserParser.EnergyNotUsedContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitEnergyNotUsed(AdditionalDmgParserParser.EnergyNotUsedContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
     public void enterLimitation(AdditionalDmgParserParser.LimitationContext ctx) {
     }
 
@@ -118,6 +136,60 @@ public class AdditionalDmgParserBaseListener implements AdditionalDmgParserListe
      */
     @Override
     public void exitLimitation(AdditionalDmgParserParser.LimitationContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void enterEnergyAfter(AdditionalDmgParserParser.EnergyAfterContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitEnergyAfter(AdditionalDmgParserParser.EnergyAfterContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void enterEnergyAfter_Var1(AdditionalDmgParserParser.EnergyAfter_Var1Context ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitEnergyAfter_Var1(AdditionalDmgParserParser.EnergyAfter_Var1Context ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void enterEnergyAfter_Var2(AdditionalDmgParserParser.EnergyAfter_Var2Context ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitEnergyAfter_Var2(AdditionalDmgParserParser.EnergyAfter_Var2Context ctx) {
     }
 
     /**

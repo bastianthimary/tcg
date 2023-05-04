@@ -1,21 +1,23 @@
 grammar AdditionalDmgParser;
 
 options { caseInsensitive = true; }
-Number:[0-9a]+;
+Number: [0-9]+ ;
 WHITESPACE: [ .\t\n\r]+ ->skip;
+DoOrDont: Dont|Do;
 Do:'Does';
-Dont:('doesn\'t'|'don\'t');
+Dont:('doesnt'|'dont');
 
 
 effectText: term+ ;
 term:additionalDmgEffect;
-additionalDmgEffect:dmgData condition limitation;
-dmgData:Do( dmg=Number ' damage plus' additionalDmg=Number'more damage');
-condition:'for each' type=PokeType 'Energy attached to' target=Target' but not used to pay for this attacks Energy cost';
-limitation:EnergyAfter;
-EnergyAfter:EnergyAfter_Var1|EnergyAfter_Var2;
-EnergyAfter_Var1:'Extra'  PokeType 'Energy after the' LimitationCounter Dont 'count';
-EnergyAfter_Var2:'You can\'t add more than ' Number ' damage in this way';
+additionalDmgEffect:dmgData condition? ;
+dmgData:DoOrDont dmg=Number ' damage plus' additionalDmg=Number'more damage';
+condition:energyNotUsed limitation;
+energyNotUsed:'for each' type=PokeType 'Energy attached to' target=Target 'but not used to pay for this attacks Energy cost';
+limitation:energyAfter;
+energyAfter:energyAfter_Var1|energyAfter_Var2;
+energyAfter_Var1:(('Extra ')  PokeType ('Energy after the') LimitationCounter DoOrDont (' count.'));
+energyAfter_Var2:'You cant add more than 'dmgLimit= Number ' damage in this way';
 
 
 Target:VarPokemonName|DefendingPokemon;

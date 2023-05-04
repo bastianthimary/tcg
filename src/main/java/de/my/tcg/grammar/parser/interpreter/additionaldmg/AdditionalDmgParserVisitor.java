@@ -1,6 +1,5 @@
 // Generated from C:/Users/Bastian Binaris/IdeaProjects/Privat/Pokemon/tcg/src/main/resources/interpreter\AdditionalDmgParser.g4 by ANTLR 4.12.0
 package de.my.tcg.grammar.parser.interpreter.additionaldmg;
-
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -52,10 +51,42 @@ public interface AdditionalDmgParserVisitor<T> extends ParseTreeVisitor<T> {
     T visitCondition(AdditionalDmgParserParser.ConditionContext ctx);
 
     /**
+     * Visit a parse tree produced by {@link AdditionalDmgParserParser#energyNotUsed}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitEnergyNotUsed(AdditionalDmgParserParser.EnergyNotUsedContext ctx);
+
+    /**
      * Visit a parse tree produced by {@link AdditionalDmgParserParser#limitation}.
      *
      * @param ctx the parse tree
      * @return the visitor result
      */
     T visitLimitation(AdditionalDmgParserParser.LimitationContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link AdditionalDmgParserParser#energyAfter}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitEnergyAfter(AdditionalDmgParserParser.EnergyAfterContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link AdditionalDmgParserParser#energyAfter_Var1}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitEnergyAfter_Var1(AdditionalDmgParserParser.EnergyAfter_Var1Context ctx);
+
+    /**
+     * Visit a parse tree produced by {@link AdditionalDmgParserParser#energyAfter_Var2}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitEnergyAfter_Var2(AdditionalDmgParserParser.EnergyAfter_Var2Context ctx);
 }

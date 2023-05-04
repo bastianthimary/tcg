@@ -108,20 +108,24 @@ class AttackInterpreterTest {
         }
     }
 
-    // @ParameterizedTest
+     @ParameterizedTest
      @CsvFileSource(resources = "/card/attack/attackinterpreter/additionalDmg.csv", numLinesToSkip = 1)
-     void additionalDmg(String dmgAsString, String attackString, int expectedDmg, String energyCardsAsString,String costtype,int costqty, String myPokemonName) {
-         EnergyTotal energyTotal = new EnergyTotal();
-         TestCardFactory.convertStringToEnergyCardList(energyCardsAsString).
-                 forEach(energyTotal::addEnergyCard);
+     void additionalDmg(String dmgAsString, String attackString, int expectedDmg, String energyCardsAsString,
+                        String costtype, int costqty, String myPokemonName) {
+
 
          FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon(myPokemonName);
          FieldSide opponentFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("opponent");
+         PokemonCard myPokemon = myFieldSide.getActiveMon();
+         EnergyTotal energyTotal = myPokemon.getEnergyTotal();
+         TestCardFactory.convertStringToEnergyCardList(energyCardsAsString).
+                 forEach(energyTotal::addEnergyCard);
          Attack attack = new Attack();
          attack.setText(attackString);
          attack.setDamage(dmgAsString);
-         Cost cost1=new Cost(costtype,costqty);
+         Cost cost1 = new Cost(costtype, costqty);
          attack.setCost(Set.of(cost1));
+         attack.setConvertedEnergyCost(costqty);
          AttackInterpreter attackInterpreter = new AttackInterpreter(attack, myFieldSide, opponentFieldSide);
          attackInterpreter.performAttack();
 

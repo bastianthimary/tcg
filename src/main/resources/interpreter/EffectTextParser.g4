@@ -1,7 +1,7 @@
 grammar EffectTextParser;
 options { caseInsensitive = true; }
 
-Number:[0-9a]+;
+Number:[0-9]+;
 WHITESPACE: [ .\t\n\r]+ ->skip;
 Target:VarPokemonName|DefendingPokemon;
 VarPokemonName: 'this Pokemon';

@@ -1,6 +1,5 @@
 // Generated from C:/Users/Bastian Binaris/IdeaProjects/Privat/Pokemon/tcg/src/main/resources/interpreter\AdditionalDmgParser.g4 by ANTLR 4.12.0
 package de.my.tcg.grammar.parser.interpreter.additionaldmg;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -79,6 +78,20 @@ public interface AdditionalDmgParserListener extends ParseTreeListener {
     void exitCondition(AdditionalDmgParserParser.ConditionContext ctx);
 
     /**
+     * Enter a parse tree produced by {@link AdditionalDmgParserParser#energyNotUsed}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterEnergyNotUsed(AdditionalDmgParserParser.EnergyNotUsedContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link AdditionalDmgParserParser#energyNotUsed}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitEnergyNotUsed(AdditionalDmgParserParser.EnergyNotUsedContext ctx);
+
+    /**
      * Enter a parse tree produced by {@link AdditionalDmgParserParser#limitation}.
      *
      * @param ctx the parse tree
@@ -91,4 +104,46 @@ public interface AdditionalDmgParserListener extends ParseTreeListener {
      * @param ctx the parse tree
      */
     void exitLimitation(AdditionalDmgParserParser.LimitationContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link AdditionalDmgParserParser#energyAfter}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterEnergyAfter(AdditionalDmgParserParser.EnergyAfterContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link AdditionalDmgParserParser#energyAfter}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitEnergyAfter(AdditionalDmgParserParser.EnergyAfterContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link AdditionalDmgParserParser#energyAfter_Var1}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterEnergyAfter_Var1(AdditionalDmgParserParser.EnergyAfter_Var1Context ctx);
+
+    /**
+     * Exit a parse tree produced by {@link AdditionalDmgParserParser#energyAfter_Var1}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitEnergyAfter_Var1(AdditionalDmgParserParser.EnergyAfter_Var1Context ctx);
+
+    /**
+     * Enter a parse tree produced by {@link AdditionalDmgParserParser#energyAfter_Var2}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterEnergyAfter_Var2(AdditionalDmgParserParser.EnergyAfter_Var2Context ctx);
+
+    /**
+     * Exit a parse tree produced by {@link AdditionalDmgParserParser#energyAfter_Var2}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitEnergyAfter_Var2(AdditionalDmgParserParser.EnergyAfter_Var2Context ctx);
 }

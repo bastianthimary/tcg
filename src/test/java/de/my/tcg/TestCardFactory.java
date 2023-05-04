@@ -43,7 +43,7 @@ public class TestCardFactory {
     public static PlayCard createBasicPlayCard(int retreatCosts, String name) {
         Card card = new Card();
         card.setName(name);
-        card.setHp("100");
+        card.setHp("150");
         card.setConvertedRetreatCost(retreatCosts);
         card.setSubtypes(Set.of(Subtype.BASIC));
         card.setSupertype(CardTypes.POKEMON);

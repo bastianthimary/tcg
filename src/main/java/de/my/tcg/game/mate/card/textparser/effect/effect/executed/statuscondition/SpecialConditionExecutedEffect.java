@@ -1,4 +1,4 @@
-package de.my.tcg.game.mate.card.textparser.effect.effect.executed.condition;
+package de.my.tcg.game.mate.card.textparser.effect.effect.executed.statuscondition;
 
 import de.my.tcg.game.mate.card.PokemonCard;
 import de.my.tcg.game.mate.card.status.SpecialCondition;

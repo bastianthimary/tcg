@@ -9,12 +9,13 @@ import de.my.tcg.game.mate.card.textparser.effect.CardEffect;
 import de.my.tcg.game.mate.card.textparser.effect.condition.ConditionTerm;
 import de.my.tcg.game.mate.card.textparser.effect.condition.condition.FlipCoinTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.BasicEffectTerm;
-import de.my.tcg.game.mate.card.textparser.effect.effect.executed.condition.SpecialConditionExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.discard.DiscardEnergyExecution;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.MultipleDmgEffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.hurt.HurtExecutedEffect;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.statuscondition.SpecialConditionExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.EffectTarget;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.Target;
+import de.my.tcg.game.mate.card.textparser.utils.CardTextUtil;
 import de.my.tcg.grammar.parser.interpreter.EffectTextParserBaseVisitor;
 import de.my.tcg.grammar.parser.interpreter.EffectTextParserLexer;
 import de.my.tcg.grammar.parser.interpreter.EffectTextParserParser;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVisitor<Integer> {
+public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVisitor<Integer> implements Performer {
     private int dmg;
     @Getter
     private final List<CardEffect> terms = new ArrayList<>();
@@ -59,7 +60,7 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
     }
 
     private void parseTextAndPerformEffect() {
-        String normalizedString = normalizeString(attack.getText());
+        String normalizedString = CardTextUtil.normalizeString(attack.getText(), thisPokemonCard);
         CharStream inputStream = CharStreams.fromString(normalizedString);
         EffectTextParserLexer lexer = new EffectTextParserLexer(inputStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -70,34 +71,26 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
 
     private void calculateDmg() {
         String dmgAsString = attack.getDamage();
-        if (dmgAsString.contains("/+")) {
+        if (dmgAsString.contains(CardTextUtil.PLUS_SYMBOL)) {
             throw new IllegalArgumentException();
-        } else if (dmgAsString.contains("×")) {
+        } else if (dmgAsString.contains(CardTextUtil.MULTIPLY_SYMBOL)) {
             MultipleDmgEffectTerm multipleDmgEffectTerm = getMultipleDmgEffectTermFromTermList();
             if (multipleDmgEffectTerm != null) {
                 dmg = multipleDmgEffectTerm.getDmg();
             }
         } else {
-            dmg = Integer.parseInt(attack.getDamage());
+            if (!attack.getDamage().isEmpty()) {
+                dmg = Integer.parseInt(attack.getDamage());
+            }
         }
     }
 
     private MultipleDmgEffectTerm getMultipleDmgEffectTermFromTermList() {
         Optional<CardEffect> cardEffect = terms.stream().filter(
                 cf -> cf.getEffectTerm() instanceof MultipleDmgEffectTerm).findFirst();
-        if (cardEffect.isPresent()) {
-            return (MultipleDmgEffectTerm) cardEffect.get().getEffectTerm();
-        }
-        return null;
+        return cardEffect.map(effect -> (MultipleDmgEffectTerm) effect.getEffectTerm()).orElse(null);
     }
 
-
-    private String normalizeString(String parseString) {
-        if (parseString.contains(thisPokemonCard.getName())) {
-            return parseString.replace(thisPokemonCard.getName(), "this Pokemon");
-        }
-        return parseString;
-    }
 
     @Override
     public Integer visitTerm(EffectTextParserParser.TermContext ctx) {

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class EnergyTotal {
     EnumMap<PokeType, List<EnergyCard>> energyDepot;
+    public static final int ALL_CARDS = -200;
 
     public EnergyTotal() {
         this.energyDepot = new EnumMap<>(PokeType.class);
@@ -120,6 +121,10 @@ public class EnergyTotal {
     public List<EnergyCard> removeNumberOfEnergytype(int number, PokeType pokeType) {
         List<EnergyCard> removedEnergyCards = new ArrayList<>();
         List<EnergyCard> energyFromDepot = energyDepot.get(pokeType);
+        if (number == ALL_CARDS) {
+            removedEnergyCards.addAll(energyFromDepot);
+            energyFromDepot = new ArrayList<>();
+        }
         for (int i = 0; i < number; i++) {
             removedEnergyCards.add(energyFromDepot.remove(0));
         }
@@ -127,7 +132,11 @@ public class EnergyTotal {
     }
 
     public List<EnergyCard> getANumberOfCardOfType(int number, PokeType pokeType) {
+
         List<EnergyCard> energyFromDepot = energyDepot.get(pokeType);
+        if (number == ALL_CARDS) {
+            return new ArrayList<>(energyFromDepot);
+        }
         return new ArrayList<>(energyFromDepot.subList(0, number));
     }
 
