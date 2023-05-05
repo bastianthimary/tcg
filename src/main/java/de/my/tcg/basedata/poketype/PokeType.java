@@ -16,7 +16,9 @@ public enum PokeType {
     Darkness("Darkness"),
     Fairy("Fairy"),
     Dragon("Dragon"),
-    Metal("Metal");
+    Metal("Metal"),
+    All("All");
+
 
     private String typeName;
 

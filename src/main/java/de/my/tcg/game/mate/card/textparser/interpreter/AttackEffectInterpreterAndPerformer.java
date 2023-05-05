@@ -171,8 +171,13 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
     @Override
     public Integer visitDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx) {
         int numberOfCards = NumberParser.parseNumberOrStringToInteger(ctx.numberOfCards.getText());
+        PokeType typeOfDiscardion;
+        if (numberOfCards == NumberParser.ALL) {
+            typeOfDiscardion = PokeType.All;
+        } else {
+            typeOfDiscardion = PokeType.valueOf(ctx.PokeType().getText());
+        }
 
-        PokeType typeOfDiscardion = PokeType.valueOf(ctx.PokeType().getText());
         BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
         FieldSide fieldSide;
         switch (Target.getTargetByName(ctx.target().getText())) {

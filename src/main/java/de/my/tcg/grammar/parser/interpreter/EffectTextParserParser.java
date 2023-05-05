@@ -25,9 +25,9 @@ public class EffectTextParserParser extends Parser {
     public static final int
             T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, T__7 = 8, T__8 = 9,
             T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, T__14 = 15, T__15 = 16, T__16 = 17,
-            T__17 = 18, T__18 = 19, T__19 = 20, T__20 = 21, T__21 = 22, T__22 = 23, Number = 24,
-            WHITESPACE = 25, VarPokemonName = 26, DefendingPokemon = 27, AllBenchMons = 28,
-            PokeType = 29;
+            T__17 = 18, T__18 = 19, T__19 = 20, T__20 = 21, T__21 = 22, T__22 = 23, T__23 = 24,
+            Number = 25, WHITESPACE = 26, VarPokemonName = 27, DefendingPokemon = 28, AllBenchMons = 29,
+            PokeType = 30;
     public static final int
             RULE_target = 0, RULE_statusCondition = 1, RULE_conditionTypes = 2, RULE_effectText = 3,
             RULE_term = 4, RULE_conditionTerm = 5, RULE_effectTerm = 6, RULE_condition = 7,
@@ -51,8 +51,8 @@ public class EffectTextParserParser extends Parser {
                 null, "'Asleep'", "'Confused'", "'Paralyzed'", "'heads'", "'Pok\\u00E9mon you have in play.'",
                 "'tails'", "'Flip'", "'coin'", "'coins'", "'if'", "'This attack does'",
                 "' damage times the number of'", "'does '", "'damage to itself'", "'is now'",
-                "'Discard'", "'Energy'", "'card'", "'cards'", "' attached to'", "' in order to use this attack.'",
-                "'damage to '", "'. Dont apply Weakness and Resistance for Benched Pok\\u00E9mon.'",
+                "'Discard'", "'all'", "'Energy'", "'card'", "'cards'", "' attached to'",
+                "' in order to use this attack.'", "'damage to '", "'. Dont apply Weakness and Resistance for Benched Pok\\u00E9mon.'",
                 null, null, "'this Pokemon'", "'the Defending Pok\\u00E9mon'", "'each Pok\\u00E9mon on each players Bench'"
         };
     }
@@ -63,7 +63,7 @@ public class EffectTextParserParser extends Parser {
         return new String[]{
                 null, null, null, null, null, null, null, null, null, null, null, null,
                 null, null, null, null, null, null, null, null, null, null, null, null,
-                "Number", "WHITESPACE", "VarPokemonName", "DefendingPokemon", "AllBenchMons",
+                null, "Number", "WHITESPACE", "VarPokemonName", "DefendingPokemon", "AllBenchMons",
                 "PokeType"
         };
     }
@@ -367,7 +367,7 @@ public class EffectTextParserParser extends Parser {
                     setState(45);
                     _errHandler.sync(this);
                     _la = _input.LA(1);
-                } while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 201435264L) != 0));
+                } while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 402761856L) != 0));
             }
         } catch (RecognitionException re) {
             _localctx.exception = re;
@@ -1203,12 +1203,12 @@ public class EffectTextParserParser extends Parser {
     public static class DiscardEnergyContext extends ParserRuleContext {
         public Token numberOfCards;
 
-        public TerminalNode PokeType() {
-            return getToken(EffectTextParserParser.PokeType, 0);
-        }
-
         public TargetContext target() {
             return getRuleContext(TargetContext.class, 0);
+        }
+
+        public TerminalNode PokeType() {
+            return getToken(EffectTextParserParser.PokeType, 0);
         }
 
         public TerminalNode Number() {
@@ -1253,27 +1253,43 @@ public class EffectTextParserParser extends Parser {
             {
                 setState(98);
                 match(T__15);
-                setState(99);
-                ((DiscardEnergyContext) _localctx).numberOfCards = match(Number);
-                setState(100);
-                match(PokeType);
-                setState(101);
-                match(T__16);
                 setState(102);
+                _errHandler.sync(this);
+                switch (_input.LA(1)) {
+                    case Number: {
+                        {
+                            setState(99);
+                            ((DiscardEnergyContext) _localctx).numberOfCards = match(Number);
+                            setState(100);
+                            match(PokeType);
+                        }
+                    }
+                    break;
+                    case T__16: {
+                        setState(101);
+                        ((DiscardEnergyContext) _localctx).numberOfCards = match(T__16);
+                    }
+                    break;
+                    default:
+                        throw new NoViableAltException(this);
+                }
+                setState(104);
+                match(T__17);
+                setState(105);
                 _la = _input.LA(1);
-                if (!(_la == T__17 || _la == T__18)) {
+                if (!(_la == T__18 || _la == T__19)) {
                     _errHandler.recoverInline(this);
                 } else {
                     if (_input.LA(1) == Token.EOF) matchedEOF = true;
                     _errHandler.reportMatch(this);
                     consume();
                 }
-                setState(103);
-                match(T__19);
-                setState(104);
-                target();
-                setState(105);
+                setState(106);
                 match(T__20);
+                setState(107);
+                target();
+                setState(108);
+                match(T__21);
             }
         } catch (RecognitionException re) {
             _localctx.exception = re;
@@ -1332,16 +1348,16 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(107);
-                match(T__12);
-                setState(108);
-                ((BenchDmgEffectContext) _localctx).dmg = match(Number);
-                setState(109);
-                match(T__21);
                 setState(110);
-                match(AllBenchMons);
+                match(T__12);
                 setState(111);
+                ((BenchDmgEffectContext) _localctx).dmg = match(Number);
+                setState(112);
                 match(T__22);
+                setState(113);
+                match(AllBenchMons);
+                setState(114);
+                match(T__23);
             }
         } catch (RecognitionException re) {
             _localctx.exception = re;
@@ -1354,7 +1370,7 @@ public class EffectTextParserParser extends Parser {
     }
 
     public static final String _serializedATN =
-            "\u0004\u0001\u001dr\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002" +
+            "\u0004\u0001\u001eu\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002" +
                     "\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002" +
                     "\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002" +
                     "\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002" +
@@ -1369,51 +1385,53 @@ public class EffectTextParserParser extends Parser {
                     "N\b\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0003\fT\b\f\u0001\r\u0001\r" +
                     "\u0001\r\u0001\r\u0003\rZ\b\r\u0001\u000e\u0001\u000e\u0001\u000e\u0001" +
                     "\u000e\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u0010\u0001\u0010\u0001" +
-                    "\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001" +
-                    "\u0010\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0001" +
-                    "\u0011\u0001\u0011\u0000\u0000\u0012\u0000\u0002\u0004\u0006\b\n\f\u000e" +
-                    "\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"\u0000\u0005\u0001" +
-                    "\u0000\u001a\u001b\u0001\u0000\u0001\u0003\u0001\u0000\u0004\u0006\u0001" +
-                    "\u0000\b\t\u0001\u0000\u0012\u0013i\u0000$\u0001\u0000\u0000\u0000\u0002" +
-                    "&\u0001\u0000\u0000\u0000\u0004(\u0001\u0000\u0000\u0000\u0006+\u0001" +
-                    "\u0000\u0000\u0000\b4\u0001\u0000\u0000\u0000\n6\u0001\u0000\u0000\u0000" +
-                    "\f<\u0001\u0000\u0000\u0000\u000e>\u0001\u0000\u0000\u0000\u0010@\u0001" +
-                    "\u0000\u0000\u0000\u0012D\u0001\u0000\u0000\u0000\u0014G\u0001\u0000\u0000" +
-                    "\u0000\u0016I\u0001\u0000\u0000\u0000\u0018S\u0001\u0000\u0000\u0000\u001a" +
-                    "Y\u0001\u0000\u0000\u0000\u001c[\u0001\u0000\u0000\u0000\u001e_\u0001" +
-                    "\u0000\u0000\u0000 b\u0001\u0000\u0000\u0000\"k\u0001\u0000\u0000\u0000" +
-                    "$%\u0007\u0000\u0000\u0000%\u0001\u0001\u0000\u0000\u0000&\'\u0007\u0001" +
-                    "\u0000\u0000\'\u0003\u0001\u0000\u0000\u0000()\u0007\u0002\u0000\u0000" +
-                    ")\u0005\u0001\u0000\u0000\u0000*,\u0003\b\u0004\u0000+*\u0001\u0000\u0000" +
-                    "\u0000,-\u0001\u0000\u0000\u0000-+\u0001\u0000\u0000\u0000-.\u0001\u0000" +
-                    "\u0000\u0000.\u0007\u0001\u0000\u0000\u0000/1\u0003\n\u0005\u00000/\u0001" +
-                    "\u0000\u0000\u000001\u0001\u0000\u0000\u000012\u0001\u0000\u0000\u0000" +
-                    "25\u0003\f\u0006\u000035\u0003\f\u0006\u000040\u0001\u0000\u0000\u0000" +
-                    "43\u0001\u0000\u0000\u00005\t\u0001\u0000\u0000\u000068\u0003\u000e\u0007" +
-                    "\u000079\u0003\u0012\t\u000087\u0001\u0000\u0000\u000089\u0001\u0000\u0000" +
-                    "\u00009\u000b\u0001\u0000\u0000\u0000:=\u0003\u0014\n\u0000;=\u0003\u0018" +
-                    "\f\u0000<:\u0001\u0000\u0000\u0000<;\u0001\u0000\u0000\u0000=\r\u0001" +
-                    "\u0000\u0000\u0000>?\u0003\u0010\b\u0000?\u000f\u0001\u0000\u0000\u0000" +
-                    "@A\u0005\u0007\u0000\u0000AB\u0005\u0018\u0000\u0000BC\u0007\u0003\u0000" +
-                    "\u0000C\u0011\u0001\u0000\u0000\u0000DE\u0005\n\u0000\u0000EF\u0003\u0004" +
-                    "\u0002\u0000F\u0013\u0001\u0000\u0000\u0000GH\u0003\u0016\u000b\u0000" +
-                    "H\u0015\u0001\u0000\u0000\u0000IJ\u0005\u000b\u0000\u0000JK\u0005\u0018" +
-                    "\u0000\u0000KM\u0005\f\u0000\u0000LN\u0003\u0004\u0002\u0000ML\u0001\u0000" +
-                    "\u0000\u0000MN\u0001\u0000\u0000\u0000N\u0017\u0001\u0000\u0000\u0000" +
-                    "OP\u0003\u0000\u0000\u0000PQ\u0003\u001a\r\u0000QT\u0001\u0000\u0000\u0000" +
-                    "RT\u0003\u001a\r\u0000SO\u0001\u0000\u0000\u0000SR\u0001\u0000\u0000\u0000" +
-                    "T\u0019\u0001\u0000\u0000\u0000UZ\u0003\u001e\u000f\u0000VZ\u0003\u001c" +
-                    "\u000e\u0000WZ\u0003 \u0010\u0000XZ\u0003\"\u0011\u0000YU\u0001\u0000" +
-                    "\u0000\u0000YV\u0001\u0000\u0000\u0000YW\u0001\u0000\u0000\u0000YX\u0001" +
-                    "\u0000\u0000\u0000Z\u001b\u0001\u0000\u0000\u0000[\\\u0005\r\u0000\u0000" +
-                    "\\]\u0005\u0018\u0000\u0000]^\u0005\u000e\u0000\u0000^\u001d\u0001\u0000" +
-                    "\u0000\u0000_`\u0005\u000f\u0000\u0000`a\u0003\u0002\u0001\u0000a\u001f" +
-                    "\u0001\u0000\u0000\u0000bc\u0005\u0010\u0000\u0000cd\u0005\u0018\u0000" +
-                    "\u0000de\u0005\u001d\u0000\u0000ef\u0005\u0011\u0000\u0000fg\u0007\u0004" +
-                    "\u0000\u0000gh\u0005\u0014\u0000\u0000hi\u0003\u0000\u0000\u0000ij\u0005" +
-                    "\u0015\u0000\u0000j!\u0001\u0000\u0000\u0000kl\u0005\r\u0000\u0000lm\u0005" +
-                    "\u0018\u0000\u0000mn\u0005\u0016\u0000\u0000no\u0005\u001c\u0000\u0000" +
-                    "op\u0005\u0017\u0000\u0000p#\u0001\u0000\u0000\u0000\b-048<MSY";
+                    "\u0010\u0001\u0010\u0003\u0010g\b\u0010\u0001\u0010\u0001\u0010\u0001" +
+                    "\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0011\u0001\u0011\u0001" +
+                    "\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0000\u0000\u0012" +
+                    "\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a" +
+                    "\u001c\u001e \"\u0000\u0005\u0001\u0000\u001b\u001c\u0001\u0000\u0001" +
+                    "\u0003\u0001\u0000\u0004\u0006\u0001\u0000\b\t\u0001\u0000\u0013\u0014" +
+                    "m\u0000$\u0001\u0000\u0000\u0000\u0002&\u0001\u0000\u0000\u0000\u0004" +
+                    "(\u0001\u0000\u0000\u0000\u0006+\u0001\u0000\u0000\u0000\b4\u0001\u0000" +
+                    "\u0000\u0000\n6\u0001\u0000\u0000\u0000\f<\u0001\u0000\u0000\u0000\u000e" +
+                    ">\u0001\u0000\u0000\u0000\u0010@\u0001\u0000\u0000\u0000\u0012D\u0001" +
+                    "\u0000\u0000\u0000\u0014G\u0001\u0000\u0000\u0000\u0016I\u0001\u0000\u0000" +
+                    "\u0000\u0018S\u0001\u0000\u0000\u0000\u001aY\u0001\u0000\u0000\u0000\u001c" +
+                    "[\u0001\u0000\u0000\u0000\u001e_\u0001\u0000\u0000\u0000 b\u0001\u0000" +
+                    "\u0000\u0000\"n\u0001\u0000\u0000\u0000$%\u0007\u0000\u0000\u0000%\u0001" +
+                    "\u0001\u0000\u0000\u0000&\'\u0007\u0001\u0000\u0000\'\u0003\u0001\u0000" +
+                    "\u0000\u0000()\u0007\u0002\u0000\u0000)\u0005\u0001\u0000\u0000\u0000" +
+                    "*,\u0003\b\u0004\u0000+*\u0001\u0000\u0000\u0000,-\u0001\u0000\u0000\u0000" +
+                    "-+\u0001\u0000\u0000\u0000-.\u0001\u0000\u0000\u0000.\u0007\u0001\u0000" +
+                    "\u0000\u0000/1\u0003\n\u0005\u00000/\u0001\u0000\u0000\u000001\u0001\u0000" +
+                    "\u0000\u000012\u0001\u0000\u0000\u000025\u0003\f\u0006\u000035\u0003\f" +
+                    "\u0006\u000040\u0001\u0000\u0000\u000043\u0001\u0000\u0000\u00005\t\u0001" +
+                    "\u0000\u0000\u000068\u0003\u000e\u0007\u000079\u0003\u0012\t\u000087\u0001" +
+                    "\u0000\u0000\u000089\u0001\u0000\u0000\u00009\u000b\u0001\u0000\u0000" +
+                    "\u0000:=\u0003\u0014\n\u0000;=\u0003\u0018\f\u0000<:\u0001\u0000\u0000" +
+                    "\u0000<;\u0001\u0000\u0000\u0000=\r\u0001\u0000\u0000\u0000>?\u0003\u0010" +
+                    "\b\u0000?\u000f\u0001\u0000\u0000\u0000@A\u0005\u0007\u0000\u0000AB\u0005" +
+                    "\u0019\u0000\u0000BC\u0007\u0003\u0000\u0000C\u0011\u0001\u0000\u0000" +
+                    "\u0000DE\u0005\n\u0000\u0000EF\u0003\u0004\u0002\u0000F\u0013\u0001\u0000" +
+                    "\u0000\u0000GH\u0003\u0016\u000b\u0000H\u0015\u0001\u0000\u0000\u0000" +
+                    "IJ\u0005\u000b\u0000\u0000JK\u0005\u0019\u0000\u0000KM\u0005\f\u0000\u0000" +
+                    "LN\u0003\u0004\u0002\u0000ML\u0001\u0000\u0000\u0000MN\u0001\u0000\u0000" +
+                    "\u0000N\u0017\u0001\u0000\u0000\u0000OP\u0003\u0000\u0000\u0000PQ\u0003" +
+                    "\u001a\r\u0000QT\u0001\u0000\u0000\u0000RT\u0003\u001a\r\u0000SO\u0001" +
+                    "\u0000\u0000\u0000SR\u0001\u0000\u0000\u0000T\u0019\u0001\u0000\u0000" +
+                    "\u0000UZ\u0003\u001e\u000f\u0000VZ\u0003\u001c\u000e\u0000WZ\u0003 \u0010" +
+                    "\u0000XZ\u0003\"\u0011\u0000YU\u0001\u0000\u0000\u0000YV\u0001\u0000\u0000" +
+                    "\u0000YW\u0001\u0000\u0000\u0000YX\u0001\u0000\u0000\u0000Z\u001b\u0001" +
+                    "\u0000\u0000\u0000[\\\u0005\r\u0000\u0000\\]\u0005\u0019\u0000\u0000]" +
+                    "^\u0005\u000e\u0000\u0000^\u001d\u0001\u0000\u0000\u0000_`\u0005\u000f" +
+                    "\u0000\u0000`a\u0003\u0002\u0001\u0000a\u001f\u0001\u0000\u0000\u0000" +
+                    "bf\u0005\u0010\u0000\u0000cd\u0005\u0019\u0000\u0000dg\u0005\u001e\u0000" +
+                    "\u0000eg\u0005\u0011\u0000\u0000fc\u0001\u0000\u0000\u0000fe\u0001\u0000" +
+                    "\u0000\u0000gh\u0001\u0000\u0000\u0000hi\u0005\u0012\u0000\u0000ij\u0007" +
+                    "\u0004\u0000\u0000jk\u0005\u0015\u0000\u0000kl\u0003\u0000\u0000\u0000" +
+                    "lm\u0005\u0016\u0000\u0000m!\u0001\u0000\u0000\u0000no\u0005\r\u0000\u0000" +
+                    "op\u0005\u0019\u0000\u0000pq\u0005\u0017\u0000\u0000qr\u0005\u001d\u0000" +
+                    "\u0000rs\u0005\u0018\u0000\u0000s#\u0001\u0000\u0000\u0000\t-048<MSYf";
     public static final ATN _ATN =
             new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 

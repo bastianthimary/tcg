@@ -8,6 +8,7 @@ import de.my.tcg.game.mate.card.PokemonCard;
 import de.my.tcg.game.mate.card.textparser.effect.condition.ConditionTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.addcondition.AddCondition;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.addcondition.Limitation;
+import de.my.tcg.game.mate.card.textparser.utils.NumberParser;
 import lombok.Setter;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class AddByEnergyNotUsed extends ConditionTerm implements AddCondition {
 
     private int getTotalEnergysOfType() {
         EnergyTotal energyTotal = targedPokemon.getEnergyTotal();
-        List<EnergyCard> allEnergy = energyTotal.getANumberOfCardOfType(EnergyTotal.ALL_CARDS, energyType);
+        List<EnergyCard> allEnergy = energyTotal.getANumberOfCardOfType(NumberParser.ALL, energyType);
         return allEnergy.size();
 
     }

@@ -4,6 +4,7 @@ import de.my.tcg.basedata.Attack;
 import de.my.tcg.basedata.cost.Cost;
 import de.my.tcg.basedata.poketype.PokeType;
 import de.my.tcg.game.mate.card.EnergyCard;
+import de.my.tcg.game.mate.card.textparser.utils.NumberParser;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class EnergyTotal {
     EnumMap<PokeType, List<EnergyCard>> energyDepot;
-    public static final int ALL_CARDS = -200;
+
 
     public EnergyTotal() {
         this.energyDepot = new EnumMap<>(PokeType.class);
@@ -121,7 +122,7 @@ public class EnergyTotal {
     public List<EnergyCard> removeNumberOfEnergytype(int number, PokeType pokeType) {
         List<EnergyCard> removedEnergyCards = new ArrayList<>();
         List<EnergyCard> energyFromDepot = energyDepot.get(pokeType);
-        if (number == ALL_CARDS) {
+        if (number == NumberParser.ALL) {
             removedEnergyCards.addAll(energyFromDepot);
             energyFromDepot = new ArrayList<>();
         }
@@ -132,9 +133,13 @@ public class EnergyTotal {
     }
 
     public List<EnergyCard> getANumberOfCardOfType(int number, PokeType pokeType) {
-
-        List<EnergyCard> energyFromDepot = energyDepot.get(pokeType);
-        if (number == ALL_CARDS) {
+        List<EnergyCard> energyFromDepot;
+        if (PokeType.All.equals(pokeType)) {
+            energyFromDepot = getAllEnergyCard();
+        } else {
+            energyFromDepot = energyDepot.get(pokeType);
+        }
+        if (number == NumberParser.ALL) {
             return new ArrayList<>(energyFromDepot);
         }
         return new ArrayList<>(energyFromDepot.subList(0, number));

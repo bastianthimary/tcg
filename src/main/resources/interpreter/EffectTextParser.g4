@@ -31,7 +31,7 @@ basicEffect:(target executedEffect)|executedEffect;
 executedEffect:statusEffect|hurtEffect|discardEnergy|benchDmgEffect;
 hurtEffect:'does 'dmg=Number'damage to itself';
 statusEffect:'is now' statusCondition;
-discardEnergy:'Discard'numberOfCards=Number PokeType 'Energy'('card'|'cards') ' attached to' target' in order to use this attack.';
+discardEnergy:'Discard'((numberOfCards=Number PokeType)|numberOfCards='all') 'Energy'('card'|'cards') ' attached to' target' in order to use this attack.';
 benchDmgEffect:'does ' dmg=Number'damage to 'AllBenchMons '. Dont apply Weakness and Resistance for Benched Pokémon.';
 
 
