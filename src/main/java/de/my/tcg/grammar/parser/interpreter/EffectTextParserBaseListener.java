@@ -18,6 +18,60 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
+    public void enterTarget(EffectTextParserParser.TargetContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitTarget(EffectTextParserParser.TargetContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void enterStatusCondition(EffectTextParserParser.StatusConditionContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitStatusCondition(EffectTextParserParser.StatusConditionContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void enterConditionTypes(EffectTextParserParser.ConditionTypesContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitConditionTypes(EffectTextParserParser.ConditionTypesContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
     public void enterEffectText(EffectTextParserParser.EffectTextContext ctx) {
     }
 
@@ -144,24 +198,6 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
-    public void enterConditionTypes(EffectTextParserParser.ConditionTypesContext ctx) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override
-    public void exitConditionTypes(EffectTextParserParser.ConditionTypesContext ctx) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override
     public void enterDmgEffect(EffectTextParserParser.DmgEffectContext ctx) {
     }
 
@@ -208,60 +244,6 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      */
     @Override
     public void exitBasicEffect(EffectTextParserParser.BasicEffectContext ctx) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override
-    public void enterTarget(EffectTextParserParser.TargetContext ctx) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override
-    public void exitTarget(EffectTextParserParser.TargetContext ctx) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override
-    public void enterVarPokemonName(EffectTextParserParser.VarPokemonNameContext ctx) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override
-    public void exitVarPokemonName(EffectTextParserParser.VarPokemonNameContext ctx) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override
-    public void enterDefendingPokemon(EffectTextParserParser.DefendingPokemonContext ctx) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override
-    public void exitDefendingPokemon(EffectTextParserParser.DefendingPokemonContext ctx) {
     }
 
     /**
@@ -324,24 +306,6 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
-    public void enterStatusCondition(EffectTextParserParser.StatusConditionContext ctx) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override
-    public void exitStatusCondition(EffectTextParserParser.StatusConditionContext ctx) {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override
     public void enterDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx) {
     }
 
@@ -352,6 +316,24 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      */
     @Override
     public void exitDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void enterBenchDmgEffect(EffectTextParserParser.BenchDmgEffectContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitBenchDmgEffect(EffectTextParserParser.BenchDmgEffectContext ctx) {
     }
 
     /**

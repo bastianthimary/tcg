@@ -9,13 +9,16 @@ import de.my.tcg.game.mate.card.textparser.effect.CardEffect;
 import de.my.tcg.game.mate.card.textparser.effect.condition.ConditionTerm;
 import de.my.tcg.game.mate.card.textparser.effect.condition.condition.FlipCoinTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.BasicEffectTerm;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.bench.BenchDmgExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.discard.DiscardEnergyExecution;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.MultipleDmgEffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.hurt.HurtExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.statuscondition.SpecialConditionExecutedEffect;
-import de.my.tcg.game.mate.card.textparser.effect.effect.target.EffectTarget;
+import de.my.tcg.game.mate.card.textparser.effect.effect.target.MultipleEffectTarget;
+import de.my.tcg.game.mate.card.textparser.effect.effect.target.SingleEffectTarget;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.Target;
 import de.my.tcg.game.mate.card.textparser.utils.CardTextUtil;
+import de.my.tcg.game.mate.card.textparser.utils.NumberParser;
 import de.my.tcg.grammar.parser.interpreter.EffectTextParserBaseVisitor;
 import de.my.tcg.grammar.parser.interpreter.EffectTextParserLexer;
 import de.my.tcg.grammar.parser.interpreter.EffectTextParserParser;
@@ -80,7 +83,7 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
             }
         } else {
             if (!attack.getDamage().isEmpty()) {
-                dmg = Integer.parseInt(attack.getDamage());
+                dmg = NumberParser.parseNumberOrStringToInteger(attack.getDamage());
             }
         }
     }
@@ -138,7 +141,7 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
             case DEFENDING_POKEMON -> pokemonCard = defendingPokemonCard;
             default -> pokemonCard = thisPokemonCard;
         }
-        effectTerm.setEffectTarget(new EffectTarget(pokemonCard));
+        effectTerm.setEffectTarget(new SingleEffectTarget(pokemonCard));
         return 0;
     }
 
@@ -159,7 +162,7 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
 
     @Override
     public Integer visitHurtEffect(EffectTextParserParser.HurtEffectContext ctx) {
-        int dmg = Integer.parseInt(ctx.dmg.getText());
+        int dmg = NumberParser.parseNumberOrStringToInteger(ctx.dmg.getText());
         BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
         basicEffectTerm.setExecutedEffect(new HurtExecutedEffect(dmg));
         return visitChildren(ctx);
@@ -167,7 +170,7 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
 
     @Override
     public Integer visitDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx) {
-        int numberOfCards = Integer.parseInt(ctx.numberOfCards.getText());
+        int numberOfCards = NumberParser.parseNumberOrStringToInteger(ctx.numberOfCards.getText());
 
         PokeType typeOfDiscardion = PokeType.valueOf(ctx.PokeType().getText());
         BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
@@ -181,5 +184,19 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
         return visitChildren(ctx);
     }
 
+    @Override
+    public Integer visitBenchDmgEffect(EffectTextParserParser.BenchDmgEffectContext ctx) {
+        visitChildren(ctx);
+        List<PokemonCard> allBenchMons = new ArrayList<>();
+        if (!ctx.AllBenchMons().getText().isEmpty()) {
+            allBenchMons.addAll(thisFieldSide.getBenchMons());
+            allBenchMons.addAll(opponentSide.getBenchMons());
+        }
+        BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
+        int dmg = NumberParser.parseNumberOrStringToInteger(ctx.dmg.getText());
+        basicEffectTerm.setExecutedEffect(new BenchDmgExecutedEffect(dmg));
+        basicEffectTerm.setEffectTarget(new MultipleEffectTarget(allBenchMons));
+        return 0;
+    }
 
 }

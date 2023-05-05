@@ -11,6 +11,30 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface EffectTextParserVisitor<T> extends ParseTreeVisitor<T> {
     /**
+     * Visit a parse tree produced by {@link EffectTextParserParser#target}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitTarget(EffectTextParserParser.TargetContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link EffectTextParserParser#statusCondition}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitStatusCondition(EffectTextParserParser.StatusConditionContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link EffectTextParserParser#conditionTypes}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitConditionTypes(EffectTextParserParser.ConditionTypesContext ctx);
+
+    /**
      * Visit a parse tree produced by {@link EffectTextParserParser#effectText}.
      *
      * @param ctx the parse tree
@@ -67,14 +91,6 @@ public interface EffectTextParserVisitor<T> extends ParseTreeVisitor<T> {
     T visitConditionClass(EffectTextParserParser.ConditionClassContext ctx);
 
     /**
-     * Visit a parse tree produced by {@link EffectTextParserParser#conditionTypes}.
-     *
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    T visitConditionTypes(EffectTextParserParser.ConditionTypesContext ctx);
-
-    /**
      * Visit a parse tree produced by {@link EffectTextParserParser#dmgEffect}.
      *
      * @param ctx the parse tree
@@ -97,30 +113,6 @@ public interface EffectTextParserVisitor<T> extends ParseTreeVisitor<T> {
      * @return the visitor result
      */
     T visitBasicEffect(EffectTextParserParser.BasicEffectContext ctx);
-
-    /**
-     * Visit a parse tree produced by {@link EffectTextParserParser#target}.
-     *
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    T visitTarget(EffectTextParserParser.TargetContext ctx);
-
-    /**
-     * Visit a parse tree produced by {@link EffectTextParserParser#varPokemonName}.
-     *
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    T visitVarPokemonName(EffectTextParserParser.VarPokemonNameContext ctx);
-
-    /**
-     * Visit a parse tree produced by {@link EffectTextParserParser#defendingPokemon}.
-     *
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    T visitDefendingPokemon(EffectTextParserParser.DefendingPokemonContext ctx);
 
     /**
      * Visit a parse tree produced by {@link EffectTextParserParser#executedEffect}.
@@ -147,18 +139,18 @@ public interface EffectTextParserVisitor<T> extends ParseTreeVisitor<T> {
     T visitStatusEffect(EffectTextParserParser.StatusEffectContext ctx);
 
     /**
-     * Visit a parse tree produced by {@link EffectTextParserParser#statusCondition}.
-     *
-     * @param ctx the parse tree
-     * @return the visitor result
-     */
-    T visitStatusCondition(EffectTextParserParser.StatusConditionContext ctx);
-
-    /**
      * Visit a parse tree produced by {@link EffectTextParserParser#discardEnergy}.
      *
      * @param ctx the parse tree
      * @return the visitor result
      */
     T visitDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link EffectTextParserParser#benchDmgEffect}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitBenchDmgEffect(EffectTextParserParser.BenchDmgEffectContext ctx);
 }

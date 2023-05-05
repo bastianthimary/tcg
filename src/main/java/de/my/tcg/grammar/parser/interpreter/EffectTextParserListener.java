@@ -8,6 +8,48 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface EffectTextParserListener extends ParseTreeListener {
     /**
+     * Enter a parse tree produced by {@link EffectTextParserParser#target}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterTarget(EffectTextParserParser.TargetContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link EffectTextParserParser#target}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitTarget(EffectTextParserParser.TargetContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link EffectTextParserParser#statusCondition}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterStatusCondition(EffectTextParserParser.StatusConditionContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link EffectTextParserParser#statusCondition}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitStatusCondition(EffectTextParserParser.StatusConditionContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link EffectTextParserParser#conditionTypes}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterConditionTypes(EffectTextParserParser.ConditionTypesContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link EffectTextParserParser#conditionTypes}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitConditionTypes(EffectTextParserParser.ConditionTypesContext ctx);
+
+    /**
      * Enter a parse tree produced by {@link EffectTextParserParser#effectText}.
      *
      * @param ctx the parse tree
@@ -106,20 +148,6 @@ public interface EffectTextParserListener extends ParseTreeListener {
     void exitConditionClass(EffectTextParserParser.ConditionClassContext ctx);
 
     /**
-     * Enter a parse tree produced by {@link EffectTextParserParser#conditionTypes}.
-     *
-     * @param ctx the parse tree
-     */
-    void enterConditionTypes(EffectTextParserParser.ConditionTypesContext ctx);
-
-    /**
-     * Exit a parse tree produced by {@link EffectTextParserParser#conditionTypes}.
-     *
-     * @param ctx the parse tree
-     */
-    void exitConditionTypes(EffectTextParserParser.ConditionTypesContext ctx);
-
-    /**
      * Enter a parse tree produced by {@link EffectTextParserParser#dmgEffect}.
      *
      * @param ctx the parse tree
@@ -160,48 +188,6 @@ public interface EffectTextParserListener extends ParseTreeListener {
      * @param ctx the parse tree
      */
     void exitBasicEffect(EffectTextParserParser.BasicEffectContext ctx);
-
-    /**
-     * Enter a parse tree produced by {@link EffectTextParserParser#target}.
-     *
-     * @param ctx the parse tree
-     */
-    void enterTarget(EffectTextParserParser.TargetContext ctx);
-
-    /**
-     * Exit a parse tree produced by {@link EffectTextParserParser#target}.
-     *
-     * @param ctx the parse tree
-     */
-    void exitTarget(EffectTextParserParser.TargetContext ctx);
-
-    /**
-     * Enter a parse tree produced by {@link EffectTextParserParser#varPokemonName}.
-     *
-     * @param ctx the parse tree
-     */
-    void enterVarPokemonName(EffectTextParserParser.VarPokemonNameContext ctx);
-
-    /**
-     * Exit a parse tree produced by {@link EffectTextParserParser#varPokemonName}.
-     *
-     * @param ctx the parse tree
-     */
-    void exitVarPokemonName(EffectTextParserParser.VarPokemonNameContext ctx);
-
-    /**
-     * Enter a parse tree produced by {@link EffectTextParserParser#defendingPokemon}.
-     *
-     * @param ctx the parse tree
-     */
-    void enterDefendingPokemon(EffectTextParserParser.DefendingPokemonContext ctx);
-
-    /**
-     * Exit a parse tree produced by {@link EffectTextParserParser#defendingPokemon}.
-     *
-     * @param ctx the parse tree
-     */
-    void exitDefendingPokemon(EffectTextParserParser.DefendingPokemonContext ctx);
 
     /**
      * Enter a parse tree produced by {@link EffectTextParserParser#executedEffect}.
@@ -246,20 +232,6 @@ public interface EffectTextParserListener extends ParseTreeListener {
     void exitStatusEffect(EffectTextParserParser.StatusEffectContext ctx);
 
     /**
-     * Enter a parse tree produced by {@link EffectTextParserParser#statusCondition}.
-     *
-     * @param ctx the parse tree
-     */
-    void enterStatusCondition(EffectTextParserParser.StatusConditionContext ctx);
-
-    /**
-     * Exit a parse tree produced by {@link EffectTextParserParser#statusCondition}.
-     *
-     * @param ctx the parse tree
-     */
-    void exitStatusCondition(EffectTextParserParser.StatusConditionContext ctx);
-
-    /**
      * Enter a parse tree produced by {@link EffectTextParserParser#discardEnergy}.
      *
      * @param ctx the parse tree
@@ -272,4 +244,18 @@ public interface EffectTextParserListener extends ParseTreeListener {
      * @param ctx the parse tree
      */
     void exitDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link EffectTextParserParser#benchDmgEffect}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterBenchDmgEffect(EffectTextParserParser.BenchDmgEffectContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link EffectTextParserParser#benchDmgEffect}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitBenchDmgEffect(EffectTextParserParser.BenchDmgEffectContext ctx);
 }

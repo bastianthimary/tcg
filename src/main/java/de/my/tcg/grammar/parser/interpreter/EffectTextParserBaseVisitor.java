@@ -8,10 +8,43 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * of the available methods.
  *
  * @param <T> The return type of the visit operation. Use {@link Void} for
- *            operations with no return type.
+ * operations with no return type.
  */
 @SuppressWarnings("CheckReturnValue")
 public class EffectTextParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements EffectTextParserVisitor<T> {
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override
+	public T visitTarget(EffectTextParserParser.TargetContext ctx) {
+		return visitChildren(ctx);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override
+	public T visitStatusCondition(EffectTextParserParser.StatusConditionContext ctx) {
+		return visitChildren(ctx);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override
+	public T visitConditionTypes(EffectTextParserParser.ConditionTypesContext ctx) {
+		return visitChildren(ctx);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
@@ -96,17 +129,6 @@ public class EffectTextParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override
-	public T visitConditionTypes(EffectTextParserParser.ConditionTypesContext ctx) {
-		return visitChildren(ctx);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override
 	public T visitDmgEffect(EffectTextParserParser.DmgEffectContext ctx) {
 		return visitChildren(ctx);
 	}
@@ -130,39 +152,6 @@ public class EffectTextParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
 	 */
 	@Override
 	public T visitBasicEffect(EffectTextParserParser.BasicEffectContext ctx) {
-		return visitChildren(ctx);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override
-	public T visitTarget(EffectTextParserParser.TargetContext ctx) {
-		return visitChildren(ctx);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override
-	public T visitVarPokemonName(EffectTextParserParser.VarPokemonNameContext ctx) {
-		return visitChildren(ctx);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override
-	public T visitDefendingPokemon(EffectTextParserParser.DefendingPokemonContext ctx) {
 		return visitChildren(ctx);
 	}
 
@@ -206,7 +195,7 @@ public class EffectTextParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override
-	public T visitStatusCondition(EffectTextParserParser.StatusConditionContext ctx) {
+	public T visitDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx) {
 		return visitChildren(ctx);
 	}
 
@@ -217,7 +206,7 @@ public class EffectTextParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override
-	public T visitDiscardEnergy(EffectTextParserParser.DiscardEnergyContext ctx) {
+	public T visitBenchDmgEffect(EffectTextParserParser.BenchDmgEffectContext ctx) {
 		return visitChildren(ctx);
 	}
 }
