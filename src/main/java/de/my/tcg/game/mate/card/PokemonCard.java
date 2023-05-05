@@ -6,7 +6,7 @@ import de.my.tcg.basedata.card.Card;
 import de.my.tcg.basedata.poketype.PokeType;
 import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.mate.EnergyTotal;
-import de.my.tcg.game.mate.card.status.StatusCondition;
+import de.my.tcg.game.mate.card.status.PokemonStatusCondition;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class PokemonCard extends FieldCard {
     private int dmgCounter;
 
     @Getter
-    private StatusCondition statusCondition;
+    private PokemonStatusCondition pokemonStatusCondition;
 
     public PokemonCard(PlayCard playCard) {
         this.currentCard = playCard;
@@ -68,7 +68,7 @@ public class PokemonCard extends FieldCard {
 
     private void initValues() {
         energyTotal = new EnergyTotal();
-        statusCondition = new StatusCondition(this);
+        pokemonStatusCondition = new PokemonStatusCondition(this);
         preEvolution = new LinkedHashSet<>();
     }
 
@@ -119,7 +119,7 @@ public class PokemonCard extends FieldCard {
             preEvolution.add(currentCard);
             currentCard = evolution;
             setBaseStatsFromCard(evolution.getCard());
-            statusCondition.healAllStates();
+            pokemonStatusCondition.healAllStates();
         }
     }
 

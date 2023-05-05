@@ -9,6 +9,7 @@ import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.mate.EnergyTotal;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
+import de.my.tcg.game.mate.card.status.PoisonCondition;
 import de.my.tcg.game.mate.card.status.SpecialCondition;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.Target;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,15 +39,15 @@ class AttackInterpreterTest {
             assertThat(defendingPokemon.getDmgCounter()).isEqualTo(Coin.headcount * dmgPer);
             Coin.headcount = 0;
         }
-        assertThat(attackingPokemon.getStatusCondition().getSpecialCondition()).isEqualTo(myCondition);
-        assertThat(defendingPokemon.getStatusCondition().getSpecialCondition()).isEqualTo(defendingPokemonCondition);
+        assertThat(attackingPokemon.getPokemonStatusCondition().getSpecialCondition()).isEqualTo(myCondition);
+        assertThat(defendingPokemon.getPokemonStatusCondition().getSpecialCondition()).isEqualTo(defendingPokemonCondition);
 
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/card/attack/attackinterpreter/attackWithEffect.csv", numLinesToSkip = 1)
-    void attackWithEffect(String dmgAsString, String attackString, int dmgPer, boolean expectCoinFlipForMy,
-                          String myPokemonName, SpecialCondition myCondition, boolean expectCoinFlipForDefending, SpecialCondition defendingPokemonCondition) {
+    @CsvFileSource(resources = "/card/attack/attackinterpreter/attackWithStatusEffect.csv", numLinesToSkip = 1)
+    void attackWithStatusEffect(String dmgAsString, String attackString, int dmgPer, boolean expectCoinFlipForMy,
+                                String myPokemonName, SpecialCondition myCondition, boolean expectCoinFlipForDefending, SpecialCondition defendingPokemonCondition) {
         FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon(myPokemonName);
         FieldSide opponentFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("opponent");
         Attack attack = new Attack();
@@ -60,26 +61,66 @@ class AttackInterpreterTest {
         assertThat(defendingPokemon.getDmgCounter()).isEqualTo(dmgPer);
         if (expectCoinFlipForMy) {
             if (Coin.headcount == 1) {
-                assertThat(attackingPokemon.getStatusCondition().getSpecialCondition()).isEqualTo(myCondition);
+                assertThat(attackingPokemon.getPokemonStatusCondition().getSpecialCondition()).isEqualTo(myCondition);
             } else {
 
-                assertThat(attackingPokemon.getStatusCondition().getSpecialCondition()).isEqualTo(SpecialCondition.NO_STATUS);
+                assertThat(attackingPokemon.getPokemonStatusCondition().getSpecialCondition()).isEqualTo(SpecialCondition.NO_STATUS);
             }
             Coin.headcount = 0;
         } else {
-            assertThat(attackingPokemon.getStatusCondition().getSpecialCondition()).isEqualTo(myCondition);
+            assertThat(attackingPokemon.getPokemonStatusCondition().getSpecialCondition()).isEqualTo(myCondition);
         }
         if (expectCoinFlipForDefending) {
             if (Coin.headcount == 1) {
                 System.out.println("was head");
-                assertThat(defendingPokemon.getStatusCondition().getSpecialCondition()).isEqualTo(defendingPokemonCondition);
+                assertThat(defendingPokemon.getPokemonStatusCondition().getSpecialCondition()).isEqualTo(defendingPokemonCondition);
             } else {
                 System.out.println("was tails");
-                assertThat(defendingPokemon.getStatusCondition().getSpecialCondition()).isEqualTo(SpecialCondition.NO_STATUS);
+                assertThat(defendingPokemon.getPokemonStatusCondition().getSpecialCondition()).isEqualTo(SpecialCondition.NO_STATUS);
             }
             Coin.headcount = 0;
         } else {
-            assertThat(defendingPokemon.getStatusCondition().getSpecialCondition()).isEqualTo(defendingPokemonCondition);
+            assertThat(defendingPokemon.getPokemonStatusCondition().getSpecialCondition()).isEqualTo(defendingPokemonCondition);
+        }
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/card/attack/attackinterpreter/attackWithPoisonEffect.csv", numLinesToSkip = 1)
+    void attackWithPoisonEffect(String dmgAsString, String attackString, int dmgPer, boolean expectCoinFlipForMy,
+                                String myPokemonName, PoisonCondition myCondition, boolean expectCoinFlipForDefending, PoisonCondition defendingPokemonCondition) {
+        FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon(myPokemonName);
+        FieldSide opponentFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("opponent");
+        Attack attack = new Attack();
+        attack.setText(attackString);
+        attack.setDamage(dmgAsString);
+        AttackInterpreter attackInterpreter = new AttackInterpreter(attack, myFieldSide, opponentFieldSide);
+        attackInterpreter.performAttack();
+
+        PokemonCard attackingPokemon = myFieldSide.getActiveMon();
+        PokemonCard defendingPokemon = opponentFieldSide.getActiveMon();
+        assertThat(defendingPokemon.getDmgCounter()).isEqualTo(dmgPer);
+        if (expectCoinFlipForMy) {
+            if (Coin.headcount == 1) {
+                assertThat(attackingPokemon.getPokemonStatusCondition().getPoisonConditionState()).isEqualTo(myCondition);
+            } else {
+
+                assertThat(attackingPokemon.getPokemonStatusCondition().getPoisonConditionState()).isEqualTo(PoisonCondition.NO_STATUS);
+            }
+            Coin.headcount = 0;
+        } else {
+            assertThat(attackingPokemon.getPokemonStatusCondition().getPoisonConditionState()).isEqualTo(myCondition);
+        }
+        if (expectCoinFlipForDefending) {
+            if (Coin.headcount == 1) {
+                System.out.println("was head");
+                assertThat(defendingPokemon.getPokemonStatusCondition().getPoisonConditionState()).isEqualTo(defendingPokemonCondition);
+            } else {
+                System.out.println("was tails");
+                assertThat(defendingPokemon.getPokemonStatusCondition().getPoisonConditionState()).isEqualTo(PoisonCondition.NO_STATUS);
+            }
+            Coin.headcount = 0;
+        } else {
+            assertThat(defendingPokemon.getPokemonStatusCondition().getPoisonConditionState()).isEqualTo(defendingPokemonCondition);
         }
     }
 
@@ -134,7 +175,7 @@ class AttackInterpreterTest {
         assertThat(attackingPokemon.getDmgCounter()).isEqualTo(hurtDmg);
         if (target.equals(Target.MY_BENCH)) {
             myFieldSide.getBenchMons().forEach(pokemonCard -> assertThat(pokemonCard.getDmgCounter()).isEqualTo(benchDmg));
-            opponentFieldSide.getBenchMons().forEach(pokemonCard -> assertThat(pokemonCard.getDmgCounter()).isEqualTo(0));
+            opponentFieldSide.getBenchMons().forEach(pokemonCard -> assertThat(pokemonCard.getDmgCounter()).isZero());
         } else if (target.equals(Target.BOTH_PLAYERS_BENCH)) {
             myFieldSide.getBenchMons().forEach(pokemonCard -> assertThat(pokemonCard.getDmgCounter()).isEqualTo(benchDmg));
             opponentFieldSide.getBenchMons().forEach(pokemonCard -> assertThat(pokemonCard.getDmgCounter()).isEqualTo(benchDmg));

@@ -23,7 +23,7 @@ energyAfter_Var2:'You cant add more than 'dmgLimit= Number ' damage in this way'
 Target:VarPokemonName|DefendingPokemon;
 VarPokemonName: 'this Pokemon';
 DefendingPokemon:'the Defending Pokémon';
-StatusCondition:  'Asleep'|'Confused'| 'Paralyzed';
+pokemonStatusCondition:  'Asleep'|'Confused'| 'Paralyzed'|'Poisoned'|'Burned';
 PokeType:'Water'| 'Fire';
 ConditionTypes: 'heads'|'Pokémon you have in play.'|'tails';
 LimitationCounter:Number|NumberAsText;

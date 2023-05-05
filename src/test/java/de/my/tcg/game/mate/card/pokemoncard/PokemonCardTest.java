@@ -21,9 +21,9 @@ class PokemonCardTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/card/pokemoncard/pokemoncard/doDmgAccordingToType.csv", numLinesToSkip = 1)
-    public void doDmgAccordingToType(String hp, PokeType resistance,
-                                     PokeType weakness, int originDmg, PokeType takeDmgByType,
-                                     int expectedDmg, boolean survive) {
+    void doDmgAccordingToType(String hp, PokeType resistance,
+                              PokeType weakness, int originDmg, PokeType takeDmgByType,
+                              int expectedDmg, boolean survive) {
         Card baseCard = new Card();
         baseCard.setHp(hp);
         baseCard.setResistances(resistance);
@@ -41,7 +41,7 @@ class PokemonCardTest {
 
 
     @Test
-    public void evolvePokemon() throws MonIsDefeatedException {
+    void evolvePokemon() throws MonIsDefeatedException {
         Card card = new Card();
         card.setSupertype(CardTypes.POKEMON);
         card.setName("Base");
@@ -57,7 +57,7 @@ class PokemonCardTest {
 
         PokemonCard pokemonCard = new PokemonCard(new PlayCard(card));
         pokemonCard.doSimpleDmg(20);
-        pokemonCard.getStatusCondition().setFireConditionState(FireCondition.SINGLE);
+        pokemonCard.getPokemonStatusCondition().setFireConditionState(FireCondition.SINGLE);
         pokemonCard.getEnergyTotal().addEnergyCard(TestCardFactory.createEnergyCard(PokeType.Fire));
 
         Card card2 = new Card();
@@ -78,18 +78,18 @@ class PokemonCardTest {
         assertThat(pokemonCard.getName()).isEqualTo("Evolution");
         assertThat(pokemonCard.getHp()).isEqualTo(100);
         assertThat(pokemonCard.getMyPokeType()).isEqualTo(PokeType.Fire);
-        assertThat(pokemonCard.getWeakness().get()).isEqualTo(PokeType.Fire);
-        assertThat(pokemonCard.getResistance().isPresent()).isFalse();
+        assertThat(pokemonCard.getWeakness()).contains(PokeType.Fire);
+        assertThat(pokemonCard.getResistance()).isEmpty();
         assertThat(pokemonCard.getRetreatCosts()).isEqualTo(2);
 
         assertThat(pokemonCard.getDmgCounter()).isEqualTo(20);
-        assertThat(pokemonCard.getStatusCondition().getFireConditionState()).isEqualTo(FireCondition.NO_STATUS);
+        assertThat(pokemonCard.getPokemonStatusCondition().getFireConditionState()).isEqualTo(FireCondition.NO_STATUS);
         assertThat(pokemonCard.getEnergyTotal().getTotalEnergy()).isEqualTo(1);
 
-        assertThat(pokemonCard.getAttacks().size()).isEqualTo(1);
+        assertThat(pokemonCard.getAttacks()).hasSize(1);
         assertThat(pokemonCard.getAttacks().get(0).getName()).isEqualTo("EvoAttack");
 
-        assertThat(pokemonCard.getPreEvolution().size()).isEqualTo(1);
+        assertThat(pokemonCard.getPreEvolution()).hasSize(1);
 
     }
 

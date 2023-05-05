@@ -4,7 +4,8 @@ import de.my.tcg.basedata.Attack;
 import de.my.tcg.basedata.poketype.PokeType;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
-import de.my.tcg.game.mate.card.status.SpecialCondition;
+import de.my.tcg.game.mate.card.status.Status;
+import de.my.tcg.game.mate.card.status.StatusConditionTextParser;
 import de.my.tcg.game.mate.card.textparser.effect.CardEffect;
 import de.my.tcg.game.mate.card.textparser.effect.condition.ConditionTerm;
 import de.my.tcg.game.mate.card.textparser.effect.condition.condition.FlipCoinTerm;
@@ -13,7 +14,7 @@ import de.my.tcg.game.mate.card.textparser.effect.effect.executed.bench.BenchDmg
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.discard.DiscardEnergyExecution;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.MultipleDmgEffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.hurt.HurtExecutedEffect;
-import de.my.tcg.game.mate.card.textparser.effect.effect.executed.statuscondition.SpecialConditionExecutedEffect;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.statuscondition.StatusConditionExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.MultipleEffectTarget;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.SingleEffectTarget;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.Target;
@@ -153,10 +154,9 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
 
     @Override
     public Integer visitStatusCondition(EffectTextParserParser.StatusConditionContext ctx) {
-
-        SpecialCondition condition = SpecialCondition.valueOf(ctx.getText().toUpperCase());
+        Status status = StatusConditionTextParser.parseStatusFromString(ctx.getText().toUpperCase());
         BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
-        basicEffectTerm.setExecutedEffect(new SpecialConditionExecutedEffect(condition));
+        basicEffectTerm.setExecutedEffect(new StatusConditionExecutedEffect(status));
         return visitChildren(ctx);
     }
 

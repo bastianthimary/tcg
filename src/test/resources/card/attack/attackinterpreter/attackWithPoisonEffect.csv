@@ -1,0 +1,3 @@
+String dmgAsString,String attackString,int dmgPer,boolean expectCoinFlipForMy,String myPokemonName,status myCondition,boolean expectCoinFlipForDefending, defendingPokemonCondition
+40,Flip a coin. If heads the Defending Pokémon is now Poisoned.,40,false,Beedrill,NO_STATUS,true,SINGLE
+

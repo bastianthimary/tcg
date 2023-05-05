@@ -15,7 +15,7 @@ public class RetreatChecker {
         if (!playMate.getBenchMons().contains(benchMonToExchange)) {
             return PerformRetreatState.SELECTED_BENCHMON_IS_NOT_THERE;
         }
-        if (!playMate.getActiveMon().getStatusCondition().statusAllowsRetreat()) {
+        if (!playMate.getActiveMon().getPokemonStatusCondition().statusAllowsRetreat()) {
             return PerformRetreatState.CAN_NOT_RETREAT_DUE_TO_STATUSCONDITION;
         }
 

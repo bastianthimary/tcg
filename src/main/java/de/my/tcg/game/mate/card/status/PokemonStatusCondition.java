@@ -7,7 +7,7 @@ import de.my.tcg.game.mate.card.PokemonCard;
 import lombok.Getter;
 import lombok.Setter;
 
-public class StatusCondition {
+public class PokemonStatusCondition {
     private static final int FIRE_DMG = 20;
     private static final int CONFUSE_DMG = 20;
     private final PokemonCard pokemonCard;
@@ -22,7 +22,7 @@ public class StatusCondition {
     private SpecialCondition specialCondition;
 
 
-    public StatusCondition(PokemonCard pokemonCard) {
+    public PokemonStatusCondition(PokemonCard pokemonCard) {
         this.pokemonCard = pokemonCard;
         healAllStates();
     }
@@ -84,4 +84,13 @@ public class StatusCondition {
         return !SpecialCondition.PARALYZED.equals(specialCondition) && !SpecialCondition.ASLEEP.equals(specialCondition);
     }
 
+    public void setStatus(Status status) {
+        if (status instanceof SpecialCondition) {
+            setSpecialCondition((SpecialCondition) status);
+        } else if (status instanceof PoisonCondition) {
+            setPoisonConditionState((PoisonCondition) status);
+        } else if (status instanceof FireCondition) {
+            setFireConditionState((FireCondition) status);
+        }
+    }
 }

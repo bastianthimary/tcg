@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 class RetreatCheckerTest {
     @Test
-    public void fieldCanNotRetreatDueEmptyBench() {
+    void fieldCanNotRetreatDueEmptyBench() {
 
         FieldSide playMate = mock(FieldSide.class);
         when(playMate.getBenchMons()).thenReturn(new ArrayList<>());
@@ -28,7 +28,7 @@ class RetreatCheckerTest {
     }
 
     @Test
-    public void selectedBenchMonIsNotThere() {
+    void selectedBenchMonIsNotThere() {
         Card card = new Card();
         card.setSupertype(CardTypes.POKEMON);
         card.setName("notInBench");
@@ -44,7 +44,7 @@ class RetreatCheckerTest {
     }
 
     @Test
-    public void canNotRetreatDueToStatusCondition() {
+    void canNotRetreatDueToStatusCondition() {
         Card card = new Card();
         card.setSupertype(CardTypes.POKEMON);
         card.setName("InBench");
@@ -53,7 +53,7 @@ class RetreatCheckerTest {
         PokemonCard benchMonToExchange = new PokemonCard(new PlayCard(card));
 
         PokemonCard activeMon = TestCardFactory.createPokemonCard("30");
-        activeMon.getStatusCondition().setSpecialCondition(SpecialCondition.ASLEEP);
+        activeMon.getPokemonStatusCondition().setSpecialCondition(SpecialCondition.ASLEEP);
         FieldSide playMate = mock(FieldSide.class);
 
         when(playMate.getBenchMons()).thenReturn(new ArrayList<>(List.of(benchMonToExchange)));
@@ -64,7 +64,7 @@ class RetreatCheckerTest {
     }
 
     @Test
-    public void checkFieldHasNoNegativeResponse() {
+    void checkFieldHasNoNegativeResponse() {
         Card card = new Card();
         card.setSupertype(CardTypes.POKEMON);
         card.setName("InBench");
@@ -79,6 +79,6 @@ class RetreatCheckerTest {
         when(playMate.getActiveMon()).thenReturn(activeMon);
 
         PerformRetreatState retreatResponse = RetreatChecker.checkFieldHasNegativeResponse(playMate, benchMonToExchange);
-        assertThat(retreatResponse).isEqualTo(null);
+        assertThat(retreatResponse).isNull();
     }
 }

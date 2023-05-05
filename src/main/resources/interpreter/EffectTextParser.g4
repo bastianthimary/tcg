@@ -9,7 +9,7 @@ DefendingPokemon:'the Defending Pokémon';
 benchTarget:AllBenchMons|MyBenchMons;
 AllBenchMons:'each Pokémon on each players Bench';
 MyBenchMons:'each of your own Benched Pokémon';
-statusCondition:  'Asleep'|'Confused'| 'Paralyzed';
+statusCondition:  'Asleep'|'Confused'| 'Paralyzed'|'Poisoned'|'Burned';
 PokeType:'Water'| 'Fire';
 conditionTypes: 'heads'|'Pokémon you have in play.'|'tails';
 

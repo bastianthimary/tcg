@@ -16,7 +16,7 @@ public class AttackChecker {
             throw new NoLegalActionException(POKEMON_DO_NOT_KNOW_ATTACK);
         } else if (!activeMon.getEnergyTotal().couldAttackBeUsed(performAttack)) {
             throw new NoLegalActionException(POKEMON_HAVE_TO_LOW_ENERGY_FOR_ATTACK);
-        } else if (activeMon.getStatusCondition().statusAllowsAttack()) {
+        } else if (activeMon.getPokemonStatusCondition().statusAllowsAttack()) {
             throw new NoLegalActionException(POKEMON_CAN_NOT_ATTACK_DUE_TO_STATUS_CONDITION);
         }
     }
