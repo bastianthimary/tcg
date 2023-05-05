@@ -19,6 +19,14 @@ public interface EffectTextParserVisitor<T> extends ParseTreeVisitor<T> {
     T visitTarget(EffectTextParserParser.TargetContext ctx);
 
     /**
+     * Visit a parse tree produced by {@link EffectTextParserParser#benchTarget}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitBenchTarget(EffectTextParserParser.BenchTargetContext ctx);
+
+    /**
      * Visit a parse tree produced by {@link EffectTextParserParser#statusCondition}.
      *
      * @param ctx the parse tree

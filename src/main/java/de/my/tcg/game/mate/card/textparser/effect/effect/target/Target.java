@@ -7,7 +7,9 @@ public enum Target {
 
     NO_TARGET(""),
     THIS_POKEMON("this Pokemon"),
-    DEFENDING_POKEMON("the Defending Pokémon");
+    DEFENDING_POKEMON("the Defending Pokémon"),
+    BOTH_PLAYERS_BENCH("each Pokémon on each players Bench"),
+    MY_BENCH("each of your own Benched Pokémon");
     private final String stringValue;
 
     Target(String stringValue) {

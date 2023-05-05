@@ -1,2 +1,3 @@
 String dmgAsString,String attackString,int dmgTo,int hurtDmg,String myPokemonName,int BenchDmg
-80,Does 20 damage to each Pokémon on each player's Bench. (Don't apply Weakness and Resistance for Benched Pokémon.) Magneton does 80 damage to itself.,80,80,Magneton,20
+80,Does 20 damage to each Pokémon on each player's Bench. (Don't apply Weakness and Resistance for Benched Pokémon.) Magneton does 80 damage to itself.,80,80,Magneton,20,BOTH_PLAYERS_BENCH
+70,Does 10 damage to each of your own Benched Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.),70,0,Dugtrio,10,MY_BENCH

@@ -22,6 +22,20 @@ public interface EffectTextParserListener extends ParseTreeListener {
     void exitTarget(EffectTextParserParser.TargetContext ctx);
 
     /**
+     * Enter a parse tree produced by {@link EffectTextParserParser#benchTarget}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterBenchTarget(EffectTextParserParser.BenchTargetContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link EffectTextParserParser#benchTarget}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitBenchTarget(EffectTextParserParser.BenchTargetContext ctx);
+
+    /**
      * Enter a parse tree produced by {@link EffectTextParserParser#statusCondition}.
      *
      * @param ctx the parse tree

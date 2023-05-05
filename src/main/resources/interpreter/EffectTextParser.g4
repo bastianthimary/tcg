@@ -6,11 +6,12 @@ WHITESPACE: [ .\t\n\r]+ ->skip;
 target:VarPokemonName|DefendingPokemon;
 VarPokemonName: 'this Pokemon';
 DefendingPokemon:'the Defending Pokémon';
+benchTarget:AllBenchMons|MyBenchMons;
 AllBenchMons:'each Pokémon on each players Bench';
+MyBenchMons:'each of your own Benched Pokémon';
 statusCondition:  'Asleep'|'Confused'| 'Paralyzed';
 PokeType:'Water'| 'Fire';
 conditionTypes: 'heads'|'Pokémon you have in play.'|'tails';
-
 
 effectText: term+ ;
 term:(conditionTerm? effectTerm)|effectTerm;
@@ -32,7 +33,7 @@ executedEffect:statusEffect|hurtEffect|discardEnergy|benchDmgEffect;
 hurtEffect:'does 'dmg=Number'damage to itself';
 statusEffect:'is now' statusCondition;
 discardEnergy:'Discard'((numberOfCards=Number PokeType)|numberOfCards='all') 'Energy'('card'|'cards') ' attached to' target' in order to use this attack.';
-benchDmgEffect:'does ' dmg=Number'damage to 'AllBenchMons '. Dont apply Weakness and Resistance for Benched Pokémon.';
+benchDmgEffect:'does ' dmg=Number'damage to 'benchTarget '. Dont apply Weakness and Resistance for Benched Pokémon.';
 
 
 

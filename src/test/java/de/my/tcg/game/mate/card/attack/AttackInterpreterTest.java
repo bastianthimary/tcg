@@ -10,6 +10,7 @@ import de.my.tcg.game.mate.EnergyTotal;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
 import de.my.tcg.game.mate.card.status.SpecialCondition;
+import de.my.tcg.game.mate.card.textparser.effect.effect.target.Target;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
@@ -112,10 +113,9 @@ class AttackInterpreterTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/card/attack/attackinterpreter/benchDmgEffect.csv", numLinesToSkip = 1)
-    void benchDmgEffect(String dmgAsString, String attackString, int dmgTo, int hurtDmg, String myPokemonName, int benchDmg) {
+    void benchDmgEffect(String dmgAsString, String attackString, int dmgTo, int hurtDmg, String myPokemonName, int benchDmg, Target target) {
         FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon(myPokemonName);
         FieldSide opponentFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("opponent");
-
 
         List<PlayCard> myBenchMons = TestCardFactory.createANumberOfPokemonPlayCards(5);
         myBenchMons.forEach(myFieldSide::playBenchMonFromHand);
@@ -124,6 +124,7 @@ class AttackInterpreterTest {
         Attack attack = new Attack();
         attack.setText(attackString);
         attack.setDamage(dmgAsString);
+
         AttackInterpreter attackInterpreter = new AttackInterpreter(attack, myFieldSide, opponentFieldSide);
         attackInterpreter.performAttack();
 
@@ -131,9 +132,14 @@ class AttackInterpreterTest {
         PokemonCard defendingPokemon = opponentFieldSide.getActiveMon();
         assertThat(defendingPokemon.getDmgCounter()).isEqualTo(dmgTo);
         assertThat(attackingPokemon.getDmgCounter()).isEqualTo(hurtDmg);
+        if (target.equals(Target.MY_BENCH)) {
+            myFieldSide.getBenchMons().forEach(pokemonCard -> assertThat(pokemonCard.getDmgCounter()).isEqualTo(benchDmg));
+            opponentFieldSide.getBenchMons().forEach(pokemonCard -> assertThat(pokemonCard.getDmgCounter()).isEqualTo(0));
+        } else if (target.equals(Target.BOTH_PLAYERS_BENCH)) {
+            myFieldSide.getBenchMons().forEach(pokemonCard -> assertThat(pokemonCard.getDmgCounter()).isEqualTo(benchDmg));
+            opponentFieldSide.getBenchMons().forEach(pokemonCard -> assertThat(pokemonCard.getDmgCounter()).isEqualTo(benchDmg));
+        }
 
-        myFieldSide.getBenchMons().forEach(pokemonCard -> assertThat(pokemonCard.getDmgCounter()).isEqualTo(benchDmg));
-        opponentFieldSide.getBenchMons().forEach(pokemonCard -> assertThat(pokemonCard.getDmgCounter()).isEqualTo(benchDmg));
 
     }
 

@@ -12,7 +12,7 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  */
 @SuppressWarnings("CheckReturnValue")
 public class EffectTextParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements EffectTextParserVisitor<T> {
-	/**
+    /**
      * {@inheritDoc}
      *
      * <p>The default implementation returns the result of calling
@@ -20,6 +20,17 @@ public class EffectTextParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
      */
     @Override
     public T visitTarget(EffectTextParserParser.TargetContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.</p>
+     */
+    @Override
+    public T visitBenchTarget(EffectTextParserParser.BenchTargetContext ctx) {
         return visitChildren(ctx);
     }
 

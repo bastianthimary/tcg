@@ -192,16 +192,29 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
     @Override
     public Integer visitBenchDmgEffect(EffectTextParserParser.BenchDmgEffectContext ctx) {
         visitChildren(ctx);
-        List<PokemonCard> allBenchMons = new ArrayList<>();
-        if (!ctx.AllBenchMons().getText().isEmpty()) {
-            allBenchMons.addAll(thisFieldSide.getBenchMons());
-            allBenchMons.addAll(opponentSide.getBenchMons());
+        List<PokemonCard> benchMons = new ArrayList<>();
+        String benchTargetAsString = ctx.benchTarget().getText();
+        if (!benchTargetAsString.isEmpty()) {
+            Target target = Target.getTargetByName(benchTargetAsString);
+            if (target == Target.BOTH_PLAYERS_BENCH) {
+                addBothBenches(benchMons);
+            } else if (target == Target.MY_BENCH) {
+                addMyBench(benchMons);
+            }
         }
         BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
         int dmg = NumberParser.parseNumberOrStringToInteger(ctx.dmg.getText());
         basicEffectTerm.setExecutedEffect(new BenchDmgExecutedEffect(dmg));
-        basicEffectTerm.setEffectTarget(new MultipleEffectTarget(allBenchMons));
+        basicEffectTerm.setEffectTarget(new MultipleEffectTarget(benchMons));
         return 0;
     }
 
+    private void addMyBench(List<PokemonCard> benchMons) {
+        benchMons.addAll(thisFieldSide.getBenchMons());
+    }
+
+    private void addBothBenches(List<PokemonCard> benchMons) {
+        benchMons.addAll(thisFieldSide.getBenchMons());
+        benchMons.addAll(opponentSide.getBenchMons());
+    }
 }

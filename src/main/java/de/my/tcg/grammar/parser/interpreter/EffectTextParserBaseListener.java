@@ -36,6 +36,24 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
+    public void enterBenchTarget(EffectTextParserParser.BenchTargetContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitBenchTarget(EffectTextParserParser.BenchTargetContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
     public void enterStatusCondition(EffectTextParserParser.StatusConditionContext ctx) {
     }
 
