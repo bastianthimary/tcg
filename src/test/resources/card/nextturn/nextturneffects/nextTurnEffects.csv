@@ -1,0 +1,5 @@
+TurnEffectState effectState, int reduction, boolean multiplyDmg, boolean statusEffect, boolean hurtEffect, boolean benchDmg, boolean additionalDmg, boolean discard
+NO_DMG,0,false,true,false,false,false,false
+DMG_REDUCTION,30,false,true,false,false,false,false
+NO_EFFECT,0,true,false,true,true,true,true
+NO_DMG_AND_NO_EFFECT,0,false,false,false,false,false,false

@@ -1,6 +1,7 @@
 package de.my.tcg.game.mate.card.textparser.effect.effect;
 
 import de.my.tcg.game.mate.card.PokemonCard;
+import de.my.tcg.game.mate.card.nextturn.NextTurnEffects;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.EffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.ExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.EffectTarget;
@@ -19,8 +20,9 @@ public class BasicEffectTerm implements EffectTerm {
     private ExecutedEffect executedEffect;
 
     public void runEffectOnPokemon(PokemonCard thisPokemonCard) {
-        if (executedEffect != null) {
+        if (executedEffect != null && (isEffectFeasible(thisPokemonCard))) {
             executedEffect.executeEffect(thisPokemonCard);
+
         }
     }
 
@@ -33,5 +35,14 @@ public class BasicEffectTerm implements EffectTerm {
                 ((MultipleEffectTarget) effectTarget).getTargets().forEach(this::runEffectOnPokemon);
             }
         }
+    }
+
+    private boolean isEffectFeasible(PokemonCard pokemonCard) {
+        boolean feasible = true;
+        NextTurnEffects nextTurnEffects = pokemonCard.getNextTurnEffects();
+        if (nextTurnEffects != null) {
+            feasible = nextTurnEffects.isEffectFeasible();
+        }
+        return feasible;
     }
 }

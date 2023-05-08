@@ -27,7 +27,7 @@ public class AttackInterpreter {
         String attackText = attack.getText();
         if (attackText.isBlank()) {
             int dmg = Integer.parseInt(attack.getDamage());
-            opponentSide.getActiveMon().doSimpleDmg(dmg);
+            opponentSide.getActiveMon().doAttackDmg(dmg);
         } else {
             String dmgAsString = attack.getDamage();
             if (dmgAsString.contains(CardTextUtil.PLUS_SYMBOL)) {

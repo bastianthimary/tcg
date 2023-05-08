@@ -50,9 +50,10 @@ public class AdditionalDmgAttackEffectInterpreterAndPerformer extends Additional
         doDmg();
     }
 
+
     private void doDmg() {
         calculateDmg();
-        opponentSide.getActiveMon().doSimpleDmg(dmg);
+        opponentSide.getActiveMon().doAttackDmg(dmg);
     }
 
     private void parseTextAndPerformEffect() {

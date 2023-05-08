@@ -6,8 +6,10 @@ import de.my.tcg.basedata.card.Card;
 import de.my.tcg.basedata.poketype.PokeType;
 import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.mate.EnergyTotal;
+import de.my.tcg.game.mate.card.nextturn.NextTurnEffects;
 import de.my.tcg.game.mate.card.status.PokemonStatusCondition;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -47,6 +49,10 @@ public class PokemonCard extends FieldCard {
     @Getter
     private PokemonStatusCondition pokemonStatusCondition;
 
+    @Setter
+    @Getter
+    private NextTurnEffects nextTurnEffects;
+
     public PokemonCard(PlayCard playCard) {
         this.currentCard = playCard;
         setBaseStatsFromCard(currentCard.getCard());
@@ -70,6 +76,7 @@ public class PokemonCard extends FieldCard {
         energyTotal = new EnergyTotal();
         pokemonStatusCondition = new PokemonStatusCondition(this);
         preEvolution = new LinkedHashSet<>();
+        nextTurnEffects = new NextTurnEffects();
     }
 
 
@@ -108,6 +115,11 @@ public class PokemonCard extends FieldCard {
         if (dmgCounter >= hp) {
             throw new MonIsDefeatedException();
         }
+    }
+
+    public void doAttackDmg(int attackDmg) {
+        int afterTurnEffects = getNextTurnEffects().calcDmgAfterTurnEffects(attackDmg);
+        doSimpleDmg(afterTurnEffects);
     }
 
     public List<Attack> giveUseableAttacks() {

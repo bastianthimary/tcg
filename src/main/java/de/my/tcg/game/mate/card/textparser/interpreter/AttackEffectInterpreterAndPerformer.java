@@ -60,7 +60,7 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
 
     private void doDmg() {
         calculateDmg();
-        opponentSide.getActiveMon().doSimpleDmg(dmg);
+        opponentSide.getActiveMon().doAttackDmg(dmg);
     }
 
     private void parseTextAndPerformEffect() {
