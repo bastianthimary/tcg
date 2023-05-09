@@ -87,7 +87,8 @@ public class PokemonCard extends FieldCard {
         if (hasAResistanceAgainst(takeDmgByType)) {
             originDmg = calcResistanceDmg(originDmg);
         }
-        doSimpleDmg(originDmg);
+        int afterTurnEffects = getNextTurnEffects().calcDmgAfterTurnEffects(originDmg);
+        doSimpleDmg(afterTurnEffects);
     }
 
     public boolean hasAWeaknessAgainst(PokeType takeDmgByType) {
@@ -116,11 +117,7 @@ public class PokemonCard extends FieldCard {
             throw new MonIsDefeatedException();
         }
     }
-
-    public void doAttackDmg(int attackDmg) {
-        int afterTurnEffects = getNextTurnEffects().calcDmgAfterTurnEffects(attackDmg);
-        doSimpleDmg(afterTurnEffects);
-    }
+    
 
     public List<Attack> giveUseableAttacks() {
         return attacks.stream().filter(attack -> energyTotal.couldAttackBeUsed(attack)).toList();

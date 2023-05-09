@@ -54,7 +54,8 @@ public class AdditionalDmgAttackEffectInterpreterAndPerformer extends Additional
 
     private void doDmg() {
         calculateDmg();
-        opponentSide.getActiveMon().doAttackDmg(dmg);
+
+        opponentSide.getActiveMon().doDmgAccordingToType(dmg, thisFieldSide.getActiveMon().getMyPokeType());
     }
 
     private void parseTextAndPerformEffect() {

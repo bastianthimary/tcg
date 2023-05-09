@@ -360,6 +360,24 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
+    public void enterPrevent(EffectTextParserParser.PreventContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitPrevent(EffectTextParserParser.PreventContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
     public void enterPreventAllDmg(EffectTextParserParser.PreventAllDmgContext ctx) {
     }
 
@@ -388,6 +406,24 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      */
     @Override
     public void exitPreventEffectAndDmg(EffectTextParserParser.PreventEffectAndDmgContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void enterPreventDmgReduction(EffectTextParserParser.PreventDmgReductionContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitPreventDmgReduction(EffectTextParserParser.PreventDmgReductionContext ctx) {
     }
 
     /**

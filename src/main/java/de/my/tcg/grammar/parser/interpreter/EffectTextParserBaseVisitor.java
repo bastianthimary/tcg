@@ -228,6 +228,17 @@ public class EffectTextParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override
+    public T visitPrevent(EffectTextParserParser.PreventContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.</p>
+     */
+    @Override
     public T visitPreventAllDmg(EffectTextParserParser.PreventAllDmgContext ctx) {
         return visitChildren(ctx);
     }
@@ -240,6 +251,17 @@ public class EffectTextParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
      */
     @Override
     public T visitPreventEffectAndDmg(EffectTextParserParser.PreventEffectAndDmgContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.</p>
+     */
+    @Override
+    public T visitPreventDmgReduction(EffectTextParserParser.PreventDmgReductionContext ctx) {
         return visitChildren(ctx);
     }
 }

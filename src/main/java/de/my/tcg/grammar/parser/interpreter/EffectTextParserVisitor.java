@@ -163,6 +163,14 @@ public interface EffectTextParserVisitor<T> extends ParseTreeVisitor<T> {
     T visitBenchDmgEffect(EffectTextParserParser.BenchDmgEffectContext ctx);
 
     /**
+     * Visit a parse tree produced by {@link EffectTextParserParser#prevent}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitPrevent(EffectTextParserParser.PreventContext ctx);
+
+    /**
      * Visit a parse tree produced by {@link EffectTextParserParser#preventAllDmg}.
      *
      * @param ctx the parse tree
@@ -177,4 +185,12 @@ public interface EffectTextParserVisitor<T> extends ParseTreeVisitor<T> {
      * @return the visitor result
      */
     T visitPreventEffectAndDmg(EffectTextParserParser.PreventEffectAndDmgContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link EffectTextParserParser#preventDmgReduction}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitPreventDmgReduction(EffectTextParserParser.PreventDmgReductionContext ctx);
 }

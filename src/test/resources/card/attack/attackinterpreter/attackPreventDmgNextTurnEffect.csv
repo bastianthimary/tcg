@@ -1,3 +1,4 @@
 String dmgAsString, String attackString, int dmgPer, boolean expectCoinFlipForMy, String myPokemonName, TurnEffectState myNextTurnState, boolean expectCoinFlipForDefending, TurnEffectState defendingNextTurnState
 30;Flip a coin. If heads, prevent all damage done to Chansey during your opponent's next turn. (Any other effects of attacks still happen.);30;true;Chansey;NO_DMG
 20;Flip a coin. If heads, during your opponent's next turn, prevent all effects of attacks, including damage, done to Raichu.;20;true;Raichu;NO_DMG_AND_NO_EFFECT
+0;During your opponent's next turn, whenever 30 or less damage is done to Onix (after applying Weakness and Resistance), prevent that damage. (Any other effects of attacks still happen.);0;false;Onix;DMG_REDUCTION

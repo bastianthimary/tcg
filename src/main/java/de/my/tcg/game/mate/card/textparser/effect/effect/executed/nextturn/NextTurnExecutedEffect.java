@@ -4,10 +4,10 @@ import de.my.tcg.game.mate.card.PokemonCard;
 import de.my.tcg.game.mate.card.nextturn.TurnEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.ExecutedEffect;
 
-public class PreventNextTurnExecutedEffect implements ExecutedEffect {
-    private TurnEffect turnEffect;
+public class NextTurnExecutedEffect implements ExecutedEffect {
+    private final TurnEffect turnEffect;
 
-    public PreventNextTurnExecutedEffect(TurnEffect turnEffect) {
+    public NextTurnExecutedEffect(TurnEffect turnEffect) {
         this.turnEffect = turnEffect;
     }
 
