@@ -220,4 +220,15 @@ public class EffectTextParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
     public T visitBenchDmgEffect(EffectTextParserParser.BenchDmgEffectContext ctx) {
         return visitChildren(ctx);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.</p>
+     */
+    @Override
+    public T visitPreventAllDmg(EffectTextParserParser.PreventAllDmgContext ctx) {
+        return visitChildren(ctx);
+    }
 }

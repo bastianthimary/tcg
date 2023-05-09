@@ -272,4 +272,18 @@ public interface EffectTextParserListener extends ParseTreeListener {
      * @param ctx the parse tree
      */
     void exitBenchDmgEffect(EffectTextParserParser.BenchDmgEffectContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link EffectTextParserParser#preventAllDmg}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterPreventAllDmg(EffectTextParserParser.PreventAllDmgContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link EffectTextParserParser#preventAllDmg}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitPreventAllDmg(EffectTextParserParser.PreventAllDmgContext ctx);
 }

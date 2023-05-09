@@ -9,6 +9,7 @@ import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.mate.EnergyTotal;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
+import de.my.tcg.game.mate.card.nextturn.TurnEffectState;
 import de.my.tcg.game.mate.card.status.PoisonCondition;
 import de.my.tcg.game.mate.card.status.SpecialCondition;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.Target;
@@ -228,4 +229,34 @@ class AttackInterpreterTest {
         assertThat(attackingPokemon.getEnergyTotal().getTotalEnergy()).isEqualTo(energyAfter);
     }
 
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/card/attack/attackinterpreter/attackPreventDmgNextTurnEffect.csv", numLinesToSkip = 1, delimiter = ';')
+    void attackPreventDmgNextTurnEffect(String dmgAsString, String attackString, int dmgPer, boolean expectCoinFlipForMy,
+                                        String myPokemonName, TurnEffectState myNextTurnState) {
+        FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon(myPokemonName);
+        FieldSide opponentFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("opponent");
+        Attack attack = new Attack();
+        attack.setText(attackString);
+        attack.setDamage(dmgAsString);
+        AttackInterpreter attackInterpreter = new AttackInterpreter(attack, myFieldSide, opponentFieldSide);
+        attackInterpreter.performAttack();
+
+        PokemonCard attackingPokemon = myFieldSide.getActiveMon();
+        PokemonCard defendingPokemon = opponentFieldSide.getActiveMon();
+        assertThat(defendingPokemon.getDmgCounter()).isEqualTo(dmgPer);
+        if (expectCoinFlipForMy) {
+            if (Coin.headcount == 1) {
+                System.out.println("was head");
+                assertThat(attackingPokemon.getNextTurnEffects().getTurnEffect().getTurnEffectState()).isEqualTo(myNextTurnState);
+            } else {
+                System.out.println("was tails");
+
+                assertThat(attackingPokemon.getNextTurnEffects().getTurnEffect()).isNull();
+            }
+            Coin.headcount = 0;
+        } else {
+            assertThat(attackingPokemon.getNextTurnEffects().getTurnEffect().getTurnEffectState()).isEqualTo(myNextTurnState);
+        }
+    }
 }

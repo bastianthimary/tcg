@@ -29,11 +29,12 @@ multipleDmgEffect: 'This attack does'dmgPer= Number ' damage times the number of
 basicEffect:(target executedEffect)|executedEffect;
 
 
-executedEffect:statusEffect|hurtEffect|discardEnergy|benchDmgEffect;
+executedEffect:statusEffect|hurtEffect|discardEnergy|benchDmgEffect|preventAllDmg;
 hurtEffect:'does 'dmg=Number'damage to itself';
 statusEffect:'is now' statusCondition;
 discardEnergy:'Discard'((numberOfCards=Number PokeType)|numberOfCards='all') 'Energy'('card'|'cards') ' attached to' target' in order to use this attack.';
 benchDmgEffect:'does ' dmg=Number'damage to 'benchTarget '. Dont apply Weakness and Resistance for Benched Pokémon.';
+preventAllDmg:'prevent all damage done to' target 'during your opponents next turn. Any other effects of attacks still happen.';
 
 
 

@@ -4,6 +4,8 @@ import de.my.tcg.basedata.Attack;
 import de.my.tcg.basedata.poketype.PokeType;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
+import de.my.tcg.game.mate.card.nextturn.TurnEffect;
+import de.my.tcg.game.mate.card.nextturn.TurnEffectState;
 import de.my.tcg.game.mate.card.status.Status;
 import de.my.tcg.game.mate.card.status.StatusConditionTextParser;
 import de.my.tcg.game.mate.card.textparser.effect.CardEffect;
@@ -14,6 +16,7 @@ import de.my.tcg.game.mate.card.textparser.effect.effect.executed.bench.BenchDmg
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.discard.DiscardEnergyExecution;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.MultipleDmgEffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.hurt.HurtExecutedEffect;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.nextturn.PreventDmgExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.statuscondition.StatusConditionExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.MultipleEffectTarget;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.SingleEffectTarget;
@@ -216,5 +219,13 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
     private void addBothBenches(List<PokemonCard> benchMons) {
         benchMons.addAll(thisFieldSide.getBenchMons());
         benchMons.addAll(opponentSide.getBenchMons());
+    }
+
+    @Override
+    public Integer visitPreventAllDmg(EffectTextParserParser.PreventAllDmgContext ctx) {
+        visitChildren(ctx);
+        BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
+        basicEffectTerm.setExecutedEffect(new PreventDmgExecutedEffect(new TurnEffect(TurnEffectState.NO_DMG)));
+        return 0;
     }
 }
