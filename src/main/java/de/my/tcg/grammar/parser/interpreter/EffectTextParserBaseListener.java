@@ -378,6 +378,24 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
+    public void enterPreventEffectAndDmg(EffectTextParserParser.PreventEffectAndDmgContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitPreventEffectAndDmg(EffectTextParserParser.PreventEffectAndDmgContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
     public void enterEveryRule(ParserRuleContext ctx) {
     }
 

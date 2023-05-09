@@ -36,8 +36,8 @@ public class Player {
     private final FieldSide playMate;
     private Retreat retreat;
     private final List<PlayCard> priceCards;
-    private AttackManager attackManager;
-    private Random random;
+    private final AttackManager attackManager;
+    private final Random random;
 
     public Player(Person person) {
         this.person = person;

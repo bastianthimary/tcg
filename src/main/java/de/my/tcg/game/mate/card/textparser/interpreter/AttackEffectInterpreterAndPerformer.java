@@ -16,7 +16,7 @@ import de.my.tcg.game.mate.card.textparser.effect.effect.executed.bench.BenchDmg
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.discard.DiscardEnergyExecution;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.MultipleDmgEffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.hurt.HurtExecutedEffect;
-import de.my.tcg.game.mate.card.textparser.effect.effect.executed.nextturn.PreventDmgExecutedEffect;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.nextturn.PreventNextTurnExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.statuscondition.StatusConditionExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.MultipleEffectTarget;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.SingleEffectTarget;
@@ -225,7 +225,15 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
     public Integer visitPreventAllDmg(EffectTextParserParser.PreventAllDmgContext ctx) {
         visitChildren(ctx);
         BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
-        basicEffectTerm.setExecutedEffect(new PreventDmgExecutedEffect(new TurnEffect(TurnEffectState.NO_DMG)));
+        basicEffectTerm.setExecutedEffect(new PreventNextTurnExecutedEffect(new TurnEffect(TurnEffectState.NO_DMG)));
+        return 0;
+    }
+
+    @Override
+    public Integer visitPreventEffectAndDmg(EffectTextParserParser.PreventEffectAndDmgContext ctx) {
+        visitChildren(ctx);
+        BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
+        basicEffectTerm.setExecutedEffect(new PreventNextTurnExecutedEffect(new TurnEffect(TurnEffectState.NO_DMG_AND_NO_EFFECT)));
         return 0;
     }
 }
