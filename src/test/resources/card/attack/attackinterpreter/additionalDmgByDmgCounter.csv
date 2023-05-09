@@ -1,0 +1,4 @@
+String dmgAsString, String attackString, int expectedDmg, int dmgOnDefendingMon
+20+,Does 20 damage plus 10 more damage for each damage counter on the Defending Pokémon.,20,0
+20+,Does 20 damage plus 10 more damage for each damage counter on the Defending Pokémon.,60,20
+20+,Does 20 damage plus 10 more damage for each damage counter on the Defending Pokémon.,80,30

@@ -186,9 +186,9 @@ class AttackInterpreterTest {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/card/attack/attackinterpreter/additionalDmg.csv", numLinesToSkip = 1)
-    void additionalDmg(String dmgAsString, String attackString, int expectedDmg, String energyCardsAsString,
-                       String costtype, int costqty, String myPokemonName) {
+    @CsvFileSource(resources = "/card/attack/attackinterpreter/additionalDmgByEnergy.csv", numLinesToSkip = 1)
+    void additionalDmgByEnergy(String dmgAsString, String attackString, int expectedDmg, String energyCardsAsString,
+                               String costtype, int costqty, String myPokemonName) {
 
 
         FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon(myPokemonName);
@@ -203,6 +203,27 @@ class AttackInterpreterTest {
         Cost cost1 = new Cost(costtype, costqty);
         attack.setCost(Set.of(cost1));
         attack.setConvertedEnergyCost(costqty);
+        AttackInterpreter attackInterpreter = new AttackInterpreter(attack, myFieldSide, opponentFieldSide);
+        attackInterpreter.performAttack();
+
+        PokemonCard defendingPokemon = opponentFieldSide.getActiveMon();
+        assertThat(defendingPokemon.getDmgCounter()).isEqualTo(expectedDmg);
+    }
+
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/card/attack/attackinterpreter/additionalDmgByDmgCounter.csv", numLinesToSkip = 1)
+    void additionalDmgByDmgCounter(String dmgAsString, String attackString, int expectedDmg, int dmgOnDefendingMon) {
+
+
+        FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("myPokemonName");
+        FieldSide opponentFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("opponent");
+        PokemonCard opponentMon = opponentFieldSide.getActiveMon();
+        opponentMon.doSimpleDmg(dmgOnDefendingMon);
+        Attack attack = new Attack();
+        attack.setText(attackString);
+        attack.setDamage(dmgAsString);
+
         AttackInterpreter attackInterpreter = new AttackInterpreter(attack, myFieldSide, opponentFieldSide);
         attackInterpreter.performAttack();
 

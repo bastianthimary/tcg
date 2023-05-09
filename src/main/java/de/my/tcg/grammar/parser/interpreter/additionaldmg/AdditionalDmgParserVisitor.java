@@ -59,6 +59,14 @@ public interface AdditionalDmgParserVisitor<T> extends ParseTreeVisitor<T> {
     T visitEnergyNotUsed(AdditionalDmgParserParser.EnergyNotUsedContext ctx);
 
     /**
+     * Visit a parse tree produced by {@link AdditionalDmgParserParser#dmgCounter}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitDmgCounter(AdditionalDmgParserParser.DmgCounterContext ctx);
+
+    /**
      * Visit a parse tree produced by {@link AdditionalDmgParserParser#limitation}.
      *
      * @param ctx the parse tree
@@ -89,4 +97,12 @@ public interface AdditionalDmgParserVisitor<T> extends ParseTreeVisitor<T> {
      * @return the visitor result
      */
     T visitEnergyAfter_Var2(AdditionalDmgParserParser.EnergyAfter_Var2Context ctx);
+
+    /**
+     * Visit a parse tree produced by {@link AdditionalDmgParserParser#pokemonStatusCondition}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitPokemonStatusCondition(AdditionalDmgParserParser.PokemonStatusConditionContext ctx);
 }

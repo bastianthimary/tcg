@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * of the available methods.
  *
  * @param <T> The return type of the visit operation. Use {@link Void} for
- *            operations with no return type.
+ * operations with no return type.
  */
 @SuppressWarnings("CheckReturnValue")
 public class AdditionalDmgParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements AdditionalDmgParserVisitor<T> {
@@ -85,6 +85,17 @@ public class AdditionalDmgParserBaseVisitor<T> extends AbstractParseTreeVisitor<
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override
+	public T visitDmgCounter(AdditionalDmgParserParser.DmgCounterContext ctx) {
+		return visitChildren(ctx);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override
 	public T visitLimitation(AdditionalDmgParserParser.LimitationContext ctx) {
 		return visitChildren(ctx);
 	}
@@ -119,6 +130,17 @@ public class AdditionalDmgParserBaseVisitor<T> extends AbstractParseTreeVisitor<
 	 */
 	@Override
 	public T visitEnergyAfter_Var2(AdditionalDmgParserParser.EnergyAfter_Var2Context ctx) {
+		return visitChildren(ctx);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override
+	public T visitPokemonStatusCondition(AdditionalDmgParserParser.PokemonStatusConditionContext ctx) {
 		return visitChildren(ctx);
 	}
 }

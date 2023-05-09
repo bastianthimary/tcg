@@ -17,7 +17,7 @@ public class AttackInterpreterOverview {
 
     //select c."name",a.id, a."name",a."text" ,a.damage  from card c join card_attacks ca on c.id =ca.card_id join attack a on ca.attacks_id =a.id
     //where a.id <2404
-    //  @ParameterizedTest
+    //@ParameterizedTest
     @CsvFileSource(resources = "/card/attack/attackinterpreter/overview.csv", numLinesToSkip = 1, delimiter = ';')
     public void overview(String pokemonname, int id, String attackname, String text, String damage) {
         if (text != null) {

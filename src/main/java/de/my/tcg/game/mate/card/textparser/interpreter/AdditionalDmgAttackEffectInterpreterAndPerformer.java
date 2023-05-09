@@ -7,6 +7,7 @@ import de.my.tcg.game.mate.card.PokemonCard;
 import de.my.tcg.game.mate.card.textparser.effect.CardEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.AdditionalDmgEffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.addcondition.AddCondition;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.addcondition.dmgcounter.AddByDmgCounter;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.addcondition.energynotused.AddByEnergyNotUsed;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.addcondition.energynotused.EnergyNotUsedLimitation;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.Target;
@@ -111,6 +112,20 @@ public class AdditionalDmgAttackEffectInterpreterAndPerformer extends Additional
         AddByEnergyNotUsed energyNotUsed = new AddByEnergyNotUsed(attack, energyType);
         energyNotUsed.setTargedPokemon(targetPokemonCard);
         currentTerm.setEffectCondition(energyNotUsed);
+        return 0;
+    }
+
+    @Override
+    public Integer visitDmgCounter(AdditionalDmgParserParser.DmgCounterContext ctx) {
+        visitChildren(ctx);
+        PokemonCard targetPokemonCard;
+        switch (Target.getTargetByName(ctx.target.getText())) {
+            case THIS_POKEMON, NO_TARGET -> targetPokemonCard = thisPokemonCard;
+            case DEFENDING_POKEMON -> targetPokemonCard = defendingPokemonCard;
+            default -> targetPokemonCard = thisPokemonCard;
+        }
+        AddByDmgCounter dmgByCounter = new AddByDmgCounter(targetPokemonCard);
+        currentTerm.setEffectCondition(dmgByCounter);
         return 0;
     }
 

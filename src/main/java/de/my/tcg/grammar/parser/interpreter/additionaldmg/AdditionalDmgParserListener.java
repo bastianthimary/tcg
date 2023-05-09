@@ -92,6 +92,20 @@ public interface AdditionalDmgParserListener extends ParseTreeListener {
     void exitEnergyNotUsed(AdditionalDmgParserParser.EnergyNotUsedContext ctx);
 
     /**
+     * Enter a parse tree produced by {@link AdditionalDmgParserParser#dmgCounter}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterDmgCounter(AdditionalDmgParserParser.DmgCounterContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link AdditionalDmgParserParser#dmgCounter}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitDmgCounter(AdditionalDmgParserParser.DmgCounterContext ctx);
+
+    /**
      * Enter a parse tree produced by {@link AdditionalDmgParserParser#limitation}.
      *
      * @param ctx the parse tree
@@ -146,4 +160,18 @@ public interface AdditionalDmgParserListener extends ParseTreeListener {
      * @param ctx the parse tree
      */
     void exitEnergyAfter_Var2(AdditionalDmgParserParser.EnergyAfter_Var2Context ctx);
+
+    /**
+     * Enter a parse tree produced by {@link AdditionalDmgParserParser#pokemonStatusCondition}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterPokemonStatusCondition(AdditionalDmgParserParser.PokemonStatusConditionContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link AdditionalDmgParserParser#pokemonStatusCondition}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitPokemonStatusCondition(AdditionalDmgParserParser.PokemonStatusConditionContext ctx);
 }
