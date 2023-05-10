@@ -280,4 +280,28 @@ class AttackInterpreterTest {
             assertThat(attackingPokemon.getNextTurnEffects().getTurnEffect().getTurnEffectState()).isEqualTo(myNextTurnState);
         }
     }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/card/attack/attackinterpreter/DoNothing.csv", numLinesToSkip = 1)
+    void DoNothing(String dmgAsString, String attackString, int dmg,
+                   String myPokemonName) {
+        FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon(myPokemonName);
+        FieldSide opponentFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("opponent");
+        Attack attack = new Attack();
+        attack.setText(attackString);
+        attack.setDamage(dmgAsString);
+        AttackInterpreter attackInterpreter = new AttackInterpreter(attack, myFieldSide, opponentFieldSide);
+        attackInterpreter.performAttack();
+
+        PokemonCard defendingPokemon = opponentFieldSide.getActiveMon();
+        if (Coin.headcount == 0) {
+            System.out.println("was Tails");
+            assertThat(defendingPokemon.getDmgCounter()).isZero();
+        } else {
+            System.out.println("was Head");
+            assertThat(defendingPokemon.getDmgCounter()).isEqualTo(dmg);
+        }
+        Coin.headcount = 0;
+
+    }
 }

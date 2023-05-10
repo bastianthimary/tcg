@@ -17,6 +17,8 @@ import de.my.tcg.game.mate.card.textparser.effect.effect.executed.discard.Discar
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.MultipleDmgEffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.hurt.HurtExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.nextturn.NextTurnExecutedEffect;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.nothing.DoNothingException;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.nothing.DoNothingTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.statuscondition.StatusConditionExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.MultipleEffectTarget;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.SingleEffectTarget;
@@ -56,9 +58,14 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
     }
 
     public void interpretAndPerformAttack() {
-        parseTextAndPerformEffect();
-        terms.forEach(CardEffect::runEffect);
-        doDmg();
+        try {
+            parseTextAndPerformEffect();
+            terms.forEach(CardEffect::runEffect);
+            doDmg();
+        } catch (DoNothingException doNothingException) {
+            //Attack does Nothing
+        }
+
     }
 
     private void doDmg() {
@@ -244,6 +251,13 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
         BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
         basicEffectTerm.setExecutedEffect(new NextTurnExecutedEffect(new TurnEffect(reduction)));
 
+        return 0;
+    }
+
+    @Override
+    public Integer visitDoNothing(EffectTextParserParser.DoNothingContext ctx) {
+        visitChildren(ctx);
+        currentTerm.setEffectTerm(new DoNothingTerm());
         return 0;
     }
 }

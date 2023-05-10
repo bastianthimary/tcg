@@ -23,8 +23,9 @@ flipCoin:'Flip' times=Number  ('coin'|'coins');
 conditionClass:'if' conditionTypes;
 
 
-dmgEffect: multipleDmgEffect;
+dmgEffect: multipleDmgEffect|doNothing;
 multipleDmgEffect: 'This attack does'dmgPer= Number ' damage times the number of'conditionTypes?;
+doNothing:'this attack does nothing';
 
 basicEffect:(target executedEffect)|executedEffect;
 

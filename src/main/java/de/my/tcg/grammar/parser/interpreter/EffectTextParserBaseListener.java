@@ -432,6 +432,24 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
+    public void enterDoNothing(EffectTextParserParser.DoNothingContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitDoNothing(EffectTextParserParser.DoNothingContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
     public void enterEveryRule(ParserRuleContext ctx) {
     }
 

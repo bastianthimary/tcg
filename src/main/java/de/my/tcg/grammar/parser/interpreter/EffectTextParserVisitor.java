@@ -193,4 +193,12 @@ public interface EffectTextParserVisitor<T> extends ParseTreeVisitor<T> {
      * @return the visitor result
      */
     T visitPreventDmgReduction(EffectTextParserParser.PreventDmgReductionContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link EffectTextParserParser#doNothing}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitDoNothing(EffectTextParserParser.DoNothingContext ctx);
 }
