@@ -216,6 +216,96 @@ public class AdditionalDmgParserBaseListener implements AdditionalDmgParserListe
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override
+	public void enterCoinFlipEffect(AdditionalDmgParserParser.CoinFlipEffectContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void exitCoinFlipEffect(AdditionalDmgParserParser.CoinFlipEffectContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void enterFlipCoin(AdditionalDmgParserParser.FlipCoinContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void exitFlipCoin(AdditionalDmgParserParser.FlipCoinContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void enterConditionClass(AdditionalDmgParserParser.ConditionClassContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void exitConditionClass(AdditionalDmgParserParser.ConditionClassContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void enterAttackIfDoes(AdditionalDmgParserParser.AttackIfDoesContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void exitAttackIfDoes(AdditionalDmgParserParser.AttackIfDoesContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void enterAttackElseDoes(AdditionalDmgParserParser.AttackElseDoesContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void exitAttackElseDoes(AdditionalDmgParserParser.AttackElseDoesContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
 	public void enterPokemonStatusCondition(AdditionalDmgParserParser.PokemonStatusConditionContext ctx) {
 	}
 
@@ -260,7 +350,5 @@ public class AdditionalDmgParserBaseListener implements AdditionalDmgParserListe
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override
-	public void visitErrorNode(ErrorNode node) {
-	}
+	@Override public void visitErrorNode(ErrorNode node) { }
 }

@@ -162,6 +162,76 @@ public interface AdditionalDmgParserListener extends ParseTreeListener {
     void exitEnergyAfter_Var2(AdditionalDmgParserParser.EnergyAfter_Var2Context ctx);
 
     /**
+     * Enter a parse tree produced by {@link AdditionalDmgParserParser#coinFlipEffect}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterCoinFlipEffect(AdditionalDmgParserParser.CoinFlipEffectContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link AdditionalDmgParserParser#coinFlipEffect}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitCoinFlipEffect(AdditionalDmgParserParser.CoinFlipEffectContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link AdditionalDmgParserParser#flipCoin}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterFlipCoin(AdditionalDmgParserParser.FlipCoinContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link AdditionalDmgParserParser#flipCoin}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitFlipCoin(AdditionalDmgParserParser.FlipCoinContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link AdditionalDmgParserParser#conditionClass}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterConditionClass(AdditionalDmgParserParser.ConditionClassContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link AdditionalDmgParserParser#conditionClass}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitConditionClass(AdditionalDmgParserParser.ConditionClassContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link AdditionalDmgParserParser#attackIfDoes}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterAttackIfDoes(AdditionalDmgParserParser.AttackIfDoesContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link AdditionalDmgParserParser#attackIfDoes}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitAttackIfDoes(AdditionalDmgParserParser.AttackIfDoesContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link AdditionalDmgParserParser#attackElseDoes}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterAttackElseDoes(AdditionalDmgParserParser.AttackElseDoesContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link AdditionalDmgParserParser#attackElseDoes}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitAttackElseDoes(AdditionalDmgParserParser.AttackElseDoesContext ctx);
+
+    /**
      * Enter a parse tree produced by {@link AdditionalDmgParserParser#pokemonStatusCondition}.
      *
      * @param ctx the parse tree

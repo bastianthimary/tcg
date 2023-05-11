@@ -24,21 +24,24 @@ public class AdditionalDmgParserParser extends Parser {
             new PredictionContextCache();
     public static final int
             T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, T__7 = 8, T__8 = 9,
-            T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, T__14 = 15, T__15 = 16, Number = 17,
-            WHITESPACE = 18, DoOrDont = 19, Do = 20, Dont = 21, Target = 22, VarPokemonName = 23,
-            DefendingPokemon = 24, PokeType = 25, ConditionTypes = 26, LimitationCounter = 27,
-            NumberAsText = 28;
+            T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, T__14 = 15, T__15 = 16, T__16 = 17,
+            T__17 = 18, T__18 = 19, T__19 = 20, T__20 = 21, T__21 = 22, T__22 = 23, Number = 24,
+            WHITESPACE = 25, DoOrDont = 26, Do = 27, Dont = 28, Target = 29, VarPokemonName = 30,
+            DefendingPokemon = 31, PokeType = 32, ConditionTypes = 33, LimitationCounter = 34,
+            NumberAsText = 35;
     public static final int
             RULE_effectText = 0, RULE_term = 1, RULE_additionalDmgEffect = 2, RULE_dmgData = 3,
             RULE_condition = 4, RULE_energyNotUsed = 5, RULE_dmgCounter = 6, RULE_limitation = 7,
             RULE_energyAfter = 8, RULE_energyAfter_Var1 = 9, RULE_energyAfter_Var2 = 10,
-            RULE_pokemonStatusCondition = 11;
+            RULE_coinFlipEffect = 11, RULE_flipCoin = 12, RULE_conditionClass = 13,
+            RULE_attackIfDoes = 14, RULE_attackElseDoes = 15, RULE_pokemonStatusCondition = 16;
 
     private static String[] makeRuleNames() {
         return new String[]{
                 "effectText", "term", "additionalDmgEffect", "dmgData", "condition",
                 "energyNotUsed", "dmgCounter", "limitation", "energyAfter", "energyAfter_Var1",
-                "energyAfter_Var2", "pokemonStatusCondition"
+                "energyAfter_Var2", "coinFlipEffect", "flipCoin", "conditionClass", "attackIfDoes",
+                "attackElseDoes", "pokemonStatusCondition"
         };
     }
 
@@ -46,11 +49,12 @@ public class AdditionalDmgParserParser extends Parser {
 
     private static String[] makeLiteralNames() {
         return new String[]{
-                null, "' damage plus'", "'more damage'", "'for each'", "'Energy attached to'",
+                null, "' damage plus '", "' more damage'", "'for each'", "'Energy attached to'",
                 "'but not used to pay for this attacks Energy cost'", "'for each damage counter on'",
                 "'Extra '", "'Energy after the'", "' count.'", "'You cant add more than '",
-                "' damage in this way'", "'Asleep'", "'Confused'", "'Paralyzed'", "'Poisoned'",
-                "'Burned'", null, null, null, "'Does'", null, null, "'this Pokemon'",
+                "' damage in this way'", "'Flip'", "'coin'", "'coins'", "'if'", "'this attack does'",
+                "'more damage'", "' damage'", "'Asleep'", "'Confused'", "'Paralyzed'",
+                "'Poisoned'", "'Burned'", null, null, null, "'Does'", null, null, "'this Pokemon'",
                 "'the Defending Pok\\u00E9mon'"
         };
     }
@@ -60,9 +64,10 @@ public class AdditionalDmgParserParser extends Parser {
     private static String[] makeSymbolicNames() {
         return new String[]{
                 null, null, null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, "Number", "WHITESPACE", "DoOrDont", "Do",
-                "Dont", "Target", "VarPokemonName", "DefendingPokemon", "PokeType", "ConditionTypes",
-                "LimitationCounter", "NumberAsText"
+                null, null, null, null, null, null, null, null, null, null, null, null,
+                "Number", "WHITESPACE", "DoOrDont", "Do", "Dont", "Target", "VarPokemonName",
+                "DefendingPokemon", "PokeType", "ConditionTypes", "LimitationCounter",
+                "NumberAsText"
         };
     }
 
@@ -172,20 +177,20 @@ public class AdditionalDmgParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(25);
+                setState(35);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
                 do {
                     {
                         {
-                            setState(24);
+                            setState(34);
                             term();
                         }
                     }
-                    setState(27);
+                    setState(37);
                     _errHandler.sync(this);
                     _la = _input.LA(1);
-                } while (_la == DoOrDont);
+                } while (_la == T__11 || _la == DoOrDont);
             }
         } catch (RecognitionException re) {
             _localctx.exception = re;
@@ -201,6 +206,10 @@ public class AdditionalDmgParserParser extends Parser {
     public static class TermContext extends ParserRuleContext {
         public AdditionalDmgEffectContext additionalDmgEffect() {
             return getRuleContext(AdditionalDmgEffectContext.class, 0);
+        }
+
+        public CoinFlipEffectContext coinFlipEffect() {
+            return getRuleContext(CoinFlipEffectContext.class, 0);
         }
 
         public TermContext(ParserRuleContext parent, int invokingState) {
@@ -236,10 +245,25 @@ public class AdditionalDmgParserParser extends Parser {
         TermContext _localctx = new TermContext(_ctx, getState());
         enterRule(_localctx, 2, RULE_term);
         try {
-            enterOuterAlt(_localctx, 1);
-            {
-                setState(29);
-                additionalDmgEffect();
+            setState(41);
+            _errHandler.sync(this);
+            switch (_input.LA(1)) {
+                case DoOrDont:
+                    enterOuterAlt(_localctx, 1);
+                {
+                    setState(39);
+                    additionalDmgEffect();
+                }
+                break;
+                case T__11:
+                    enterOuterAlt(_localctx, 2);
+                {
+                    setState(40);
+                    coinFlipEffect();
+                }
+                break;
+                default:
+                    throw new NoViableAltException(this);
             }
         } catch (RecognitionException re) {
             _localctx.exception = re;
@@ -297,14 +321,14 @@ public class AdditionalDmgParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(31);
+                setState(43);
                 dmgData();
-                setState(33);
+                setState(45);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
                 if (_la == T__2 || _la == T__5) {
                     {
-                        setState(32);
+                        setState(44);
                         condition();
                     }
                 }
@@ -372,15 +396,15 @@ public class AdditionalDmgParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(35);
+                setState(47);
                 match(DoOrDont);
-                setState(36);
+                setState(48);
                 ((DmgDataContext) _localctx).dmg = match(Number);
-                setState(37);
+                setState(49);
                 match(T__0);
-                setState(38);
+                setState(50);
                 ((DmgDataContext) _localctx).additionalDmg = match(Number);
-                setState(39);
+                setState(51);
                 match(T__1);
             }
         } catch (RecognitionException re) {
@@ -440,16 +464,16 @@ public class AdditionalDmgParserParser extends Parser {
         ConditionContext _localctx = new ConditionContext(_ctx, getState());
         enterRule(_localctx, 8, RULE_condition);
         try {
-            setState(45);
+            setState(57);
             _errHandler.sync(this);
             switch (_input.LA(1)) {
                 case T__2:
                     enterOuterAlt(_localctx, 1);
                 {
                     {
-                        setState(41);
+                        setState(53);
                         energyNotUsed();
-                        setState(42);
+                        setState(54);
                         limitation();
                     }
                 }
@@ -457,7 +481,7 @@ public class AdditionalDmgParserParser extends Parser {
                 case T__5:
                     enterOuterAlt(_localctx, 2);
                 {
-                    setState(44);
+                    setState(56);
                     dmgCounter();
                 }
                 break;
@@ -522,15 +546,15 @@ public class AdditionalDmgParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(47);
+                setState(59);
                 match(T__2);
-                setState(48);
+                setState(60);
                 ((EnergyNotUsedContext) _localctx).type = match(PokeType);
-                setState(49);
+                setState(61);
                 match(T__3);
-                setState(50);
+                setState(62);
                 ((EnergyNotUsedContext) _localctx).target = match(Target);
-                setState(51);
+                setState(63);
                 match(T__4);
             }
         } catch (RecognitionException re) {
@@ -586,9 +610,9 @@ public class AdditionalDmgParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(53);
+                setState(65);
                 match(T__5);
-                setState(54);
+                setState(66);
                 ((DmgCounterContext) _localctx).target = match(Target);
             }
         } catch (RecognitionException re) {
@@ -642,7 +666,7 @@ public class AdditionalDmgParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(56);
+                setState(68);
                 energyAfter();
             }
         } catch (RecognitionException re) {
@@ -698,20 +722,20 @@ public class AdditionalDmgParserParser extends Parser {
         EnergyAfterContext _localctx = new EnergyAfterContext(_ctx, getState());
         enterRule(_localctx, 16, RULE_energyAfter);
         try {
-            setState(60);
+            setState(72);
             _errHandler.sync(this);
             switch (_input.LA(1)) {
                 case T__6:
                     enterOuterAlt(_localctx, 1);
                 {
-                    setState(58);
+                    setState(70);
                     energyAfter_Var1();
                 }
                 break;
                 case T__9:
                     enterOuterAlt(_localctx, 2);
                 {
-                    setState(59);
+                    setState(71);
                     energyAfter_Var2();
                 }
                 break;
@@ -779,21 +803,21 @@ public class AdditionalDmgParserParser extends Parser {
             {
                 {
                     {
-                        setState(62);
+                        setState(74);
                         match(T__6);
                     }
-                    setState(63);
+                    setState(75);
                     match(PokeType);
                     {
-                        setState(64);
+                        setState(76);
                         match(T__7);
                     }
-                    setState(65);
+                    setState(77);
                     match(LimitationCounter);
-                    setState(66);
+                    setState(78);
                     match(DoOrDont);
                     {
-                        setState(67);
+                        setState(79);
                         match(T__8);
                     }
                 }
@@ -851,12 +875,352 @@ public class AdditionalDmgParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(69);
+                setState(81);
                 match(T__9);
-                setState(70);
+                setState(82);
                 ((EnergyAfter_Var2Context) _localctx).dmgLimit = match(Number);
-                setState(71);
+                setState(83);
                 match(T__10);
+            }
+        } catch (RecognitionException re) {
+            _localctx.exception = re;
+            _errHandler.reportError(this, re);
+            _errHandler.recover(this, re);
+        } finally {
+            exitRule();
+        }
+        return _localctx;
+    }
+
+    @SuppressWarnings("CheckReturnValue")
+    public static class CoinFlipEffectContext extends ParserRuleContext {
+        public FlipCoinContext flipCoin() {
+            return getRuleContext(FlipCoinContext.class, 0);
+        }
+
+        public List<ConditionClassContext> conditionClass() {
+            return getRuleContexts(ConditionClassContext.class);
+        }
+
+        public ConditionClassContext conditionClass(int i) {
+            return getRuleContext(ConditionClassContext.class, i);
+        }
+
+        public AttackIfDoesContext attackIfDoes() {
+            return getRuleContext(AttackIfDoesContext.class, 0);
+        }
+
+        public AttackElseDoesContext attackElseDoes() {
+            return getRuleContext(AttackElseDoesContext.class, 0);
+        }
+
+        public CoinFlipEffectContext(ParserRuleContext parent, int invokingState) {
+            super(parent, invokingState);
+        }
+
+        @Override
+        public int getRuleIndex() {
+            return RULE_coinFlipEffect;
+        }
+
+        @Override
+        public void enterRule(ParseTreeListener listener) {
+            if (listener instanceof AdditionalDmgParserListener)
+                ((AdditionalDmgParserListener) listener).enterCoinFlipEffect(this);
+        }
+
+        @Override
+        public void exitRule(ParseTreeListener listener) {
+            if (listener instanceof AdditionalDmgParserListener)
+                ((AdditionalDmgParserListener) listener).exitCoinFlipEffect(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof AdditionalDmgParserVisitor)
+                return ((AdditionalDmgParserVisitor<? extends T>) visitor).visitCoinFlipEffect(this);
+            else return visitor.visitChildren(this);
+        }
+    }
+
+    public final CoinFlipEffectContext coinFlipEffect() throws RecognitionException {
+        CoinFlipEffectContext _localctx = new CoinFlipEffectContext(_ctx, getState());
+        enterRule(_localctx, 22, RULE_coinFlipEffect);
+        int _la;
+        try {
+            enterOuterAlt(_localctx, 1);
+            {
+                setState(85);
+                flipCoin();
+                setState(86);
+                conditionClass();
+                setState(87);
+                attackIfDoes();
+                setState(91);
+                _errHandler.sync(this);
+                _la = _input.LA(1);
+                if (_la == T__14) {
+                    {
+                        setState(88);
+                        conditionClass();
+                        setState(89);
+                        attackElseDoes();
+                    }
+                }
+
+            }
+        } catch (RecognitionException re) {
+            _localctx.exception = re;
+            _errHandler.reportError(this, re);
+            _errHandler.recover(this, re);
+        } finally {
+            exitRule();
+        }
+        return _localctx;
+    }
+
+    @SuppressWarnings("CheckReturnValue")
+    public static class FlipCoinContext extends ParserRuleContext {
+        public Token times;
+
+        public TerminalNode Number() {
+            return getToken(AdditionalDmgParserParser.Number, 0);
+        }
+
+        public FlipCoinContext(ParserRuleContext parent, int invokingState) {
+            super(parent, invokingState);
+        }
+
+        @Override
+        public int getRuleIndex() {
+            return RULE_flipCoin;
+        }
+
+        @Override
+        public void enterRule(ParseTreeListener listener) {
+            if (listener instanceof AdditionalDmgParserListener)
+                ((AdditionalDmgParserListener) listener).enterFlipCoin(this);
+        }
+
+        @Override
+        public void exitRule(ParseTreeListener listener) {
+            if (listener instanceof AdditionalDmgParserListener)
+                ((AdditionalDmgParserListener) listener).exitFlipCoin(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof AdditionalDmgParserVisitor)
+                return ((AdditionalDmgParserVisitor<? extends T>) visitor).visitFlipCoin(this);
+            else return visitor.visitChildren(this);
+        }
+    }
+
+    public final FlipCoinContext flipCoin() throws RecognitionException {
+        FlipCoinContext _localctx = new FlipCoinContext(_ctx, getState());
+        enterRule(_localctx, 24, RULE_flipCoin);
+        int _la;
+        try {
+            enterOuterAlt(_localctx, 1);
+            {
+                setState(93);
+                match(T__11);
+                setState(94);
+                ((FlipCoinContext) _localctx).times = match(Number);
+                setState(95);
+                _la = _input.LA(1);
+                if (!(_la == T__12 || _la == T__13)) {
+                    _errHandler.recoverInline(this);
+                } else {
+                    if (_input.LA(1) == Token.EOF) matchedEOF = true;
+                    _errHandler.reportMatch(this);
+                    consume();
+                }
+            }
+        } catch (RecognitionException re) {
+            _localctx.exception = re;
+            _errHandler.reportError(this, re);
+            _errHandler.recover(this, re);
+        } finally {
+            exitRule();
+        }
+        return _localctx;
+    }
+
+    @SuppressWarnings("CheckReturnValue")
+    public static class ConditionClassContext extends ParserRuleContext {
+        public TerminalNode ConditionTypes() {
+            return getToken(AdditionalDmgParserParser.ConditionTypes, 0);
+        }
+
+        public ConditionClassContext(ParserRuleContext parent, int invokingState) {
+            super(parent, invokingState);
+        }
+
+        @Override
+        public int getRuleIndex() {
+            return RULE_conditionClass;
+        }
+
+        @Override
+        public void enterRule(ParseTreeListener listener) {
+            if (listener instanceof AdditionalDmgParserListener)
+                ((AdditionalDmgParserListener) listener).enterConditionClass(this);
+        }
+
+        @Override
+        public void exitRule(ParseTreeListener listener) {
+            if (listener instanceof AdditionalDmgParserListener)
+                ((AdditionalDmgParserListener) listener).exitConditionClass(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof AdditionalDmgParserVisitor)
+                return ((AdditionalDmgParserVisitor<? extends T>) visitor).visitConditionClass(this);
+            else return visitor.visitChildren(this);
+        }
+    }
+
+    public final ConditionClassContext conditionClass() throws RecognitionException {
+        ConditionClassContext _localctx = new ConditionClassContext(_ctx, getState());
+        enterRule(_localctx, 26, RULE_conditionClass);
+        try {
+            enterOuterAlt(_localctx, 1);
+            {
+                setState(97);
+                match(T__14);
+                setState(98);
+                match(ConditionTypes);
+            }
+        } catch (RecognitionException re) {
+            _localctx.exception = re;
+            _errHandler.reportError(this, re);
+            _errHandler.recover(this, re);
+        } finally {
+            exitRule();
+        }
+        return _localctx;
+    }
+
+    @SuppressWarnings("CheckReturnValue")
+    public static class AttackIfDoesContext extends ParserRuleContext {
+        public Token dmg;
+        public Token addDmg;
+
+        public List<TerminalNode> Number() {
+            return getTokens(AdditionalDmgParserParser.Number);
+        }
+
+        public TerminalNode Number(int i) {
+            return getToken(AdditionalDmgParserParser.Number, i);
+        }
+
+        public AttackIfDoesContext(ParserRuleContext parent, int invokingState) {
+            super(parent, invokingState);
+        }
+
+        @Override
+        public int getRuleIndex() {
+            return RULE_attackIfDoes;
+        }
+
+        @Override
+        public void enterRule(ParseTreeListener listener) {
+            if (listener instanceof AdditionalDmgParserListener)
+                ((AdditionalDmgParserListener) listener).enterAttackIfDoes(this);
+        }
+
+        @Override
+        public void exitRule(ParseTreeListener listener) {
+            if (listener instanceof AdditionalDmgParserListener)
+                ((AdditionalDmgParserListener) listener).exitAttackIfDoes(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof AdditionalDmgParserVisitor)
+                return ((AdditionalDmgParserVisitor<? extends T>) visitor).visitAttackIfDoes(this);
+            else return visitor.visitChildren(this);
+        }
+    }
+
+    public final AttackIfDoesContext attackIfDoes() throws RecognitionException {
+        AttackIfDoesContext _localctx = new AttackIfDoesContext(_ctx, getState());
+        enterRule(_localctx, 28, RULE_attackIfDoes);
+        try {
+            enterOuterAlt(_localctx, 1);
+            {
+                setState(100);
+                match(T__15);
+                setState(101);
+                ((AttackIfDoesContext) _localctx).dmg = match(Number);
+                setState(102);
+                match(T__0);
+                setState(103);
+                ((AttackIfDoesContext) _localctx).addDmg = match(Number);
+                setState(104);
+                match(T__16);
+            }
+        } catch (RecognitionException re) {
+            _localctx.exception = re;
+            _errHandler.reportError(this, re);
+            _errHandler.recover(this, re);
+        } finally {
+            exitRule();
+        }
+        return _localctx;
+    }
+
+    @SuppressWarnings("CheckReturnValue")
+    public static class AttackElseDoesContext extends ParserRuleContext {
+        public Token elseDmg;
+
+        public TerminalNode Number() {
+            return getToken(AdditionalDmgParserParser.Number, 0);
+        }
+
+        public AttackElseDoesContext(ParserRuleContext parent, int invokingState) {
+            super(parent, invokingState);
+        }
+
+        @Override
+        public int getRuleIndex() {
+            return RULE_attackElseDoes;
+        }
+
+        @Override
+        public void enterRule(ParseTreeListener listener) {
+            if (listener instanceof AdditionalDmgParserListener)
+                ((AdditionalDmgParserListener) listener).enterAttackElseDoes(this);
+        }
+
+        @Override
+        public void exitRule(ParseTreeListener listener) {
+            if (listener instanceof AdditionalDmgParserListener)
+                ((AdditionalDmgParserListener) listener).exitAttackElseDoes(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof AdditionalDmgParserVisitor)
+                return ((AdditionalDmgParserVisitor<? extends T>) visitor).visitAttackElseDoes(this);
+            else return visitor.visitChildren(this);
+        }
+    }
+
+    public final AttackElseDoesContext attackElseDoes() throws RecognitionException {
+        AttackElseDoesContext _localctx = new AttackElseDoesContext(_ctx, getState());
+        enterRule(_localctx, 30, RULE_attackElseDoes);
+        try {
+            enterOuterAlt(_localctx, 1);
+            {
+                setState(106);
+                match(T__15);
+                setState(107);
+                ((AttackElseDoesContext) _localctx).elseDmg = match(Number);
+                setState(108);
+                match(T__17);
             }
         } catch (RecognitionException re) {
             _localctx.exception = re;
@@ -901,14 +1265,14 @@ public class AdditionalDmgParserParser extends Parser {
 
     public final PokemonStatusConditionContext pokemonStatusCondition() throws RecognitionException {
         PokemonStatusConditionContext _localctx = new PokemonStatusConditionContext(_ctx, getState());
-        enterRule(_localctx, 22, RULE_pokemonStatusCondition);
+        enterRule(_localctx, 32, RULE_pokemonStatusCondition);
         int _la;
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(73);
+                setState(110);
                 _la = _input.LA(1);
-                if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & 126976L) != 0))) {
+                if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & 16252928L) != 0))) {
                     _errHandler.recoverInline(this);
                 } else {
                     if (_input.LA(1) == Token.EOF) matchedEOF = true;
@@ -927,46 +1291,64 @@ public class AdditionalDmgParserParser extends Parser {
     }
 
     public static final String _serializedATN =
-            "\u0004\u0001\u001cL\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002" +
-                    "\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002" +
-                    "\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002" +
-                    "\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0001" +
-                    "\u0000\u0004\u0000\u001a\b\u0000\u000b\u0000\f\u0000\u001b\u0001\u0001" +
-                    "\u0001\u0001\u0001\u0002\u0001\u0002\u0003\u0002\"\b\u0002\u0001\u0003" +
-                    "\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0004" +
-                    "\u0001\u0004\u0001\u0004\u0001\u0004\u0003\u0004.\b\u0004\u0001\u0005" +
-                    "\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0006" +
-                    "\u0001\u0006\u0001\u0006\u0001\u0007\u0001\u0007\u0001\b\u0001\b\u0003" +
-                    "\b=\b\b\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001" +
-                    "\n\u0001\n\u0001\n\u0001\n\u0001\u000b\u0001\u000b\u0001\u000b\u0000\u0000" +
-                    "\f\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0000\u0001" +
-                    "\u0001\u0000\f\u0010C\u0000\u0019\u0001\u0000\u0000\u0000\u0002\u001d" +
-                    "\u0001\u0000\u0000\u0000\u0004\u001f\u0001\u0000\u0000\u0000\u0006#\u0001" +
-                    "\u0000\u0000\u0000\b-\u0001\u0000\u0000\u0000\n/\u0001\u0000\u0000\u0000" +
-                    "\f5\u0001\u0000\u0000\u0000\u000e8\u0001\u0000\u0000\u0000\u0010<\u0001" +
-                    "\u0000\u0000\u0000\u0012>\u0001\u0000\u0000\u0000\u0014E\u0001\u0000\u0000" +
-                    "\u0000\u0016I\u0001\u0000\u0000\u0000\u0018\u001a\u0003\u0002\u0001\u0000" +
-                    "\u0019\u0018\u0001\u0000\u0000\u0000\u001a\u001b\u0001\u0000\u0000\u0000" +
-                    "\u001b\u0019\u0001\u0000\u0000\u0000\u001b\u001c\u0001\u0000\u0000\u0000" +
-                    "\u001c\u0001\u0001\u0000\u0000\u0000\u001d\u001e\u0003\u0004\u0002\u0000" +
-                    "\u001e\u0003\u0001\u0000\u0000\u0000\u001f!\u0003\u0006\u0003\u0000 \"" +
-                    "\u0003\b\u0004\u0000! \u0001\u0000\u0000\u0000!\"\u0001\u0000\u0000\u0000" +
-                    "\"\u0005\u0001\u0000\u0000\u0000#$\u0005\u0013\u0000\u0000$%\u0005\u0011" +
-                    "\u0000\u0000%&\u0005\u0001\u0000\u0000&\'\u0005\u0011\u0000\u0000\'(\u0005" +
-                    "\u0002\u0000\u0000(\u0007\u0001\u0000\u0000\u0000)*\u0003\n\u0005\u0000" +
-                    "*+\u0003\u000e\u0007\u0000+.\u0001\u0000\u0000\u0000,.\u0003\f\u0006\u0000" +
-                    "-)\u0001\u0000\u0000\u0000-,\u0001\u0000\u0000\u0000.\t\u0001\u0000\u0000" +
-                    "\u0000/0\u0005\u0003\u0000\u000001\u0005\u0019\u0000\u000012\u0005\u0004" +
-                    "\u0000\u000023\u0005\u0016\u0000\u000034\u0005\u0005\u0000\u00004\u000b" +
-                    "\u0001\u0000\u0000\u000056\u0005\u0006\u0000\u000067\u0005\u0016\u0000" +
-                    "\u00007\r\u0001\u0000\u0000\u000089\u0003\u0010\b\u00009\u000f\u0001\u0000" +
-                    "\u0000\u0000:=\u0003\u0012\t\u0000;=\u0003\u0014\n\u0000<:\u0001\u0000" +
-                    "\u0000\u0000<;\u0001\u0000\u0000\u0000=\u0011\u0001\u0000\u0000\u0000" +
-                    ">?\u0005\u0007\u0000\u0000?@\u0005\u0019\u0000\u0000@A\u0005\b\u0000\u0000" +
-                    "AB\u0005\u001b\u0000\u0000BC\u0005\u0013\u0000\u0000CD\u0005\t\u0000\u0000" +
-                    "D\u0013\u0001\u0000\u0000\u0000EF\u0005\n\u0000\u0000FG\u0005\u0011\u0000" +
-                    "\u0000GH\u0005\u000b\u0000\u0000H\u0015\u0001\u0000\u0000\u0000IJ\u0007" +
-                    "\u0000\u0000\u0000J\u0017\u0001\u0000\u0000\u0000\u0004\u001b!-<";
+            "\u0004\u0001#q\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002\u0002" +
+                    "\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002\u0005" +
+                    "\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002\b\u0007" +
+                    "\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002\f\u0007" +
+                    "\f\u0002\r\u0007\r\u0002\u000e\u0007\u000e\u0002\u000f\u0007\u000f\u0002" +
+                    "\u0010\u0007\u0010\u0001\u0000\u0004\u0000$\b\u0000\u000b\u0000\f\u0000" +
+                    "%\u0001\u0001\u0001\u0001\u0003\u0001*\b\u0001\u0001\u0002\u0001\u0002" +
+                    "\u0003\u0002.\b\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003" +
+                    "\u0001\u0003\u0001\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004" +
+                    "\u0003\u0004:\b\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005" +
+                    "\u0001\u0005\u0001\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0007" +
+                    "\u0001\u0007\u0001\b\u0001\b\u0003\bI\b\b\u0001\t\u0001\t\u0001\t\u0001" +
+                    "\t\u0001\t\u0001\t\u0001\t\u0001\n\u0001\n\u0001\n\u0001\n\u0001\u000b" +
+                    "\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0003\u000b" +
+                    "\\\b\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0001\r\u0001\r\u0001\r\u0001" +
+                    "\u000e\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e\u0001" +
+                    "\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u0010\u0001\u0010\u0001" +
+                    "\u0010\u0000\u0000\u0011\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012" +
+                    "\u0014\u0016\u0018\u001a\u001c\u001e \u0000\u0002\u0001\u0000\r\u000e" +
+                    "\u0001\u0000\u0013\u0017e\u0000#\u0001\u0000\u0000\u0000\u0002)\u0001" +
+                    "\u0000\u0000\u0000\u0004+\u0001\u0000\u0000\u0000\u0006/\u0001\u0000\u0000" +
+                    "\u0000\b9\u0001\u0000\u0000\u0000\n;\u0001\u0000\u0000\u0000\fA\u0001" +
+                    "\u0000\u0000\u0000\u000eD\u0001\u0000\u0000\u0000\u0010H\u0001\u0000\u0000" +
+                    "\u0000\u0012J\u0001\u0000\u0000\u0000\u0014Q\u0001\u0000\u0000\u0000\u0016" +
+                    "U\u0001\u0000\u0000\u0000\u0018]\u0001\u0000\u0000\u0000\u001aa\u0001" +
+                    "\u0000\u0000\u0000\u001cd\u0001\u0000\u0000\u0000\u001ej\u0001\u0000\u0000" +
+                    "\u0000 n\u0001\u0000\u0000\u0000\"$\u0003\u0002\u0001\u0000#\"\u0001\u0000" +
+                    "\u0000\u0000$%\u0001\u0000\u0000\u0000%#\u0001\u0000\u0000\u0000%&\u0001" +
+                    "\u0000\u0000\u0000&\u0001\u0001\u0000\u0000\u0000\'*\u0003\u0004\u0002" +
+                    "\u0000(*\u0003\u0016\u000b\u0000)\'\u0001\u0000\u0000\u0000)(\u0001\u0000" +
+                    "\u0000\u0000*\u0003\u0001\u0000\u0000\u0000+-\u0003\u0006\u0003\u0000" +
+                    ",.\u0003\b\u0004\u0000-,\u0001\u0000\u0000\u0000-.\u0001\u0000\u0000\u0000" +
+                    ".\u0005\u0001\u0000\u0000\u0000/0\u0005\u001a\u0000\u000001\u0005\u0018" +
+                    "\u0000\u000012\u0005\u0001\u0000\u000023\u0005\u0018\u0000\u000034\u0005" +
+                    "\u0002\u0000\u00004\u0007\u0001\u0000\u0000\u000056\u0003\n\u0005\u0000" +
+                    "67\u0003\u000e\u0007\u00007:\u0001\u0000\u0000\u00008:\u0003\f\u0006\u0000" +
+                    "95\u0001\u0000\u0000\u000098\u0001\u0000\u0000\u0000:\t\u0001\u0000\u0000" +
+                    "\u0000;<\u0005\u0003\u0000\u0000<=\u0005 \u0000\u0000=>\u0005\u0004\u0000" +
+                    "\u0000>?\u0005\u001d\u0000\u0000?@\u0005\u0005\u0000\u0000@\u000b\u0001" +
+                    "\u0000\u0000\u0000AB\u0005\u0006\u0000\u0000BC\u0005\u001d\u0000\u0000" +
+                    "C\r\u0001\u0000\u0000\u0000DE\u0003\u0010\b\u0000E\u000f\u0001\u0000\u0000" +
+                    "\u0000FI\u0003\u0012\t\u0000GI\u0003\u0014\n\u0000HF\u0001\u0000\u0000" +
+                    "\u0000HG\u0001\u0000\u0000\u0000I\u0011\u0001\u0000\u0000\u0000JK\u0005" +
+                    "\u0007\u0000\u0000KL\u0005 \u0000\u0000LM\u0005\b\u0000\u0000MN\u0005" +
+                    "\"\u0000\u0000NO\u0005\u001a\u0000\u0000OP\u0005\t\u0000\u0000P\u0013" +
+                    "\u0001\u0000\u0000\u0000QR\u0005\n\u0000\u0000RS\u0005\u0018\u0000\u0000" +
+                    "ST\u0005\u000b\u0000\u0000T\u0015\u0001\u0000\u0000\u0000UV\u0003\u0018" +
+                    "\f\u0000VW\u0003\u001a\r\u0000W[\u0003\u001c\u000e\u0000XY\u0003\u001a" +
+                    "\r\u0000YZ\u0003\u001e\u000f\u0000Z\\\u0001\u0000\u0000\u0000[X\u0001" +
+                    "\u0000\u0000\u0000[\\\u0001\u0000\u0000\u0000\\\u0017\u0001\u0000\u0000" +
+                    "\u0000]^\u0005\f\u0000\u0000^_\u0005\u0018\u0000\u0000_`\u0007\u0000\u0000" +
+                    "\u0000`\u0019\u0001\u0000\u0000\u0000ab\u0005\u000f\u0000\u0000bc\u0005" +
+                    "!\u0000\u0000c\u001b\u0001\u0000\u0000\u0000de\u0005\u0010\u0000\u0000" +
+                    "ef\u0005\u0018\u0000\u0000fg\u0005\u0001\u0000\u0000gh\u0005\u0018\u0000" +
+                    "\u0000hi\u0005\u0011\u0000\u0000i\u001d\u0001\u0000\u0000\u0000jk\u0005" +
+                    "\u0010\u0000\u0000kl\u0005\u0018\u0000\u0000lm\u0005\u0012\u0000\u0000" +
+                    "m\u001f\u0001\u0000\u0000\u0000no\u0007\u0001\u0000\u0000o!\u0001\u0000" +
+                    "\u0000\u0000\u0006%)-9H[";
     public static final ATN _ATN =
             new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 

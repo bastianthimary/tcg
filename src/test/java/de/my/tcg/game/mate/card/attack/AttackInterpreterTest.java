@@ -304,4 +304,28 @@ class AttackInterpreterTest {
         Coin.headcount = 0;
 
     }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/card/attack/attackinterpreter/ifElseDmg.csv", numLinesToSkip = 1)
+    void ifElseDmg(String dmgAsString, String attackString, int ifDmg, int elsedmg,
+                   String myPokemonName) {
+        FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon(myPokemonName);
+        FieldSide opponentFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("opponent");
+        Attack attack = new Attack();
+        attack.setText(attackString);
+        attack.setDamage(dmgAsString);
+        AttackInterpreter attackInterpreter = new AttackInterpreter(attack, myFieldSide, opponentFieldSide);
+        attackInterpreter.performAttack();
+
+        PokemonCard defendingPokemon = opponentFieldSide.getActiveMon();
+        if (Coin.headcount == 0) {
+            System.out.println("was Tails");
+            assertThat(defendingPokemon.getDmgCounter()).isEqualTo(elsedmg);
+        } else {
+            System.out.println("was Head");
+            assertThat(defendingPokemon.getDmgCounter()).isEqualTo(ifDmg);
+        }
+        Coin.headcount = 0;
+
+    }
 }

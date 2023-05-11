@@ -5,6 +5,8 @@ import de.my.tcg.basedata.poketype.PokeType;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
 import de.my.tcg.game.mate.card.textparser.effect.CardEffect;
+import de.my.tcg.game.mate.card.textparser.effect.condition.ConditionTerm;
+import de.my.tcg.game.mate.card.textparser.effect.condition.condition.FlipCoinTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.AdditionalDmgEffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.addcondition.AddCondition;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.addcondition.dmgcounter.AddByDmgCounter;
@@ -147,6 +149,37 @@ public class AdditionalDmgAttackEffectInterpreterAndPerformer extends Additional
         EnergyNotUsedLimitation limitation = new EnergyNotUsedLimitation(dmgLimit, dmgPer);
         AddCondition addCondition = (AddCondition) currentTerm.getEffectCondition();
         addCondition.addLimitation(limitation);
+        return 0;
+    }
+
+    @Override
+    public Integer visitCoinFlipEffect(AdditionalDmgParserParser.CoinFlipEffectContext ctx) {
+        visitChildren(ctx);
+        int dmg = NumberParser.parseNumberOrStringToInteger(ctx.attackIfDoes().dmg.getText());
+        int additionalDmg = NumberParser.parseNumberOrStringToInteger(ctx.attackIfDoes().addDmg.getText());
+        AdditionalDmgEffectTerm dmgEffectTerm = new AdditionalDmgEffectTerm(dmg, additionalDmg);
+        currentTerm.setEffectTerm(dmgEffectTerm);
+        return 0;
+    }
+
+    @Override
+    public Integer visitFlipCoin(AdditionalDmgParserParser.FlipCoinContext ctx) {
+
+        FlipCoinTerm flipCoinTerm = new FlipCoinTerm();
+        flipCoinTerm.setupCondition(ctx.times.getText());
+        currentTerm.setEffectCondition(flipCoinTerm);
+        visitChildren(ctx);
+        return 0;
+    }
+
+
+    @Override
+    public Integer visitConditionClass(AdditionalDmgParserParser.ConditionClassContext ctx) {
+        visitChildren(ctx);
+        ConditionTerm conditionTerm = currentTerm.getEffectCondition();
+        if (conditionTerm.getConditionType() == null) {
+            conditionTerm.setupConditionType(ctx.ConditionTypes().getText());
+        }
         return 0;
     }
 

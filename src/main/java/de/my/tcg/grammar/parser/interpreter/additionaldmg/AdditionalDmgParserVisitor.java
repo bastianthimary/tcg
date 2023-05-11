@@ -99,6 +99,46 @@ public interface AdditionalDmgParserVisitor<T> extends ParseTreeVisitor<T> {
     T visitEnergyAfter_Var2(AdditionalDmgParserParser.EnergyAfter_Var2Context ctx);
 
     /**
+     * Visit a parse tree produced by {@link AdditionalDmgParserParser#coinFlipEffect}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitCoinFlipEffect(AdditionalDmgParserParser.CoinFlipEffectContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link AdditionalDmgParserParser#flipCoin}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitFlipCoin(AdditionalDmgParserParser.FlipCoinContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link AdditionalDmgParserParser#conditionClass}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitConditionClass(AdditionalDmgParserParser.ConditionClassContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link AdditionalDmgParserParser#attackIfDoes}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitAttackIfDoes(AdditionalDmgParserParser.AttackIfDoesContext ctx);
+
+    /**
+     * Visit a parse tree produced by {@link AdditionalDmgParserParser#attackElseDoes}.
+     *
+     * @param ctx the parse tree
+     * @return the visitor result
+     */
+    T visitAttackElseDoes(AdditionalDmgParserParser.AttackElseDoesContext ctx);
+
+    /**
      * Visit a parse tree produced by {@link AdditionalDmgParserParser#pokemonStatusCondition}.
      *
      * @param ctx the parse tree
