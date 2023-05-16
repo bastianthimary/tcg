@@ -30,7 +30,7 @@ doNothing:'this attack does nothing';
 basicEffect:(target executedEffect)|executedEffect;
 
 
-executedEffect:statusEffect|hurtEffect|discardEnergy|benchDmgEffect|prevent;
+executedEffect:statusEffect|hurtEffect|discardEnergy|benchDmgEffect|prevent|draw;
 hurtEffect:'does 'dmg=Number'damage to itself';
 statusEffect:'is now' statusCondition;
 discardEnergy:'Discard'((numberOfCards=Number PokeType)|numberOfCards='all') 'Energy'('card'|'cards') ' attached to' target' in order to use this attack.';
@@ -40,4 +40,4 @@ preventAllDmg:'prevent all damage done to' target 'during your opponents next tu
 preventEffectAndDmg: 'during your opponents next turn, prevent all effects of attacks, including damage, done to' target;
 preventDmgReduction: 'During your opponents next turn, whenever' reduce=Number' or less damage is done to' target' after applying Weakness and Resistance';
 preventRetreat:target 'cant retreat during your opponents next turn';
-
+draw:'draw' count=Number ('card'|'cards');

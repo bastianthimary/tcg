@@ -22,6 +22,7 @@ import java.util.Random;
 public class Player {
     @Getter
     private final Person person;
+    @Setter
     private PlayDeck playdeck;
 
     @Getter

@@ -27,8 +27,8 @@ public class EffectTextParserParser extends Parser {
             T__9 = 10, T__10 = 11, T__11 = 12, T__12 = 13, T__13 = 14, T__14 = 15, T__15 = 16, T__16 = 17,
             T__17 = 18, T__18 = 19, T__19 = 20, T__20 = 21, T__21 = 22, T__22 = 23, T__23 = 24,
             T__24 = 25, T__25 = 26, T__26 = 27, T__27 = 28, T__28 = 29, T__29 = 30, T__30 = 31,
-            T__31 = 32, T__32 = 33, T__33 = 34, Number = 35, WHITESPACE = 36, VarPokemonName = 37,
-            DefendingPokemon = 38, AllBenchMons = 39, MyBenchMons = 40, PokeType = 41;
+            T__31 = 32, T__32 = 33, T__33 = 34, T__34 = 35, Number = 36, WHITESPACE = 37, VarPokemonName = 38,
+            DefendingPokemon = 39, AllBenchMons = 40, MyBenchMons = 41, PokeType = 42;
     public static final int
             RULE_target = 0, RULE_benchTarget = 1, RULE_statusCondition = 2, RULE_conditionTypes = 3,
             RULE_effectText = 4, RULE_term = 5, RULE_conditionTerm = 6, RULE_effectTerm = 7,
@@ -37,7 +37,7 @@ public class EffectTextParserParser extends Parser {
             RULE_executedEffect = 15, RULE_hurtEffect = 16, RULE_statusEffect = 17,
             RULE_discardEnergy = 18, RULE_benchDmgEffect = 19, RULE_prevent = 20,
             RULE_preventAllDmg = 21, RULE_preventEffectAndDmg = 22, RULE_preventDmgReduction = 23,
-            RULE_preventRetreat = 24;
+            RULE_preventRetreat = 24, RULE_draw = 25;
 
     private static String[] makeRuleNames() {
         return new String[]{
@@ -45,7 +45,8 @@ public class EffectTextParserParser extends Parser {
                 "term", "conditionTerm", "effectTerm", "condition", "flipCoin", "conditionClass",
                 "dmgEffect", "multipleDmgEffect", "doNothing", "basicEffect", "executedEffect",
                 "hurtEffect", "statusEffect", "discardEnergy", "benchDmgEffect", "prevent",
-                "preventAllDmg", "preventEffectAndDmg", "preventDmgReduction", "preventRetreat"
+                "preventAllDmg", "preventEffectAndDmg", "preventDmgReduction", "preventRetreat",
+                "draw"
         };
     }
 
@@ -63,8 +64,8 @@ public class EffectTextParserParser extends Parser {
                 "'during your opponents next turn, prevent all effects of attacks, including damage, done to'",
                 "'During your opponents next turn, whenever'", "' or less damage is done to'",
                 "' after applying Weakness and Resistance'", "'cant retreat during your opponents next turn'",
-                null, null, "'this Pokemon'", "'the Defending Pok\\u00E9mon'", "'each Pok\\u00E9mon on each players Bench'",
-                "'each of your own Benched Pok\\u00E9mon'"
+                "'draw'", null, null, "'this Pokemon'", "'the Defending Pok\\u00E9mon'",
+                "'each Pok\\u00E9mon on each players Bench'", "'each of your own Benched Pok\\u00E9mon'"
         };
     }
 
@@ -74,9 +75,9 @@ public class EffectTextParserParser extends Parser {
         return new String[]{
                 null, null, null, null, null, null, null, null, null, null, null, null,
                 null, null, null, null, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null, null, "Number",
-                "WHITESPACE", "VarPokemonName", "DefendingPokemon", "AllBenchMons", "MyBenchMons",
-                "PokeType"
+                null, null, null, null, null, null, null, null, null, null, null, null,
+                "Number", "WHITESPACE", "VarPokemonName", "DefendingPokemon", "AllBenchMons",
+                "MyBenchMons", "PokeType"
         };
     }
 
@@ -184,7 +185,7 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(50);
+                setState(52);
                 _la = _input.LA(1);
                 if (!(_la == VarPokemonName || _la == DefendingPokemon)) {
                     _errHandler.recoverInline(this);
@@ -250,7 +251,7 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(52);
+                setState(54);
                 _la = _input.LA(1);
                 if (!(_la == AllBenchMons || _la == MyBenchMons)) {
                     _errHandler.recoverInline(this);
@@ -308,7 +309,7 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(54);
+                setState(56);
                 _la = _input.LA(1);
                 if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & 62L) != 0))) {
                     _errHandler.recoverInline(this);
@@ -366,7 +367,7 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(56);
+                setState(58);
                 _la = _input.LA(1);
                 if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & 448L) != 0))) {
                     _errHandler.recoverInline(this);
@@ -432,20 +433,20 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(59);
+                setState(61);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
                 do {
                     {
                         {
-                            setState(58);
+                            setState(60);
                             term();
                         }
                     }
-                    setState(61);
+                    setState(63);
                     _errHandler.sync(this);
                     _la = _input.LA(1);
-                } while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 415807414784L) != 0));
+                } while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 862484013568L) != 0));
             }
         } catch (RecognitionException re) {
             _localctx.exception = re;
@@ -499,24 +500,24 @@ public class EffectTextParserParser extends Parser {
         enterRule(_localctx, 10, RULE_term);
         int _la;
         try {
-            setState(68);
+            setState(70);
             _errHandler.sync(this);
             switch (getInterpreter().adaptivePredict(_input, 2, _ctx)) {
                 case 1:
                     enterOuterAlt(_localctx, 1);
                 {
                     {
-                        setState(64);
+                        setState(66);
                         _errHandler.sync(this);
                         _la = _input.LA(1);
                         if (_la == T__8) {
                             {
-                                setState(63);
+                                setState(65);
                                 conditionTerm();
                             }
                         }
 
-                        setState(66);
+                        setState(68);
                         effectTerm();
                     }
                 }
@@ -524,7 +525,7 @@ public class EffectTextParserParser extends Parser {
                 case 2:
                     enterOuterAlt(_localctx, 2);
                 {
-                    setState(67);
+                    setState(69);
                     effectTerm();
                 }
                 break;
@@ -585,14 +586,14 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(70);
-                condition();
                 setState(72);
+                condition();
+                setState(74);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
                 if (_la == T__11) {
                     {
-                        setState(71);
+                        setState(73);
                         conditionClass();
                     }
                 }
@@ -651,14 +652,14 @@ public class EffectTextParserParser extends Parser {
         EffectTermContext _localctx = new EffectTermContext(_ctx, getState());
         enterRule(_localctx, 14, RULE_effectTerm);
         try {
-            setState(76);
+            setState(78);
             _errHandler.sync(this);
             switch (_input.LA(1)) {
                 case T__12:
                 case T__14:
                     enterOuterAlt(_localctx, 1);
                 {
-                    setState(74);
+                    setState(76);
                     dmgEffect();
                 }
                 break;
@@ -668,11 +669,12 @@ public class EffectTextParserParser extends Parser {
                 case T__27:
                 case T__29:
                 case T__30:
+                case T__34:
                 case VarPokemonName:
                 case DefendingPokemon:
                     enterOuterAlt(_localctx, 2);
                 {
-                    setState(75);
+                    setState(77);
                     basicEffect();
                 }
                 break;
@@ -729,7 +731,7 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(78);
+                setState(80);
                 flipCoin();
             }
         } catch (RecognitionException re) {
@@ -784,11 +786,11 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(80);
-                match(T__8);
-                setState(81);
-                ((FlipCoinContext) _localctx).times = match(Number);
                 setState(82);
+                match(T__8);
+                setState(83);
+                ((FlipCoinContext) _localctx).times = match(Number);
+                setState(84);
                 _la = _input.LA(1);
                 if (!(_la == T__9 || _la == T__10)) {
                     _errHandler.recoverInline(this);
@@ -849,9 +851,9 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(84);
+                setState(86);
                 match(T__11);
-                setState(85);
+                setState(87);
                 conditionTypes();
             }
         } catch (RecognitionException re) {
@@ -906,20 +908,20 @@ public class EffectTextParserParser extends Parser {
         DmgEffectContext _localctx = new DmgEffectContext(_ctx, getState());
         enterRule(_localctx, 22, RULE_dmgEffect);
         try {
-            setState(89);
+            setState(91);
             _errHandler.sync(this);
             switch (_input.LA(1)) {
                 case T__12:
                     enterOuterAlt(_localctx, 1);
                 {
-                    setState(87);
+                    setState(89);
                     multipleDmgEffect();
                 }
                 break;
                 case T__14:
                     enterOuterAlt(_localctx, 2);
                 {
-                    setState(88);
+                    setState(90);
                     doNothing();
                 }
                 break;
@@ -984,18 +986,18 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(91);
-                match(T__12);
-                setState(92);
-                ((MultipleDmgEffectContext) _localctx).dmgPer = match(Number);
                 setState(93);
-                match(T__13);
+                match(T__12);
+                setState(94);
+                ((MultipleDmgEffectContext) _localctx).dmgPer = match(Number);
                 setState(95);
+                match(T__13);
+                setState(97);
                 _errHandler.sync(this);
                 _la = _input.LA(1);
                 if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 448L) != 0)) {
                     {
-                        setState(94);
+                        setState(96);
                         conditionTypes();
                     }
                 }
@@ -1047,7 +1049,7 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(97);
+                setState(99);
                 match(T__14);
             }
         } catch (RecognitionException re) {
@@ -1103,16 +1105,16 @@ public class EffectTextParserParser extends Parser {
         BasicEffectContext _localctx = new BasicEffectContext(_ctx, getState());
         enterRule(_localctx, 28, RULE_basicEffect);
         try {
-            setState(103);
+            setState(105);
             _errHandler.sync(this);
             switch (getInterpreter().adaptivePredict(_input, 7, _ctx)) {
                 case 1:
                     enterOuterAlt(_localctx, 1);
                 {
                     {
-                        setState(99);
+                        setState(101);
                         target();
-                        setState(100);
+                        setState(102);
                         executedEffect();
                     }
                 }
@@ -1120,7 +1122,7 @@ public class EffectTextParserParser extends Parser {
                 case 2:
                     enterOuterAlt(_localctx, 2);
                 {
-                    setState(102);
+                    setState(104);
                     executedEffect();
                 }
                 break;
@@ -1157,6 +1159,10 @@ public class EffectTextParserParser extends Parser {
             return getRuleContext(PreventContext.class, 0);
         }
 
+        public DrawContext draw() {
+            return getRuleContext(DrawContext.class, 0);
+        }
+
         public ExecutedEffectContext(ParserRuleContext parent, int invokingState) {
             super(parent, invokingState);
         }
@@ -1190,42 +1196,49 @@ public class EffectTextParserParser extends Parser {
         ExecutedEffectContext _localctx = new ExecutedEffectContext(_ctx, getState());
         enterRule(_localctx, 30, RULE_executedEffect);
         try {
-            setState(110);
+            setState(113);
             _errHandler.sync(this);
             switch (getInterpreter().adaptivePredict(_input, 8, _ctx)) {
                 case 1:
                     enterOuterAlt(_localctx, 1);
                 {
-                    setState(105);
+                    setState(107);
                     statusEffect();
                 }
                 break;
                 case 2:
                     enterOuterAlt(_localctx, 2);
                 {
-                    setState(106);
+                    setState(108);
                     hurtEffect();
                 }
                 break;
                 case 3:
                     enterOuterAlt(_localctx, 3);
                 {
-                    setState(107);
+                    setState(109);
                     discardEnergy();
                 }
                 break;
                 case 4:
                     enterOuterAlt(_localctx, 4);
                 {
-                    setState(108);
+                    setState(110);
                     benchDmgEffect();
                 }
                 break;
                 case 5:
                     enterOuterAlt(_localctx, 5);
                 {
-                    setState(109);
+                    setState(111);
                     prevent();
+                }
+                break;
+                case 6:
+                    enterOuterAlt(_localctx, 6);
+                {
+                    setState(112);
+                    draw();
                 }
                 break;
             }
@@ -1282,11 +1295,11 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(112);
+                setState(115);
                 match(T__15);
-                setState(113);
+                setState(116);
                 ((HurtEffectContext) _localctx).dmg = match(Number);
-                setState(114);
+                setState(117);
                 match(T__16);
             }
         } catch (RecognitionException re) {
@@ -1340,9 +1353,9 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(116);
+                setState(119);
                 match(T__17);
-                setState(117);
+                setState(120);
                 statusCondition();
             }
         } catch (RecognitionException re) {
@@ -1407,31 +1420,31 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(119);
+                setState(122);
                 match(T__18);
-                setState(123);
+                setState(126);
                 _errHandler.sync(this);
                 switch (_input.LA(1)) {
                     case Number: {
                         {
-                            setState(120);
+                            setState(123);
                             ((DiscardEnergyContext) _localctx).numberOfCards = match(Number);
-                            setState(121);
+                            setState(124);
                             match(PokeType);
                         }
                     }
                     break;
                     case T__19: {
-                        setState(122);
+                        setState(125);
                         ((DiscardEnergyContext) _localctx).numberOfCards = match(T__19);
                     }
                     break;
                     default:
                         throw new NoViableAltException(this);
                 }
-                setState(125);
+                setState(128);
                 match(T__20);
-                setState(126);
+                setState(129);
                 _la = _input.LA(1);
                 if (!(_la == T__21 || _la == T__22)) {
                     _errHandler.recoverInline(this);
@@ -1440,11 +1453,11 @@ public class EffectTextParserParser extends Parser {
                     _errHandler.reportMatch(this);
                     consume();
                 }
-                setState(127);
+                setState(130);
                 match(T__23);
-                setState(128);
+                setState(131);
                 target();
-                setState(129);
+                setState(132);
                 match(T__24);
             }
         } catch (RecognitionException re) {
@@ -1504,15 +1517,15 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(131);
-                match(T__15);
-                setState(132);
-                ((BenchDmgEffectContext) _localctx).dmg = match(Number);
-                setState(133);
-                match(T__25);
                 setState(134);
-                benchTarget();
+                match(T__15);
                 setState(135);
+                ((BenchDmgEffectContext) _localctx).dmg = match(Number);
+                setState(136);
+                match(T__25);
+                setState(137);
+                benchTarget();
+                setState(138);
                 match(T__26);
             }
         } catch (RecognitionException re) {
@@ -1574,27 +1587,27 @@ public class EffectTextParserParser extends Parser {
         PreventContext _localctx = new PreventContext(_ctx, getState());
         enterRule(_localctx, 40, RULE_prevent);
         try {
-            setState(141);
+            setState(144);
             _errHandler.sync(this);
             switch (_input.LA(1)) {
                 case T__27:
                     enterOuterAlt(_localctx, 1);
                 {
-                    setState(137);
+                    setState(140);
                     preventAllDmg();
                 }
                 break;
                 case T__29:
                     enterOuterAlt(_localctx, 2);
                 {
-                    setState(138);
+                    setState(141);
                     preventEffectAndDmg();
                 }
                 break;
                 case T__30:
                     enterOuterAlt(_localctx, 3);
                 {
-                    setState(139);
+                    setState(142);
                     preventDmgReduction();
                 }
                 break;
@@ -1602,7 +1615,7 @@ public class EffectTextParserParser extends Parser {
                 case DefendingPokemon:
                     enterOuterAlt(_localctx, 4);
                 {
-                    setState(140);
+                    setState(143);
                     preventRetreat();
                 }
                 break;
@@ -1660,11 +1673,11 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(143);
+                setState(146);
                 match(T__27);
-                setState(144);
+                setState(147);
                 target();
-                setState(145);
+                setState(148);
                 match(T__28);
             }
         } catch (RecognitionException re) {
@@ -1718,9 +1731,9 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(147);
+                setState(150);
                 match(T__29);
-                setState(148);
+                setState(151);
                 target();
             }
         } catch (RecognitionException re) {
@@ -1780,15 +1793,15 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(150);
-                match(T__30);
-                setState(151);
-                ((PreventDmgReductionContext) _localctx).reduce = match(Number);
-                setState(152);
-                match(T__31);
                 setState(153);
-                target();
+                match(T__30);
                 setState(154);
+                ((PreventDmgReductionContext) _localctx).reduce = match(Number);
+                setState(155);
+                match(T__31);
+                setState(156);
+                target();
+                setState(157);
                 match(T__32);
             }
         } catch (RecognitionException re) {
@@ -1842,9 +1855,9 @@ public class EffectTextParserParser extends Parser {
         try {
             enterOuterAlt(_localctx, 1);
             {
-                setState(156);
+                setState(159);
                 target();
-                setState(157);
+                setState(160);
                 match(T__33);
             }
         } catch (RecognitionException re) {
@@ -1857,8 +1870,74 @@ public class EffectTextParserParser extends Parser {
         return _localctx;
     }
 
+    @SuppressWarnings("CheckReturnValue")
+    public static class DrawContext extends ParserRuleContext {
+        public Token count;
+
+        public TerminalNode Number() {
+            return getToken(EffectTextParserParser.Number, 0);
+        }
+
+        public DrawContext(ParserRuleContext parent, int invokingState) {
+            super(parent, invokingState);
+        }
+
+        @Override
+        public int getRuleIndex() {
+            return RULE_draw;
+        }
+
+        @Override
+        public void enterRule(ParseTreeListener listener) {
+            if (listener instanceof EffectTextParserListener) ((EffectTextParserListener) listener).enterDraw(this);
+        }
+
+        @Override
+        public void exitRule(ParseTreeListener listener) {
+            if (listener instanceof EffectTextParserListener) ((EffectTextParserListener) listener).exitDraw(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof EffectTextParserVisitor)
+                return ((EffectTextParserVisitor<? extends T>) visitor).visitDraw(this);
+            else return visitor.visitChildren(this);
+        }
+    }
+
+    public final DrawContext draw() throws RecognitionException {
+        DrawContext _localctx = new DrawContext(_ctx, getState());
+        enterRule(_localctx, 50, RULE_draw);
+        int _la;
+        try {
+            enterOuterAlt(_localctx, 1);
+            {
+                setState(162);
+                match(T__34);
+                setState(163);
+                ((DrawContext) _localctx).count = match(Number);
+                setState(164);
+                _la = _input.LA(1);
+                if (!(_la == T__21 || _la == T__22)) {
+                    _errHandler.recoverInline(this);
+                } else {
+                    if (_input.LA(1) == Token.EOF) matchedEOF = true;
+                    _errHandler.reportMatch(this);
+                    consume();
+                }
+            }
+        } catch (RecognitionException re) {
+            _localctx.exception = re;
+            _errHandler.reportError(this, re);
+            _errHandler.recover(this, re);
+        } finally {
+            exitRule();
+        }
+        return _localctx;
+    }
+
     public static final String _serializedATN =
-            "\u0004\u0001)\u00a0\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002" +
+            "\u0004\u0001*\u00a7\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002" +
                     "\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002" +
                     "\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002" +
                     "\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002" +
@@ -1866,87 +1945,92 @@ public class EffectTextParserParser extends Parser {
                     "\u0002\u0010\u0007\u0010\u0002\u0011\u0007\u0011\u0002\u0012\u0007\u0012" +
                     "\u0002\u0013\u0007\u0013\u0002\u0014\u0007\u0014\u0002\u0015\u0007\u0015" +
                     "\u0002\u0016\u0007\u0016\u0002\u0017\u0007\u0017\u0002\u0018\u0007\u0018" +
-                    "\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002" +
-                    "\u0001\u0003\u0001\u0003\u0001\u0004\u0004\u0004<\b\u0004\u000b\u0004" +
-                    "\f\u0004=\u0001\u0005\u0003\u0005A\b\u0005\u0001\u0005\u0001\u0005\u0003" +
-                    "\u0005E\b\u0005\u0001\u0006\u0001\u0006\u0003\u0006I\b\u0006\u0001\u0007" +
-                    "\u0001\u0007\u0003\u0007M\b\u0007\u0001\b\u0001\b\u0001\t\u0001\t\u0001" +
-                    "\t\u0001\t\u0001\n\u0001\n\u0001\n\u0001\u000b\u0001\u000b\u0003\u000b" +
-                    "Z\b\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0003\f`\b\f\u0001\r\u0001\r" +
-                    "\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e\u0003\u000eh\b\u000e" +
-                    "\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0003\u000f" +
-                    "o\b\u000f\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0011" +
-                    "\u0001\u0011\u0001\u0011\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012" +
-                    "\u0003\u0012|\b\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012" +
-                    "\u0001\u0012\u0001\u0012\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013" +
-                    "\u0001\u0013\u0001\u0013\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014" +
-                    "\u0003\u0014\u008e\b\u0014\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015" +
-                    "\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0017\u0001\u0017\u0001\u0017" +
-                    "\u0001\u0017\u0001\u0017\u0001\u0017\u0001\u0018\u0001\u0018\u0001\u0018" +
-                    "\u0001\u0018\u0000\u0000\u0019\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010" +
-                    "\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.0\u0000\u0006\u0001" +
-                    "\u0000%&\u0001\u0000\'(\u0001\u0000\u0001\u0005\u0001\u0000\u0006\b\u0001" +
-                    "\u0000\n\u000b\u0001\u0000\u0016\u0017\u0096\u00002\u0001\u0000\u0000" +
-                    "\u0000\u00024\u0001\u0000\u0000\u0000\u00046\u0001\u0000\u0000\u0000\u0006" +
-                    "8\u0001\u0000\u0000\u0000\b;\u0001\u0000\u0000\u0000\nD\u0001\u0000\u0000" +
-                    "\u0000\fF\u0001\u0000\u0000\u0000\u000eL\u0001\u0000\u0000\u0000\u0010" +
-                    "N\u0001\u0000\u0000\u0000\u0012P\u0001\u0000\u0000\u0000\u0014T\u0001" +
-                    "\u0000\u0000\u0000\u0016Y\u0001\u0000\u0000\u0000\u0018[\u0001\u0000\u0000" +
-                    "\u0000\u001aa\u0001\u0000\u0000\u0000\u001cg\u0001\u0000\u0000\u0000\u001e" +
-                    "n\u0001\u0000\u0000\u0000 p\u0001\u0000\u0000\u0000\"t\u0001\u0000\u0000" +
-                    "\u0000$w\u0001\u0000\u0000\u0000&\u0083\u0001\u0000\u0000\u0000(\u008d" +
-                    "\u0001\u0000\u0000\u0000*\u008f\u0001\u0000\u0000\u0000,\u0093\u0001\u0000" +
-                    "\u0000\u0000.\u0096\u0001\u0000\u0000\u00000\u009c\u0001\u0000\u0000\u0000" +
-                    "23\u0007\u0000\u0000\u00003\u0001\u0001\u0000\u0000\u000045\u0007\u0001" +
-                    "\u0000\u00005\u0003\u0001\u0000\u0000\u000067\u0007\u0002\u0000\u0000" +
-                    "7\u0005\u0001\u0000\u0000\u000089\u0007\u0003\u0000\u00009\u0007\u0001" +
-                    "\u0000\u0000\u0000:<\u0003\n\u0005\u0000;:\u0001\u0000\u0000\u0000<=\u0001" +
-                    "\u0000\u0000\u0000=;\u0001\u0000\u0000\u0000=>\u0001\u0000\u0000\u0000" +
-                    ">\t\u0001\u0000\u0000\u0000?A\u0003\f\u0006\u0000@?\u0001\u0000\u0000" +
-                    "\u0000@A\u0001\u0000\u0000\u0000AB\u0001\u0000\u0000\u0000BE\u0003\u000e" +
-                    "\u0007\u0000CE\u0003\u000e\u0007\u0000D@\u0001\u0000\u0000\u0000DC\u0001" +
-                    "\u0000\u0000\u0000E\u000b\u0001\u0000\u0000\u0000FH\u0003\u0010\b\u0000" +
-                    "GI\u0003\u0014\n\u0000HG\u0001\u0000\u0000\u0000HI\u0001\u0000\u0000\u0000" +
-                    "I\r\u0001\u0000\u0000\u0000JM\u0003\u0016\u000b\u0000KM\u0003\u001c\u000e" +
-                    "\u0000LJ\u0001\u0000\u0000\u0000LK\u0001\u0000\u0000\u0000M\u000f\u0001" +
-                    "\u0000\u0000\u0000NO\u0003\u0012\t\u0000O\u0011\u0001\u0000\u0000\u0000" +
-                    "PQ\u0005\t\u0000\u0000QR\u0005#\u0000\u0000RS\u0007\u0004\u0000\u0000" +
-                    "S\u0013\u0001\u0000\u0000\u0000TU\u0005\f\u0000\u0000UV\u0003\u0006\u0003" +
-                    "\u0000V\u0015\u0001\u0000\u0000\u0000WZ\u0003\u0018\f\u0000XZ\u0003\u001a" +
-                    "\r\u0000YW\u0001\u0000\u0000\u0000YX\u0001\u0000\u0000\u0000Z\u0017\u0001" +
-                    "\u0000\u0000\u0000[\\\u0005\r\u0000\u0000\\]\u0005#\u0000\u0000]_\u0005" +
-                    "\u000e\u0000\u0000^`\u0003\u0006\u0003\u0000_^\u0001\u0000\u0000\u0000" +
-                    "_`\u0001\u0000\u0000\u0000`\u0019\u0001\u0000\u0000\u0000ab\u0005\u000f" +
-                    "\u0000\u0000b\u001b\u0001\u0000\u0000\u0000cd\u0003\u0000\u0000\u0000" +
-                    "de\u0003\u001e\u000f\u0000eh\u0001\u0000\u0000\u0000fh\u0003\u001e\u000f" +
-                    "\u0000gc\u0001\u0000\u0000\u0000gf\u0001\u0000\u0000\u0000h\u001d\u0001" +
-                    "\u0000\u0000\u0000io\u0003\"\u0011\u0000jo\u0003 \u0010\u0000ko\u0003" +
-                    "$\u0012\u0000lo\u0003&\u0013\u0000mo\u0003(\u0014\u0000ni\u0001\u0000" +
-                    "\u0000\u0000nj\u0001\u0000\u0000\u0000nk\u0001\u0000\u0000\u0000nl\u0001" +
-                    "\u0000\u0000\u0000nm\u0001\u0000\u0000\u0000o\u001f\u0001\u0000\u0000" +
-                    "\u0000pq\u0005\u0010\u0000\u0000qr\u0005#\u0000\u0000rs\u0005\u0011\u0000" +
-                    "\u0000s!\u0001\u0000\u0000\u0000tu\u0005\u0012\u0000\u0000uv\u0003\u0004" +
-                    "\u0002\u0000v#\u0001\u0000\u0000\u0000w{\u0005\u0013\u0000\u0000xy\u0005" +
-                    "#\u0000\u0000y|\u0005)\u0000\u0000z|\u0005\u0014\u0000\u0000{x\u0001\u0000" +
-                    "\u0000\u0000{z\u0001\u0000\u0000\u0000|}\u0001\u0000\u0000\u0000}~\u0005" +
-                    "\u0015\u0000\u0000~\u007f\u0007\u0005\u0000\u0000\u007f\u0080\u0005\u0018" +
-                    "\u0000\u0000\u0080\u0081\u0003\u0000\u0000\u0000\u0081\u0082\u0005\u0019" +
-                    "\u0000\u0000\u0082%\u0001\u0000\u0000\u0000\u0083\u0084\u0005\u0010\u0000" +
-                    "\u0000\u0084\u0085\u0005#\u0000\u0000\u0085\u0086\u0005\u001a\u0000\u0000" +
-                    "\u0086\u0087\u0003\u0002\u0001\u0000\u0087\u0088\u0005\u001b\u0000\u0000" +
-                    "\u0088\'\u0001\u0000\u0000\u0000\u0089\u008e\u0003*\u0015\u0000\u008a" +
-                    "\u008e\u0003,\u0016\u0000\u008b\u008e\u0003.\u0017\u0000\u008c\u008e\u0003" +
-                    "0\u0018\u0000\u008d\u0089\u0001\u0000\u0000\u0000\u008d\u008a\u0001\u0000" +
-                    "\u0000\u0000\u008d\u008b\u0001\u0000\u0000\u0000\u008d\u008c\u0001\u0000" +
-                    "\u0000\u0000\u008e)\u0001\u0000\u0000\u0000\u008f\u0090\u0005\u001c\u0000" +
-                    "\u0000\u0090\u0091\u0003\u0000\u0000\u0000\u0091\u0092\u0005\u001d\u0000" +
-                    "\u0000\u0092+\u0001\u0000\u0000\u0000\u0093\u0094\u0005\u001e\u0000\u0000" +
-                    "\u0094\u0095\u0003\u0000\u0000\u0000\u0095-\u0001\u0000\u0000\u0000\u0096" +
-                    "\u0097\u0005\u001f\u0000\u0000\u0097\u0098\u0005#\u0000\u0000\u0098\u0099" +
-                    "\u0005 \u0000\u0000\u0099\u009a\u0003\u0000\u0000\u0000\u009a\u009b\u0005" +
-                    "!\u0000\u0000\u009b/\u0001\u0000\u0000\u0000\u009c\u009d\u0003\u0000\u0000" +
-                    "\u0000\u009d\u009e\u0005\"\u0000\u0000\u009e1\u0001\u0000\u0000\u0000" +
-                    "\u000b=@DHLY_gn{\u008d";
+                    "\u0002\u0019\u0007\u0019\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001" +
+                    "\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0004\u0004\u0004" +
+                    ">\b\u0004\u000b\u0004\f\u0004?\u0001\u0005\u0003\u0005C\b\u0005\u0001" +
+                    "\u0005\u0001\u0005\u0003\u0005G\b\u0005\u0001\u0006\u0001\u0006\u0003" +
+                    "\u0006K\b\u0006\u0001\u0007\u0001\u0007\u0003\u0007O\b\u0007\u0001\b\u0001" +
+                    "\b\u0001\t\u0001\t\u0001\t\u0001\t\u0001\n\u0001\n\u0001\n\u0001\u000b" +
+                    "\u0001\u000b\u0003\u000b\\\b\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0003" +
+                    "\fb\b\f\u0001\r\u0001\r\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e" +
+                    "\u0003\u000ej\b\u000e\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f" +
+                    "\u0001\u000f\u0001\u000f\u0003\u000fr\b\u000f\u0001\u0010\u0001\u0010" +
+                    "\u0001\u0010\u0001\u0010\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0012" +
+                    "\u0001\u0012\u0001\u0012\u0001\u0012\u0003\u0012\u007f\b\u0012\u0001\u0012" +
+                    "\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0013" +
+                    "\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0014" +
+                    "\u0001\u0014\u0001\u0014\u0001\u0014\u0003\u0014\u0091\b\u0014\u0001\u0015" +
+                    "\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0016\u0001\u0016\u0001\u0016" +
+                    "\u0001\u0017\u0001\u0017\u0001\u0017\u0001\u0017\u0001\u0017\u0001\u0017" +
+                    "\u0001\u0018\u0001\u0018\u0001\u0018\u0001\u0019\u0001\u0019\u0001\u0019" +
+                    "\u0001\u0019\u0001\u0019\u0000\u0000\u001a\u0000\u0002\u0004\u0006\b\n" +
+                    "\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.02\u0000" +
+                    "\u0006\u0001\u0000&\'\u0001\u0000()\u0001\u0000\u0001\u0005\u0001\u0000" +
+                    "\u0006\b\u0001\u0000\n\u000b\u0001\u0000\u0016\u0017\u009d\u00004\u0001" +
+                    "\u0000\u0000\u0000\u00026\u0001\u0000\u0000\u0000\u00048\u0001\u0000\u0000" +
+                    "\u0000\u0006:\u0001\u0000\u0000\u0000\b=\u0001\u0000\u0000\u0000\nF\u0001" +
+                    "\u0000\u0000\u0000\fH\u0001\u0000\u0000\u0000\u000eN\u0001\u0000\u0000" +
+                    "\u0000\u0010P\u0001\u0000\u0000\u0000\u0012R\u0001\u0000\u0000\u0000\u0014" +
+                    "V\u0001\u0000\u0000\u0000\u0016[\u0001\u0000\u0000\u0000\u0018]\u0001" +
+                    "\u0000\u0000\u0000\u001ac\u0001\u0000\u0000\u0000\u001ci\u0001\u0000\u0000" +
+                    "\u0000\u001eq\u0001\u0000\u0000\u0000 s\u0001\u0000\u0000\u0000\"w\u0001" +
+                    "\u0000\u0000\u0000$z\u0001\u0000\u0000\u0000&\u0086\u0001\u0000\u0000" +
+                    "\u0000(\u0090\u0001\u0000\u0000\u0000*\u0092\u0001\u0000\u0000\u0000," +
+                    "\u0096\u0001\u0000\u0000\u0000.\u0099\u0001\u0000\u0000\u00000\u009f\u0001" +
+                    "\u0000\u0000\u00002\u00a2\u0001\u0000\u0000\u000045\u0007\u0000\u0000" +
+                    "\u00005\u0001\u0001\u0000\u0000\u000067\u0007\u0001\u0000\u00007\u0003" +
+                    "\u0001\u0000\u0000\u000089\u0007\u0002\u0000\u00009\u0005\u0001\u0000" +
+                    "\u0000\u0000:;\u0007\u0003\u0000\u0000;\u0007\u0001\u0000\u0000\u0000" +
+                    "<>\u0003\n\u0005\u0000=<\u0001\u0000\u0000\u0000>?\u0001\u0000\u0000\u0000" +
+                    "?=\u0001\u0000\u0000\u0000?@\u0001\u0000\u0000\u0000@\t\u0001\u0000\u0000" +
+                    "\u0000AC\u0003\f\u0006\u0000BA\u0001\u0000\u0000\u0000BC\u0001\u0000\u0000" +
+                    "\u0000CD\u0001\u0000\u0000\u0000DG\u0003\u000e\u0007\u0000EG\u0003\u000e" +
+                    "\u0007\u0000FB\u0001\u0000\u0000\u0000FE\u0001\u0000\u0000\u0000G\u000b" +
+                    "\u0001\u0000\u0000\u0000HJ\u0003\u0010\b\u0000IK\u0003\u0014\n\u0000J" +
+                    "I\u0001\u0000\u0000\u0000JK\u0001\u0000\u0000\u0000K\r\u0001\u0000\u0000" +
+                    "\u0000LO\u0003\u0016\u000b\u0000MO\u0003\u001c\u000e\u0000NL\u0001\u0000" +
+                    "\u0000\u0000NM\u0001\u0000\u0000\u0000O\u000f\u0001\u0000\u0000\u0000" +
+                    "PQ\u0003\u0012\t\u0000Q\u0011\u0001\u0000\u0000\u0000RS\u0005\t\u0000" +
+                    "\u0000ST\u0005$\u0000\u0000TU\u0007\u0004\u0000\u0000U\u0013\u0001\u0000" +
+                    "\u0000\u0000VW\u0005\f\u0000\u0000WX\u0003\u0006\u0003\u0000X\u0015\u0001" +
+                    "\u0000\u0000\u0000Y\\\u0003\u0018\f\u0000Z\\\u0003\u001a\r\u0000[Y\u0001" +
+                    "\u0000\u0000\u0000[Z\u0001\u0000\u0000\u0000\\\u0017\u0001\u0000\u0000" +
+                    "\u0000]^\u0005\r\u0000\u0000^_\u0005$\u0000\u0000_a\u0005\u000e\u0000" +
+                    "\u0000`b\u0003\u0006\u0003\u0000a`\u0001\u0000\u0000\u0000ab\u0001\u0000" +
+                    "\u0000\u0000b\u0019\u0001\u0000\u0000\u0000cd\u0005\u000f\u0000\u0000" +
+                    "d\u001b\u0001\u0000\u0000\u0000ef\u0003\u0000\u0000\u0000fg\u0003\u001e" +
+                    "\u000f\u0000gj\u0001\u0000\u0000\u0000hj\u0003\u001e\u000f\u0000ie\u0001" +
+                    "\u0000\u0000\u0000ih\u0001\u0000\u0000\u0000j\u001d\u0001\u0000\u0000" +
+                    "\u0000kr\u0003\"\u0011\u0000lr\u0003 \u0010\u0000mr\u0003$\u0012\u0000" +
+                    "nr\u0003&\u0013\u0000or\u0003(\u0014\u0000pr\u00032\u0019\u0000qk\u0001" +
+                    "\u0000\u0000\u0000ql\u0001\u0000\u0000\u0000qm\u0001\u0000\u0000\u0000" +
+                    "qn\u0001\u0000\u0000\u0000qo\u0001\u0000\u0000\u0000qp\u0001\u0000\u0000" +
+                    "\u0000r\u001f\u0001\u0000\u0000\u0000st\u0005\u0010\u0000\u0000tu\u0005" +
+                    "$\u0000\u0000uv\u0005\u0011\u0000\u0000v!\u0001\u0000\u0000\u0000wx\u0005" +
+                    "\u0012\u0000\u0000xy\u0003\u0004\u0002\u0000y#\u0001\u0000\u0000\u0000" +
+                    "z~\u0005\u0013\u0000\u0000{|\u0005$\u0000\u0000|\u007f\u0005*\u0000\u0000" +
+                    "}\u007f\u0005\u0014\u0000\u0000~{\u0001\u0000\u0000\u0000~}\u0001\u0000" +
+                    "\u0000\u0000\u007f\u0080\u0001\u0000\u0000\u0000\u0080\u0081\u0005\u0015" +
+                    "\u0000\u0000\u0081\u0082\u0007\u0005\u0000\u0000\u0082\u0083\u0005\u0018" +
+                    "\u0000\u0000\u0083\u0084\u0003\u0000\u0000\u0000\u0084\u0085\u0005\u0019" +
+                    "\u0000\u0000\u0085%\u0001\u0000\u0000\u0000\u0086\u0087\u0005\u0010\u0000" +
+                    "\u0000\u0087\u0088\u0005$\u0000\u0000\u0088\u0089\u0005\u001a\u0000\u0000" +
+                    "\u0089\u008a\u0003\u0002\u0001\u0000\u008a\u008b\u0005\u001b\u0000\u0000" +
+                    "\u008b\'\u0001\u0000\u0000\u0000\u008c\u0091\u0003*\u0015\u0000\u008d" +
+                    "\u0091\u0003,\u0016\u0000\u008e\u0091\u0003.\u0017\u0000\u008f\u0091\u0003" +
+                    "0\u0018\u0000\u0090\u008c\u0001\u0000\u0000\u0000\u0090\u008d\u0001\u0000" +
+                    "\u0000\u0000\u0090\u008e\u0001\u0000\u0000\u0000\u0090\u008f\u0001\u0000" +
+                    "\u0000\u0000\u0091)\u0001\u0000\u0000\u0000\u0092\u0093\u0005\u001c\u0000" +
+                    "\u0000\u0093\u0094\u0003\u0000\u0000\u0000\u0094\u0095\u0005\u001d\u0000" +
+                    "\u0000\u0095+\u0001\u0000\u0000\u0000\u0096\u0097\u0005\u001e\u0000\u0000" +
+                    "\u0097\u0098\u0003\u0000\u0000\u0000\u0098-\u0001\u0000\u0000\u0000\u0099" +
+                    "\u009a\u0005\u001f\u0000\u0000\u009a\u009b\u0005$\u0000\u0000\u009b\u009c" +
+                    "\u0005 \u0000\u0000\u009c\u009d\u0003\u0000\u0000\u0000\u009d\u009e\u0005" +
+                    "!\u0000\u0000\u009e/\u0001\u0000\u0000\u0000\u009f\u00a0\u0003\u0000\u0000" +
+                    "\u0000\u00a0\u00a1\u0005\"\u0000\u0000\u00a11\u0001\u0000\u0000\u0000" +
+                    "\u00a2\u00a3\u0005#\u0000\u0000\u00a3\u00a4\u0005$\u0000\u0000\u00a4\u00a5" +
+                    "\u0007\u0005\u0000\u0000\u00a53\u0001\u0000\u0000\u0000\u000b?BFJN[ai" +
+                    "q~\u0090";
     public static final ATN _ATN =
             new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 

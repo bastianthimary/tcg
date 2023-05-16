@@ -356,4 +356,18 @@ public interface EffectTextParserListener extends ParseTreeListener {
      * @param ctx the parse tree
      */
     void exitPreventRetreat(EffectTextParserParser.PreventRetreatContext ctx);
+
+    /**
+     * Enter a parse tree produced by {@link EffectTextParserParser#draw}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterDraw(EffectTextParserParser.DrawContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link EffectTextParserParser#draw}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitDraw(EffectTextParserParser.DrawContext ctx);
 }

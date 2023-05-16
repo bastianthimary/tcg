@@ -1,0 +1,5 @@
+String attackString, boolean coinFlip, int numberOfCards
+Flip a coin. If heads, draw 2 cards.;true;2
+Flip a coin. If heads, draw a card.;true;1
+Draw a card.;false;1
+

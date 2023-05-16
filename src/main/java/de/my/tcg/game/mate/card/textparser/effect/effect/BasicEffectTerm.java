@@ -6,6 +6,7 @@ import de.my.tcg.game.mate.card.textparser.effect.effect.executed.EffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.ExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.EffectTarget;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.MultipleEffectTarget;
+import de.my.tcg.game.mate.card.textparser.effect.effect.target.PlayerEffectTarget;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.SingleEffectTarget;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,8 @@ public class BasicEffectTerm implements EffectTerm {
                 runEffectOnPokemon(((SingleEffectTarget) effectTarget).getTarget());
             } else if (effectTarget instanceof MultipleEffectTarget) {
                 ((MultipleEffectTarget) effectTarget).getTargets().forEach(this::runEffectOnPokemon);
+            } else if (effectTarget instanceof PlayerEffectTarget) {
+                executedEffect.executeEffect(null);
             }
         }
     }

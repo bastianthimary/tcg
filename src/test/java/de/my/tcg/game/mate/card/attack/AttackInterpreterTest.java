@@ -6,6 +6,7 @@ import de.my.tcg.basedata.cost.Cost;
 import de.my.tcg.game.TestFieldSideFactory;
 import de.my.tcg.game.coin.Coin;
 import de.my.tcg.game.domain.PlayCard;
+import de.my.tcg.game.domain.PlayDeck;
 import de.my.tcg.game.mate.EnergyTotal;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
@@ -346,5 +347,36 @@ class AttackInterpreterTest {
         }
         Coin.headcount = 0;
 
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/card/attack/attackinterpreter/drawCards.csv", numLinesToSkip = 1, delimiterString = ";")
+    void drawCards(String attackString, boolean coinFlip, int numberOfCards) {
+        FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("MyMon");
+        FieldSide opponentFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("opponent");
+        var player = myFieldSide.getPlayer();
+        var playCards = TestCardFactory.createANumberOfTrainerPlayCards(10);
+        PlayDeck deck = new PlayDeck();
+        playCards.forEach(deck::addCard);
+        player.setPlaydeck(deck);
+        Attack attack = new Attack();
+        attack.setText(attackString);
+        attack.setDamage("20");
+        AttackInterpreter attackInterpreter = new AttackInterpreter(attack, myFieldSide, opponentFieldSide);
+        attackInterpreter.performAttack();
+        PokemonCard defendingPokemon = opponentFieldSide.getActiveMon();
+        if (coinFlip) {
+            if (Coin.headcount == 0) {
+                System.out.println("was Tails");
+                assertThat(myFieldSide.getPlayer().getHandCards()).isEmpty();
+            } else {
+                System.out.println("was Head");
+                assertThat(myFieldSide.getPlayer().getHandCards()).hasSize(numberOfCards);
+            }
+        } else {
+            assertThat(myFieldSide.getPlayer().getHandCards()).hasSize(numberOfCards);
+        }
+        assertThat(defendingPokemon.getDmgCounter()).isEqualTo(20);
+        Coin.headcount = 0;
     }
 }

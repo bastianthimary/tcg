@@ -15,12 +15,14 @@ import de.my.tcg.game.mate.card.textparser.effect.effect.BasicEffectTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.bench.BenchDmgExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.discard.DiscardEnergyExecution;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.dmgeffect.MultipleDmgEffectTerm;
+import de.my.tcg.game.mate.card.textparser.effect.effect.executed.draw.DrawCardsExecution;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.hurt.HurtExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.nextturn.NextTurnExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.nothing.DoNothingException;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.nothing.DoNothingTerm;
 import de.my.tcg.game.mate.card.textparser.effect.effect.executed.statuscondition.StatusConditionExecutedEffect;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.MultipleEffectTarget;
+import de.my.tcg.game.mate.card.textparser.effect.effect.target.PlayerEffectTarget;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.SingleEffectTarget;
 import de.my.tcg.game.mate.card.textparser.effect.effect.target.Target;
 import de.my.tcg.game.mate.card.textparser.utils.CardTextUtil;
@@ -267,6 +269,15 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
     public Integer visitDoNothing(EffectTextParserParser.DoNothingContext ctx) {
         visitChildren(ctx);
         currentTerm.setEffectTerm(new DoNothingTerm());
+        return 0;
+    }
+
+    @Override
+    public Integer visitDraw(EffectTextParserParser.DrawContext ctx) {
+        var basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
+        var count = NumberParser.parseNumberOrStringToInteger(ctx.count.getText());
+        basicEffectTerm.setExecutedEffect(new DrawCardsExecution(count, thisFieldSide));
+        basicEffectTerm.setEffectTarget(new PlayerEffectTarget());
         return 0;
     }
 }

@@ -468,6 +468,24 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
+    public void enterDraw(EffectTextParserParser.DrawContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitDraw(EffectTextParserParser.DrawContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
     public void enterEveryRule(ParserRuleContext ctx) {
     }
 

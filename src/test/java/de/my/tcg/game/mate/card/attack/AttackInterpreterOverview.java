@@ -3,6 +3,7 @@ package de.my.tcg.game.mate.card.attack;
 import de.my.tcg.TestCardFactory;
 import de.my.tcg.basedata.Attack;
 import de.my.tcg.game.TestFieldSideFactory;
+import de.my.tcg.game.domain.PlayDeck;
 import de.my.tcg.game.mate.EnergyTotal;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
@@ -22,7 +23,7 @@ public class AttackInterpreterOverview {
 
     //select c."name",a.id, a."name",a."text" ,a.damage  from card c join card_attacks ca on c.id =ca.card_id join attack a on ca.attacks_id =a.id
     //where a.id <2404
-    //  @ParameterizedTest
+    // @ParameterizedTest
     @CsvFileSource(resources = "/card/attack/attackinterpreter/overview.csv", numLinesToSkip = 1, delimiter = ';')
     public void overview(String pokemonname, int id, String attackname, String text, String damage) {
         PokemonCard attackingPokemon = null;
@@ -30,10 +31,16 @@ public class AttackInterpreterOverview {
             if (text != null) {
                 FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon(pokemonname);
                 FieldSide opponentFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("opponent");
+                var player = myFieldSide.getPlayer();
+                var playCards = TestCardFactory.createANumberOfTrainerPlayCards(10);
+                PlayDeck deck = new PlayDeck();
+                playCards.forEach(deck::addCard);
+                player.setPlaydeck(deck);
                 Attack attack = new Attack();
                 attack.setText(text);
                 attack.setDamage(damage);
                 attack.setConvertedEnergyCost(1);
+
                 // AttackEffectInterpreterAndPerformer dmgInterpreter = new AttackEffectInterpreterAndPerformer(attack, myFieldSide, opponentFieldSide);
                 AttackInterpreter attackInterpreter = new AttackInterpreter(attack, myFieldSide, opponentFieldSide);
 
