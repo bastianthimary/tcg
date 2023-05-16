@@ -252,6 +252,24 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
+    public void enterDoNothing(EffectTextParserParser.DoNothingContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
+    public void exitDoNothing(EffectTextParserParser.DoNothingContext ctx) {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override
     public void enterBasicEffect(EffectTextParserParser.BasicEffectContext ctx) {
     }
 
@@ -432,7 +450,7 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
-    public void enterDoNothing(EffectTextParserParser.DoNothingContext ctx) {
+    public void enterPreventRetreat(EffectTextParserParser.PreventRetreatContext ctx) {
     }
 
     /**
@@ -441,7 +459,7 @@ public class EffectTextParserBaseListener implements EffectTextParserListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override
-    public void exitDoNothing(EffectTextParserParser.DoNothingContext ctx) {
+    public void exitPreventRetreat(EffectTextParserParser.PreventRetreatContext ctx) {
     }
 
     /**

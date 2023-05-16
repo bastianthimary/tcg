@@ -1,0 +1,2 @@
+String dmgAsString, String attackString, int dmgPer, String myPokemonName, TurnEffectState myNextTurnState, boolean expectCoinFlipForDefending, TurnEffectState defendingNextTurnState
+50;The Defending Pokémon can't retreat during your opponent's next turn.;50;Omastar;NO_RETREAT

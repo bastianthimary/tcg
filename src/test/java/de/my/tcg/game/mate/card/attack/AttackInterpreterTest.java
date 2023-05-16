@@ -282,6 +282,25 @@ class AttackInterpreterTest {
     }
 
     @ParameterizedTest
+    @CsvFileSource(resources = "/card/attack/attackinterpreter/attackPreventRetreatNextTurnEffect.csv", numLinesToSkip = 1, delimiter = ';')
+    void attackPreventRetreatNextTurnEffect(String dmgAsString, String attackString, int dmgPer,
+                                            String myPokemonName, TurnEffectState myNextTurnState) {
+        FieldSide myFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon(myPokemonName);
+        FieldSide opponentFieldSide = TestFieldSideFactory.createFieldSideWithActiveMon("opponent");
+        Attack attack = new Attack();
+        attack.setText(attackString);
+        attack.setDamage(dmgAsString);
+        AttackInterpreter attackInterpreter = new AttackInterpreter(attack, myFieldSide, opponentFieldSide);
+        attackInterpreter.performAttack();
+
+        PokemonCard attackingPokemon = myFieldSide.getActiveMon();
+        PokemonCard defendingPokemon = opponentFieldSide.getActiveMon();
+        assertThat(defendingPokemon.getDmgCounter()).isEqualTo(dmgPer);
+        assertThat(defendingPokemon.getNextTurnEffects().getTurnEffect().getTurnEffectState()).isEqualTo(myNextTurnState);
+
+    }
+
+    @ParameterizedTest
     @CsvFileSource(resources = "/card/attack/attackinterpreter/DoNothing.csv", numLinesToSkip = 1)
     void DoNothing(String dmgAsString, String attackString, int dmg,
                    String myPokemonName) {

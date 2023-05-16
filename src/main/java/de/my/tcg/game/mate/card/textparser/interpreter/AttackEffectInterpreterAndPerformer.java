@@ -248,8 +248,17 @@ public class AttackEffectInterpreterAndPerformer extends EffectTextParserBaseVis
     public Integer visitPreventDmgReduction(EffectTextParserParser.PreventDmgReductionContext ctx) {
         visitChildren(ctx);
         int reduction = NumberParser.parseNumberOrStringToInteger(ctx.reduce.getText());
-        BasicEffectTerm basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
+        var basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
         basicEffectTerm.setExecutedEffect(new NextTurnExecutedEffect(new TurnEffect(reduction)));
+
+        return 0;
+    }
+
+    @Override
+    public Integer visitPreventRetreat(EffectTextParserParser.PreventRetreatContext ctx) {
+        visitChildren(ctx);
+        var basicEffectTerm = (BasicEffectTerm) currentTerm.getEffectTerm();
+        basicEffectTerm.setExecutedEffect(new NextTurnExecutedEffect(new TurnEffect(TurnEffectState.NO_RETREAT)));
 
         return 0;
     }

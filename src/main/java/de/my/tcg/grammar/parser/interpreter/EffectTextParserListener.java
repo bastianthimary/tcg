@@ -190,6 +190,20 @@ public interface EffectTextParserListener extends ParseTreeListener {
     void exitMultipleDmgEffect(EffectTextParserParser.MultipleDmgEffectContext ctx);
 
     /**
+     * Enter a parse tree produced by {@link EffectTextParserParser#doNothing}.
+     *
+     * @param ctx the parse tree
+     */
+    void enterDoNothing(EffectTextParserParser.DoNothingContext ctx);
+
+    /**
+     * Exit a parse tree produced by {@link EffectTextParserParser#doNothing}.
+     *
+     * @param ctx the parse tree
+     */
+    void exitDoNothing(EffectTextParserParser.DoNothingContext ctx);
+
+    /**
      * Enter a parse tree produced by {@link EffectTextParserParser#basicEffect}.
      *
      * @param ctx the parse tree
@@ -330,16 +344,16 @@ public interface EffectTextParserListener extends ParseTreeListener {
     void exitPreventDmgReduction(EffectTextParserParser.PreventDmgReductionContext ctx);
 
     /**
-     * Enter a parse tree produced by {@link EffectTextParserParser#doNothing}.
+     * Enter a parse tree produced by {@link EffectTextParserParser#preventRetreat}.
      *
      * @param ctx the parse tree
      */
-    void enterDoNothing(EffectTextParserParser.DoNothingContext ctx);
+    void enterPreventRetreat(EffectTextParserParser.PreventRetreatContext ctx);
 
     /**
-     * Exit a parse tree produced by {@link EffectTextParserParser#doNothing}.
+     * Exit a parse tree produced by {@link EffectTextParserParser#preventRetreat}.
      *
      * @param ctx the parse tree
      */
-    void exitDoNothing(EffectTextParserParser.DoNothingContext ctx);
+    void exitPreventRetreat(EffectTextParserParser.PreventRetreatContext ctx);
 }

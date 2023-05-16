@@ -162,6 +162,17 @@ public class EffectTextParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override
+    public T visitDoNothing(EffectTextParserParser.DoNothingContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation returns the result of calling
+     * {@link #visitChildren} on {@code ctx}.</p>
+     */
+    @Override
     public T visitBasicEffect(EffectTextParserParser.BasicEffectContext ctx) {
         return visitChildren(ctx);
     }
@@ -272,7 +283,7 @@ public class EffectTextParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> 
      * {@link #visitChildren} on {@code ctx}.</p>
      */
     @Override
-    public T visitDoNothing(EffectTextParserParser.DoNothingContext ctx) {
+    public T visitPreventRetreat(EffectTextParserParser.PreventRetreatContext ctx) {
         return visitChildren(ctx);
     }
 }

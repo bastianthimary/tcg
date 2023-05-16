@@ -6,6 +6,8 @@ import de.my.tcg.basedata.card.Card;
 import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
+import de.my.tcg.game.mate.card.nextturn.TurnEffect;
+import de.my.tcg.game.mate.card.nextturn.TurnEffectState;
 import de.my.tcg.game.mate.card.status.SpecialCondition;
 import org.junit.jupiter.api.Test;
 
@@ -61,6 +63,26 @@ class RetreatCheckerTest {
 
         PerformRetreatState retreatResponse = RetreatChecker.checkFieldHasNegativeResponse(playMate, benchMonToExchange);
         assertThat(retreatResponse).isEqualTo(PerformRetreatState.CAN_NOT_RETREAT_DUE_TO_STATUSCONDITION);
+    }
+
+    @Test
+    void canNotRetreatDueToTurnEffect() {
+        Card card = new Card();
+        card.setSupertype(CardTypes.POKEMON);
+        card.setName("InBench");
+        card.setHp("10");
+        card.setConvertedRetreatCost(1);
+        PokemonCard benchMonToExchange = new PokemonCard(new PlayCard(card));
+
+        PokemonCard activeMon = TestCardFactory.createPokemonCard("30");
+        activeMon.getNextTurnEffects().setTurnEffect(new TurnEffect(TurnEffectState.NO_RETREAT));
+        FieldSide playMate = mock(FieldSide.class);
+
+        when(playMate.getBenchMons()).thenReturn(new ArrayList<>(List.of(benchMonToExchange)));
+        when(playMate.getActiveMon()).thenReturn(activeMon);
+
+        PerformRetreatState retreatResponse = RetreatChecker.checkFieldHasNegativeResponse(playMate, benchMonToExchange);
+        assertThat(retreatResponse).isEqualTo(PerformRetreatState.CAN_NOT_RETREAT_DUE_TO_TURNEFFECT);
     }
 
     @Test
