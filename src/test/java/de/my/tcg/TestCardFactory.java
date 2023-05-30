@@ -9,12 +9,15 @@ import de.my.tcg.basedata.poketype.PokeType;
 import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.mate.card.EnergyCard;
 import de.my.tcg.game.mate.card.PokemonCard;
+import de.my.tcg.mapper.CardPlayCardMapper;
+import org.mapstruct.factory.Mappers;
 
 import java.util.*;
 
 public class TestCardFactory {
 
     public static EnergyCard createEnergyCard(PokeType type) {
+
         Card card = new Card();
         card.setSupertype(CardTypes.ENERGY);
         if (PokeType.Colorless.equals(type)) {
@@ -22,14 +25,16 @@ public class TestCardFactory {
         } else {
             card.setName(type.getTypeName() + " Energy");
         }
-        return new EnergyCard(new PlayCard(card));
+        var cardPlayCardMapper = Mappers.getMapper(CardPlayCardMapper.class);
+        return new EnergyCard(cardPlayCardMapper.cardToPlayCard(card));
     }
 
     public static PokemonCard createPokemonCard() {
         Card card = new Card();
         card.setSupertype(CardTypes.POKEMON);
         card.setConvertedRetreatCost(0);
-        return new PokemonCard(new PlayCard(card));
+        var cardPlayCardMapper = Mappers.getMapper(CardPlayCardMapper.class);
+        return new PokemonCard(cardPlayCardMapper.cardToPlayCard(card));
     }
 
     public static PokemonCard createPokemonCard(String hp) {
@@ -37,7 +42,8 @@ public class TestCardFactory {
         card.setHp(hp);
         card.setConvertedRetreatCost(0);
         card.setSupertype(CardTypes.POKEMON);
-        return new PokemonCard(new PlayCard(card));
+        var cardPlayCardMapper = Mappers.getMapper(CardPlayCardMapper.class);
+        return new PokemonCard(cardPlayCardMapper.cardToPlayCard((card)));
     }
 
     public static PlayCard createBasicPlayCard(int retreatCosts, String name) {
@@ -47,7 +53,8 @@ public class TestCardFactory {
         card.setConvertedRetreatCost(retreatCosts);
         card.setSubtypes(Set.of(Subtype.BASIC));
         card.setSupertype(CardTypes.POKEMON);
-        return new PlayCard(card);
+        var cardPlayCardMapper = Mappers.getMapper(CardPlayCardMapper.class);
+        return cardPlayCardMapper.cardToPlayCard((card));
     }
 
     public static Attack createAttack(String name, Cost... costs) {
@@ -83,36 +90,39 @@ public class TestCardFactory {
 
     public static List<PlayCard> createANumberOfPokemonPlayCards(int numberOfPokemon) {
         List<PlayCard> pokemonPlayCards = new ArrayList<>();
+        var cardPlayCardMapper = Mappers.getMapper(CardPlayCardMapper.class);
         for (int i = 0; i < numberOfPokemon; i++) {
-            Card card = new Card();
+            var card = new Card();
             card.setHp("90");
             card.setConvertedRetreatCost(0);
             card.setSubtypes(Set.of(Subtype.BASIC));
             card.setSupertype(CardTypes.POKEMON);
             card.setName("pokemon " + i);
-            pokemonPlayCards.add(new PlayCard(card));
+            pokemonPlayCards.add(cardPlayCardMapper.cardToPlayCard(card));
         }
         return pokemonPlayCards;
     }
 
     public static List<PlayCard> createANumberOfTrainerPlayCards(int numberOfTrainer) {
         List<PlayCard> trainerPlayCards = new ArrayList<>();
+        var cardPlayCardMapper = Mappers.getMapper(CardPlayCardMapper.class);
         for (int i = 0; i < numberOfTrainer; i++) {
             Card card = new Card();
             card.setSupertype(CardTypes.TRAINER);
             card.setName("trainer " + i);
-            trainerPlayCards.add(new PlayCard(card));
+            trainerPlayCards.add(cardPlayCardMapper.cardToPlayCard(card));
         }
         return trainerPlayCards;
     }
 
     private static List<PlayCard> createANumberOfEnergyPlayCards(Integer numberOfTrainer) {
         List<PlayCard> energyPlayCards = new ArrayList<>();
+        var cardPlayCardMapper = Mappers.getMapper(CardPlayCardMapper.class);
         for (int i = 0; i < numberOfTrainer; i++) {
             Card card = new Card();
             card.setSupertype(CardTypes.ENERGY);
             card.setName("Fire Energy");
-            energyPlayCards.add(new PlayCard(card));
+            energyPlayCards.add(cardPlayCardMapper.cardToPlayCard(card));
         }
         return energyPlayCards;
     }

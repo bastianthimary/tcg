@@ -1,19 +1,20 @@
 package de.my.tcg.collector;
 
-import de.my.tcg.interfaces.TCGCard;
+import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.interfaces.TCGDeck;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TradingDeck implements TCGDeck {
-    private final List<? extends TCGCard> cardList;
+public class TradingDeck implements TCGDeck, Serializable {
+    private final List<PlayCard> cardList;
 
-    public TradingDeck(List<? extends TCGCard> cardList) {
+    public TradingDeck(List<PlayCard> cardList) {
         this.cardList = cardList;
     }
 
     @Override
-    public List<? extends TCGCard> getCards() {
+    public List<PlayCard> getCards() {
         return cardList;
     }
 

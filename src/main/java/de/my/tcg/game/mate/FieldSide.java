@@ -39,7 +39,7 @@ public class FieldSide {
 
     public void playActiveFromHand(PlayCard cardFromHand) throws NoLegalActionException {
         if (isPlayableAsPokemonCard(cardFromHand)) {
-            if (activeMon == null && cardFromHand.getCard().getSubtypes().contains(Subtype.BASIC)) {
+            if (activeMon == null && cardFromHand.getSubtypes().contains(Subtype.BASIC)) {
                 activeMon = new PokemonCard(cardFromHand);
             } else {
                 throw new NoLegalActionException(CARD_CANT_PLAYED_AS_POKEMON);
@@ -50,12 +50,12 @@ public class FieldSide {
     }
 
     private boolean isPlayableAsPokemonCard(PlayCard cardFromHand) {
-        return CardTypes.POKEMON.equals(cardFromHand.getCard().getSupertype());
+        return CardTypes.POKEMON.equals(cardFromHand.getSupertype());
     }
 
     public boolean canFieldCardEvolveToCardFromHand(PokemonCard fieldCard, PlayCard cardFromHand) {
         if (isPlayableAsPokemonCard(cardFromHand)) {
-            return fieldCard.getName().equals(cardFromHand.getCard().getEvolvesFrom());
+            return fieldCard.getName().equals(cardFromHand.getEvolvesFrom());
         }
         return false;
     }

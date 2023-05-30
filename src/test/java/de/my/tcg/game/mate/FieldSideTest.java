@@ -5,8 +5,10 @@ import de.my.tcg.basedata.Subtype;
 import de.my.tcg.basedata.card.Card;
 import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.mate.card.NoLegalActionException;
+import de.my.tcg.mapper.CardPlayCardMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 
 import java.util.Set;
 
@@ -14,13 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
 class FieldSideTest {
+    private final CardPlayCardMapper cardPlayCardMapper = Mappers.getMapper(CardPlayCardMapper.class);
 
     @Test
-    public void playActiveFromHand() {
+    void playActiveFromHand() {
         Card trainerCard = new Card();
         trainerCard.setSupertype(CardTypes.TRAINER);
 
-        PlayCard trainerPlayCard = new PlayCard(trainerCard);
+        PlayCard trainerPlayCard = cardPlayCardMapper.cardToPlayCard(trainerCard);
         FieldSide trainerFieldSide = new FieldSide();
         try {
             trainerFieldSide.playActiveFromHand(trainerPlayCard);
@@ -34,7 +37,7 @@ class FieldSideTest {
         stage1Card.setSupertype(CardTypes.POKEMON);
         stage1Card.setSubtypes(Set.of(Subtype.STAGE_1));
 
-        PlayCard stage1PlayCard = new PlayCard(stage1Card);
+        PlayCard stage1PlayCard = cardPlayCardMapper.cardToPlayCard(stage1Card);
         FieldSide stage1FieldSide = new FieldSide();
         try {
             stage1FieldSide.playActiveFromHand(stage1PlayCard);
@@ -51,7 +54,7 @@ class FieldSideTest {
         baseCard.setHp("10");
 
 
-        PlayCard basePlayCard = new PlayCard(baseCard);
+        PlayCard basePlayCard = cardPlayCardMapper.cardToPlayCard(baseCard);
         FieldSide baseFieldSide = new FieldSide();
         try {
             baseFieldSide.playActiveFromHand(basePlayCard);
@@ -65,7 +68,7 @@ class FieldSideTest {
         base2Card.setSupertype(CardTypes.POKEMON);
         base2Card.setSubtypes(Set.of(Subtype.BASIC));
         base2Card.setHp("10");
-        PlayCard base2PlayCard = new PlayCard(base2Card);
+        PlayCard base2PlayCard = cardPlayCardMapper.cardToPlayCard(base2Card);
 
 
         try {

@@ -63,7 +63,7 @@ public class BasicGame implements Competition {
 
     private static boolean isANotPlayableStartHand(Player player) {
         return player.getHandCards().stream().noneMatch(
-                playCard -> playCard.getCard().getSubtypes().contains(Subtype.BASIC));
+                playCard -> playCard.getSubtypes().contains(Subtype.BASIC));
     }
 
     private void setupPriceCards() {

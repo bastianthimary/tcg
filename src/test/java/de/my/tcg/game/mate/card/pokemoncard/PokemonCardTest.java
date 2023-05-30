@@ -5,19 +5,21 @@ import de.my.tcg.basedata.Attack;
 import de.my.tcg.basedata.CardTypes;
 import de.my.tcg.basedata.card.Card;
 import de.my.tcg.basedata.poketype.PokeType;
-import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.mate.card.MonIsDefeatedException;
 import de.my.tcg.game.mate.card.PokemonCard;
 import de.my.tcg.game.mate.card.status.FireCondition;
+import de.my.tcg.mapper.CardPlayCardMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.mapstruct.factory.Mappers;
 
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PokemonCardTest {
+    private final CardPlayCardMapper cardPlayCardMapper = Mappers.getMapper(CardPlayCardMapper.class);
 
     @ParameterizedTest
     @CsvFileSource(resources = "/card/pokemoncard/pokemoncard/doDmgAccordingToType.csv", numLinesToSkip = 1)
@@ -29,7 +31,7 @@ class PokemonCardTest {
         baseCard.setResistances(resistance);
         baseCard.setWeaknesses(weakness);
         baseCard.setConvertedRetreatCost(0);
-        PokemonCard pokemonCard = new PokemonCard(new PlayCard(baseCard));
+        PokemonCard pokemonCard = new PokemonCard(cardPlayCardMapper.cardToPlayCard(baseCard));
         try {
             pokemonCard.doDmgAccordingToType(originDmg, takeDmgByType);
             assertThat(survive).isTrue();
@@ -55,7 +57,7 @@ class PokemonCardTest {
         baseAttack.setName("BaseAttack");
         card.setAttacks(Set.of(baseAttack));
 
-        PokemonCard pokemonCard = new PokemonCard(new PlayCard(card));
+        PokemonCard pokemonCard = new PokemonCard(cardPlayCardMapper.cardToPlayCard(card));
         pokemonCard.doSimpleDmg(20);
         pokemonCard.getPokemonStatusCondition().setFireConditionState(FireCondition.SINGLE);
         pokemonCard.getEnergyTotal().addEnergyCard(TestCardFactory.createEnergyCard(PokeType.Fire));
@@ -73,7 +75,7 @@ class PokemonCardTest {
         evoAttack.setName("EvoAttack");
         card2.setAttacks(Set.of(evoAttack));
 
-        pokemonCard.evolvePokemon(new PlayCard(card2));
+        pokemonCard.evolvePokemon(cardPlayCardMapper.cardToPlayCard(card2));
 
         assertThat(pokemonCard.getName()).isEqualTo("Evolution");
         assertThat(pokemonCard.getHp()).isEqualTo(100);

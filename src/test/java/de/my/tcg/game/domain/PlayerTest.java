@@ -15,8 +15,10 @@ import de.my.tcg.game.mate.card.retreat.PerformRetreatResponse;
 import de.my.tcg.game.mate.card.retreat.PerformRetreatState;
 import de.my.tcg.game.rules.Competition;
 import de.my.tcg.game.rules.GameEndsException;
+import de.my.tcg.mapper.CardPlayCardMapper;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class PlayerTest {
+    CardPlayCardMapper cardPlayCardMapper = Mappers.getMapper(CardPlayCardMapper.class);
 
     @ParameterizedTest
     @CsvFileSource(resources = "/domain/player/drawSeveralCardsFromDeckToHand.csv", numLinesToSkip = 1)
@@ -67,10 +70,10 @@ class PlayerTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/domain/player/evolveActiveMon.csv", numLinesToSkip = 1, delimiter = ';')
-    public void evolveActiveMon(boolean isInHand, boolean canEvolve, int expectedHandCardsAfter, String nameAfterEvolution, String jsonHandCard, String jsonActiveMon) throws JsonProcessingException, NoLegalActionException {
+    void evolveActiveMon(boolean isInHand, boolean canEvolve, int expectedHandCardsAfter, String nameAfterEvolution, String jsonHandCard, String jsonActiveMon) throws JsonProcessingException, NoLegalActionException {
         //Setup
-        PlayCard handCard = new PlayCard(JSONCardMapper.jsonStringToCard(jsonHandCard));
-        PlayCard activeCard = new PlayCard(JSONCardMapper.jsonStringToCard(jsonActiveMon));
+        PlayCard handCard = cardPlayCardMapper.cardToPlayCard(JSONCardMapper.jsonStringToCard(jsonHandCard));
+        PlayCard activeCard = cardPlayCardMapper.cardToPlayCard(JSONCardMapper.jsonStringToCard(jsonActiveMon));
         Person person = mock(Person.class);
         Player player = new Player(person);
         player.setHandCards(new ArrayList<>(List.of(activeCard)));
@@ -100,10 +103,10 @@ class PlayerTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/domain/player/playBenchMonFromHand.csv", numLinesToSkip = 1, delimiter = ';')
-    public void playBenchMonFromHand(boolean isInHand, boolean canEvolve, int expectedHandCardsAfter, String nameAfterEvolution, String jsonHandCard, String jsonActiveMon) throws JsonProcessingException, NoLegalActionException {
+    void playBenchMonFromHand(boolean isInHand, boolean canEvolve, int expectedHandCardsAfter, String nameAfterEvolution, String jsonHandCard, String jsonActiveMon) throws JsonProcessingException, NoLegalActionException {
         //Setup
-        PlayCard handCard = new PlayCard(JSONCardMapper.jsonStringToCard(jsonHandCard));
-        PlayCard activeCard = new PlayCard(JSONCardMapper.jsonStringToCard(jsonActiveMon));
+        PlayCard handCard = cardPlayCardMapper.cardToPlayCard(JSONCardMapper.jsonStringToCard(jsonHandCard));
+        PlayCard activeCard = cardPlayCardMapper.cardToPlayCard(JSONCardMapper.jsonStringToCard(jsonActiveMon));
         Person person = mock(Person.class);
         Player player = new Player(person);
         player.setHandCards(new ArrayList<>(List.of(activeCard)));
@@ -136,9 +139,9 @@ class PlayerTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/domain/player/performRetreat.csv", numLinesToSkip = 1)
-    public void performRetreat(int retreatCosts, boolean expectSuccessfullExchange, boolean payBeforePerform,
-                               String energyCardsAsString, PerformRetreatState expectedPerformRetreatState,
-                               boolean expectSelectionNeeded) throws NoLegalActionException {
+    void performRetreat(int retreatCosts, boolean expectSuccessfullExchange, boolean payBeforePerform,
+                        String energyCardsAsString, PerformRetreatState expectedPerformRetreatState,
+                        boolean expectSelectionNeeded) throws NoLegalActionException {
         //Setup Szenario
         String nameOfActive = "Active";
         String nameOfBench = "Bench";
@@ -172,12 +175,12 @@ class PlayerTest {
         if (expectSelectionNeeded) {
             assertThat(performRetreatResponse.getPaymentResponse().getRetreatCosts()).isEqualTo(retreatCosts);
             assertThat(performRetreatResponse.getPaymentResponse().getPaymentState()).isEqualTo(PaymentState.SELECTION_NEEDED);
-            assertThat(player.getPlayMate().getActiveMon().getEnergyTotal().contains(performRetreatResponse.getPaymentResponse().getListOfSection())).isEqualTo(true);
+            assertThat(player.getPlayMate().getActiveMon().getEnergyTotal().contains(performRetreatResponse.getPaymentResponse().getListOfSection())).isTrue();
         }
 
         assertThat(player.getPlayMate().getActiveMon().getName()).isEqualTo(expectActiveName);
         assertThat(player.getPlayMate().getBenchMons().stream().
-                anyMatch(bm -> bm.getName().equals(expectBenchMonName))).isEqualTo(true);
+                anyMatch(bm -> bm.getName().equals(expectBenchMonName))).isTrue();
     }
 
 }

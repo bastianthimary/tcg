@@ -2,7 +2,6 @@ package de.my.tcg.game.mate.card;
 
 import de.my.tcg.basedata.Ability;
 import de.my.tcg.basedata.Attack;
-import de.my.tcg.basedata.card.Card;
 import de.my.tcg.basedata.poketype.PokeType;
 import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.mate.EnergyTotal;
@@ -17,32 +16,39 @@ import java.util.List;
 import java.util.Optional;
 
 public class PokemonCard extends FieldCard {
-
+    @Setter
     @Getter
     private String name;
+    @Setter
     @Getter
     private PokeType myPokeType;
+    @Setter
     @Getter
     private int hp;
+    @Setter
     @Getter
     private LinkedHashSet<PlayCard> preEvolution;
+    @Setter
     @Getter
     private List<Ability> abilities;
+    @Setter
     @Getter
     private List<Attack> attacks;
     private static final int WEAKNESS_FACTOR = 2;
+    @Setter
     @Getter
     private Optional<PokeType> weakness;
     private static final int RESISTANCE_VALUE = -30;
-
+    @Setter
     @Getter
     private Optional<PokeType> resistance;
-
+    @Setter
     @Getter
     private int retreatCosts;
+    @Setter
     @Getter
     private EnergyTotal energyTotal;
-
+    @Setter
     @Getter
     private int dmgCounter;
 
@@ -55,12 +61,12 @@ public class PokemonCard extends FieldCard {
 
     public PokemonCard(PlayCard playCard) {
         this.currentCard = playCard;
-        setBaseStatsFromCard(currentCard.getCard());
+        setBaseStatsFromCard(currentCard);
         initValues();
 
     }
 
-    private void setBaseStatsFromCard(Card baseCard) {
+    private void setBaseStatsFromCard(PlayCard baseCard) {
         name = baseCard.getName();
         hp = Integer.parseInt(baseCard.getHp());
         Optional<String> stringOptional = baseCard.getTypes().stream().findFirst();
@@ -124,10 +130,10 @@ public class PokemonCard extends FieldCard {
     }
 
     public void evolvePokemon(PlayCard evolution) {
-        if (name.equals(evolution.getCard().getEvolvesFrom())) {
+        if (name.equals(evolution.getEvolvesFrom())) {
             preEvolution.add(currentCard);
             currentCard = evolution;
-            setBaseStatsFromCard(evolution.getCard());
+            setBaseStatsFromCard(evolution);
             pokemonStatusCondition.healAllStates();
         }
     }

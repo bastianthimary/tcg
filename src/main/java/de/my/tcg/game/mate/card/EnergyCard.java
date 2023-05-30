@@ -10,11 +10,11 @@ public class EnergyCard extends FieldCard {
     private final PokeType pokeType;
 
     public EnergyCard(PlayCard playCard) {
-        if (!CardTypes.ENERGY.equals(playCard.getCard().getSupertype())) {
+        if (!CardTypes.ENERGY.equals(playCard.getSupertype())) {
             throw new IllegalArgumentException();
         }
         currentCard = playCard;
-        pokeType = getTypeFromName(currentCard.getCard().getName());
+        pokeType = getTypeFromName(currentCard.getName());
         if (PokeType.All.equals(pokeType)) {
             throw new IllegalStateException("All is no Valid Poketype for EnergyCard");
         }

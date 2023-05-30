@@ -3,13 +3,14 @@ package de.my.tcg.game.mate.card.retreat;
 import de.my.tcg.TestCardFactory;
 import de.my.tcg.basedata.CardTypes;
 import de.my.tcg.basedata.card.Card;
-import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.game.mate.FieldSide;
 import de.my.tcg.game.mate.card.PokemonCard;
 import de.my.tcg.game.mate.card.nextturn.TurnEffect;
 import de.my.tcg.game.mate.card.nextturn.TurnEffectState;
 import de.my.tcg.game.mate.card.status.SpecialCondition;
+import de.my.tcg.mapper.CardPlayCardMapper;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class RetreatCheckerTest {
+    private final CardPlayCardMapper cardPlayCardMapper = Mappers.getMapper(CardPlayCardMapper.class);
+
     @Test
     void fieldCanNotRetreatDueEmptyBench() {
 
@@ -36,7 +39,7 @@ class RetreatCheckerTest {
         card.setName("notInBench");
         card.setHp("10");
         card.setConvertedRetreatCost(1);
-        PokemonCard pokemonCard = new PokemonCard(new PlayCard(card));
+        PokemonCard pokemonCard = new PokemonCard(cardPlayCardMapper.cardToPlayCard(card));
         FieldSide playMate = mock(FieldSide.class);
         when(playMate.getBenchMons()).thenReturn(TestCardFactory.createANumberOfPokemonPlayCards(5).stream().
                 map(PokemonCard::new).toList());
@@ -52,7 +55,7 @@ class RetreatCheckerTest {
         card.setName("InBench");
         card.setHp("10");
         card.setConvertedRetreatCost(1);
-        PokemonCard benchMonToExchange = new PokemonCard(new PlayCard(card));
+        PokemonCard benchMonToExchange = new PokemonCard(cardPlayCardMapper.cardToPlayCard(card));
 
         PokemonCard activeMon = TestCardFactory.createPokemonCard("30");
         activeMon.getPokemonStatusCondition().setSpecialCondition(SpecialCondition.ASLEEP);
@@ -72,7 +75,7 @@ class RetreatCheckerTest {
         card.setName("InBench");
         card.setHp("10");
         card.setConvertedRetreatCost(1);
-        PokemonCard benchMonToExchange = new PokemonCard(new PlayCard(card));
+        PokemonCard benchMonToExchange = new PokemonCard(cardPlayCardMapper.cardToPlayCard(card));
 
         PokemonCard activeMon = TestCardFactory.createPokemonCard("30");
         activeMon.getNextTurnEffects().setTurnEffect(new TurnEffect(TurnEffectState.NO_RETREAT));
@@ -92,7 +95,7 @@ class RetreatCheckerTest {
         card.setName("InBench");
         card.setHp("10");
         card.setConvertedRetreatCost(1);
-        PokemonCard benchMonToExchange = new PokemonCard(new PlayCard(card));
+        PokemonCard benchMonToExchange = new PokemonCard(cardPlayCardMapper.cardToPlayCard(card));
 
         PokemonCard activeMon = TestCardFactory.createPokemonCard("30");
         FieldSide playMate = mock(FieldSide.class);

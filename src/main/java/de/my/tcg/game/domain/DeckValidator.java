@@ -21,9 +21,9 @@ public class DeckValidator implements GameValidator {
 
     private boolean checkMaxAppeareance() {
         HashMap<String, Integer> appeareanceMap = new HashMap<>();
-        playDeck.getCards().stream().filter(card -> !card.getCard().getSubtypes().contains(CardTypes.ENERGY.getStringValue())).
+        playDeck.getCards().stream().filter(card -> !card.getSubtypes().contains(CardTypes.ENERGY.getStringValue())).
                 forEach(card -> {
-                    String name = card.getCard().getName();
+                    String name = card.getName();
                     if (appeareanceMap.containsKey(name)) {
                         Integer count = appeareanceMap.get(name);
                         appeareanceMap.put(name, count++);
@@ -39,6 +39,6 @@ public class DeckValidator implements GameValidator {
     }
 
     private boolean checkBasicPokemon(){
-        return playDeck.getCards().stream().anyMatch(card->card.getCard().getSubtypes().contains(Subtype.BASIC));
+        return playDeck.getCards().stream().anyMatch(card -> card.getSubtypes().contains(Subtype.BASIC));
     }
 }
