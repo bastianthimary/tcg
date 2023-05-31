@@ -1,6 +1,5 @@
 package de.my.tcg.collector;
 
-import de.my.tcg.basedata.TradingCard;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -16,9 +15,12 @@ public class Person implements Serializable {
     private Integer id;
 
     private String name;
+    @OneToMany
     private Set<TradingCard> cardCollection;
-
+    @OneToMany
     private Set<TradingDeck> tradingDecksCollection;
+    @ManyToOne
+    @JoinColumn(name = "choosen_deck_id")
     private TradingDeck choosenDeck;
 
     public String getName() {

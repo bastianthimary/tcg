@@ -1,20 +1,34 @@
 package de.my.tcg.collector;
 
-import de.my.tcg.game.domain.PlayCard;
 import de.my.tcg.interfaces.TCGDeck;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
 public class TradingDeck implements TCGDeck, Serializable {
-    private final List<PlayCard> cardList;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-    public TradingDeck(List<PlayCard> cardList) {
+    @OneToMany
+    private List<TradingCard> cardList;
+
+    public TradingDeck() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public TradingDeck(List<TradingCard> cardList) {
         this.cardList = cardList;
     }
 
     @Override
-    public List<PlayCard> getCards() {
+    public List<TradingCard> getCards() {
         return cardList;
     }
 

@@ -15,6 +15,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class PlayCard implements Serializable {
 
     @Getter
@@ -31,7 +32,7 @@ public class PlayCard implements Serializable {
     private String hp;
     @Getter
     @Setter
-    private Set<String> types = new HashSet<>();
+    private PokeType pokeType;
     @Getter
     @Setter
     private String evolvesFrom;
@@ -50,6 +51,5 @@ public class PlayCard implements Serializable {
     @Getter
     @Setter
     private Integer convertedRetreatCost;
-
 
 }

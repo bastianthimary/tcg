@@ -1,11 +1,11 @@
 package de.my.tcg.interfaces;
 
-import de.my.tcg.game.domain.PlayCard;
+import de.my.tcg.collector.TradingCard;
 
 import java.util.List;
 
 public interface TCGDeck {
-    List<PlayCard> getCards();
+    List<TradingCard> getCards();
 
     int getDecksize();
 }

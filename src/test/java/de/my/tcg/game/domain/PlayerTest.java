@@ -3,6 +3,7 @@ package de.my.tcg.game.domain;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import de.my.tcg.TestCardFactory;
 import de.my.tcg.collector.Person;
+import de.my.tcg.collector.PlayCardToTradingCardMapper;
 import de.my.tcg.collector.TradingDeck;
 import de.my.tcg.dataimport.json.JSONCardMapper;
 import de.my.tcg.game.mate.EnergyTotal;
@@ -49,8 +50,10 @@ class PlayerTest {
             }
         };
         Person person = mock(Person.class);
-        List<PlayCard> deck = TestCardFactory.generateAPlayDeckFromDistributionString(stringDeckCardDistribution);
-        when(person.getChoosenDeck()).thenReturn(new TradingDeck(deck));
+        List<PlayCard> playCardDeck = TestCardFactory.generateAPlayDeckFromDistributionString(stringDeckCardDistribution);
+        PlayCardToTradingCardMapper playCardToTradingCardMapper = Mappers.getMapper(PlayCardToTradingCardMapper.class);
+        when(person.getChoosenDeck()).thenReturn(
+                new TradingDeck(playCardToTradingCardMapper.playCardsToTradingCards(playCardDeck)));
         Player player = new Player(person);
         player.setCompetition(competition);
         player.convertPersonsDeckToPlayDeck();
@@ -62,7 +65,7 @@ class PlayerTest {
                 fail("game was wrongly lost");
             }
         }
-        assertThat(player.getHandCards().size()).isEqualTo(drawNumberOfCards);
+        assertThat(player.getHandCards()).hasSize(drawNumberOfCards);
         assertThat(player.getDeckSize()).isEqualTo(expectedDeckSizeAfterDraw);
         assertThat(gameLost).isEqualTo(isTestLost[0]);
 
@@ -97,7 +100,7 @@ class PlayerTest {
             }
         }
 
-        assertThat(player.getHandCards().size()).isEqualTo(expectedHandCardsAfter);
+        assertThat(player.getHandCards()).hasSize(expectedHandCardsAfter);
         assertThat(player.getPlayMate().getActiveMon().getName()).isEqualTo(nameAfterEvolution);
     }
 
@@ -131,7 +134,7 @@ class PlayerTest {
             }
         }
 
-        assertThat(player.getHandCards().size()).isEqualTo(expectedHandCardsAfter);
+        assertThat(player.getHandCards()).hasSize(expectedHandCardsAfter);
         PokemonCard benchMonAfter = player.getPlayMate().getBenchMons().get(0);
         assertThat(benchMonAfter.getName()).isEqualTo(nameAfterEvolution);
     }

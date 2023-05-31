@@ -61,16 +61,15 @@ public class PokemonCard extends FieldCard {
 
     public PokemonCard(PlayCard playCard) {
         this.currentCard = playCard;
-        setBaseStatsFromCard(currentCard);
+        setBaseStatsFromPlayCard(currentCard);
         initValues();
 
     }
 
-    private void setBaseStatsFromCard(PlayCard baseCard) {
+    private void setBaseStatsFromPlayCard(PlayCard baseCard) {
         name = baseCard.getName();
         hp = Integer.parseInt(baseCard.getHp());
-        Optional<String> stringOptional = baseCard.getTypes().stream().findFirst();
-        stringOptional.ifPresent(s -> myPokeType = PokeType.valueOf(s));
+        myPokeType = baseCard.getPokeType();
         resistance = Optional.ofNullable(baseCard.getResistances());
         weakness = Optional.ofNullable(baseCard.getWeaknesses());
         retreatCosts = baseCard.getConvertedRetreatCost();
@@ -123,7 +122,7 @@ public class PokemonCard extends FieldCard {
             throw new MonIsDefeatedException();
         }
     }
-    
+
 
     public List<Attack> giveUseableAttacks() {
         return attacks.stream().filter(attack -> energyTotal.couldAttackBeUsed(attack)).toList();
@@ -133,7 +132,7 @@ public class PokemonCard extends FieldCard {
         if (name.equals(evolution.getEvolvesFrom())) {
             preEvolution.add(currentCard);
             currentCard = evolution;
-            setBaseStatsFromCard(evolution);
+            setBaseStatsFromPlayCard(evolution);
             pokemonStatusCondition.healAllStates();
         }
     }
